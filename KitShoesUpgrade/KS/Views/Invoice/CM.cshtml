@@ -1,0 +1,154 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+
+    var actionColumnTemplate = string.Empty;
+    var baseprActionUrl = CommonFunction.GetBaseUrlForActions("PurchaseCMReciept", "Invoice") + "/";
+
+    actionColumnTemplate += "<a href=" + baseprActionUrl + "#: InvoiceID # >View Invoice</a>";
+
+    var EditColumnTemplate = string.Empty;
+    var baseEditActionUrl = CommonFunction.GetBaseUrlForActions("EditCMInvoice", "Invoice") + "/";
+
+    EditColumnTemplate += "<a class='cmd-mark-inactive' href=" + baseEditActionUrl + "#: InvoiceID # >Edit Invoice</a>";
+
+}
+
+<div class="row">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#">Invoice Management</a></li>
+            <li><a href="~/Invoice/CM">ChahMiran Invoices</a></li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-10">
+        <div class="row">
+            <div class="col-sm-6" style="margin-top: 0px;">
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        <input type="text" placeholder="Enter invoiceID" id="Search" data-field="Search" class="form-control" />
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" id="sub" class="btn btn-primary btn-label-left">
+                            Search
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@if (TempData["ERROR"] != null)
+{
+    <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <span>@TempData["ERROR"] </span>
+    </div>
+}
+<br />
+<div class="row">
+
+    @(Html.Kendo().Grid<InvoiceViewM>()
+    .Name("grid")
+    .Columns(columns =>
+    {
+        columns.Bound(e => e.InvoiceID).Width(200);
+        columns.Bound(e => e.AddedOn).Width(130);
+        columns.Bound(e => e.TotalQuantity).Width(120).Title("Total");
+        columns.Bound(s => s.InvoiceID).Title("").Filterable(f => f.Enabled(false)).ClientTemplate(EditColumnTemplate).Width(100).Sortable(false).HtmlAttributes(new { style = "text-align:center;" });
+        columns.Bound(s => s.InvoiceID).Title("").Filterable(f => f.Enabled(false)).ClientTemplate(actionColumnTemplate).Width(100).Sortable(false).HtmlAttributes(new { style = "text-align:center;" });
+    })
+    .Sortable()
+    .Pageable()
+    .Scrollable()
+    .ClientDetailTemplateId("template")
+
+    .HtmlAttributes(new { style = "height:550px;" })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .ServerOperation(false)
+        .PageSize(30)
+        .Read(read => read.Action("ReadCM", "Invoice"))
+    )
+    //   .Events(events => events.DataBound("dataBound"))
+    )
+
+    <script id="template" type="text/kendo-tmpl">
+        @(Html.Kendo().TabStrip()
+            .Name("tabStrip_#=InvoiceID#")
+            .SelectedIndex(0)
+            .Animation(animation => animation.Open(open => open.Fade(FadeDirection.In)))
+            .Items(items =>
+            {
+                items.Add().Text("InvoiceDetail").Content(@<text>
+            @(Html.Kendo().Grid<InvoiceDetViewM>()
+                        .Name("grid_#=InvoiceID#") // template expression, to be evaluated in the master context
+                        .Columns(columns =>
+                        {
+                            //columns.Bound(o => o.OrderHisID);
+                            columns.Bound(o => o.Article);
+
+                            columns.Bound(o => o.Color);
+                            columns.Bound(o => o.Quantity);
+
+                        })
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(30)
+                            .Read(read => read.Action("DetailReadCM", "Invoice", new { InvoiceID = "#=InvoiceID#" }))
+                        )
+                        .Pageable()
+                        .Sortable()
+                        .ToClientTemplate())
+                </text>
+                );
+
+            })
+            .ToClientTemplate())
+    </script>
+
+</div>
+<script type="text/javascript">
+
+</script>
+@section scripts{
+    <script>
+        $('.cmd-mark-inactive').click(function () {
+            return confirm("Do you really want to change status of this record?")
+        });
+
+
+
+        $('#sub').on('click', function () {
+            SearchGrid();
+        });
+
+        function SearchGrid() {
+            debugger;
+            var filters = [];
+
+            var grid = $("#grid").data("kendoGrid");
+
+            var Name = $("#Search").val();
+
+            if (Name != "") {
+                grid.dataSource.filter({
+                    field: "InvoiceID",
+                    operator: "eq",
+                    value: Name
+                });
+            }
+            else
+            {
+                grid.dataSource.filter({});
+            }
+
+        }
+
+
+    </script>
+}

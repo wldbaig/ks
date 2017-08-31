@@ -1,0 +1,179 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+
+    //var actionColumnTemplate = string.Empty;
+    //var baseRecActionUrl = CommonFunction.GetBaseUrlForActions("RecieveOrder", "Order") + "/";
+
+    //actionColumnTemplate += "<a href=" + baseRecActionUrl + "#: OrderID # >Recieve Order</a>";
+
+    //var ColumnTemplate = string.Empty;
+    //var basestatusActionUrl = CommonFunction.GetBaseUrlForActions("PurchaseReciept", "Order") + "/";
+
+    //ColumnTemplate += "<a class='cmd-mark-inactive' href=" + basestatusActionUrl + "#: OrderID # >Reciept</a>";
+
+    //var actioneditColumnTemplate = string.Empty;
+    //var baseEditActionUrl = CommonFunction.GetBaseUrlForActions("Edit", "Order") + "/";
+
+    //actioneditColumnTemplate += "<a href=" + baseEditActionUrl + "#: OrderID # >Edit</a>";
+
+
+}
+
+<div class="row">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#">CashReciept Management</a></li>
+            <li><a href="~/CashReciept">CashReciepts</a></li>
+        </ol>
+    </div>
+</div>
+
+@*<div class="row">
+        <div class="col-sm-10">
+            <div class="row">
+                <div class="col-sm-6" style="margin-top: 0px;">
+                    <div class="form-group">
+                        <div class="col-sm-4">
+                            <input type="text" placeholder="Enter orderID" id="Search" data-field="Search" class="form-control" />
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="button" id="sub" class="btn btn-primary btn-label-left">
+                                Search
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>*@
+@if (TempData["ERROR"] != null)
+{
+    <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <span>@TempData["ERROR"] </span>
+    </div>
+}
+
+@if (TempData["SUCCESS"] != null)
+{
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <span>@TempData["SUCCESS"] </span>
+    </div>
+}
+<br />
+<div class="row">
+
+    @(Html.Kendo().Grid<CashRecViewM>()
+    .Name("grid")
+    .Columns(columns =>
+    {
+        columns.Bound(e => e.CashRecID).Width(200);
+        columns.Bound(e => e.Type).Title("Reciept Type").Width(150);
+        columns.Bound(e => e.Date).Width(130).Title("Date");
+        columns.Bound(e => e.TotalAmount).Width(120).Title("Total Amount");
+        //columns.Bound(s => s.OrderID).Title("").Filterable(f => f.Enabled(false)).ClientTemplate(actioneditColumnTemplate).Width(100).Sortable(false).HtmlAttributes(new { style = "text-align:center;" });
+
+        //columns.Bound(s => s.OrderID).Title("").Filterable(f => f.Enabled(false)).ClientTemplate(actionColumnTemplate).Width(100).Sortable(false).HtmlAttributes(new { style = "text-align:center;" });
+        //columns.Bound(s => s.OrderID).Title("").Filterable(f => f.Enabled(false)).ClientTemplate(ColumnTemplate).Width(100).Sortable(false).HtmlAttributes(new { style = "text-align:center;" });
+
+
+    })
+    .Sortable()
+    .Pageable()
+    .Scrollable()
+    .ClientDetailTemplateId("template")
+
+    .HtmlAttributes(new { style = "height:550px;" })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .ServerOperation(false)
+        .PageSize(30)
+        .Read(read => read.Action("Read", "CashReciept"))
+    )
+    //   .Events(events => events.DataBound("dataBound"))
+    )
+
+    <script id="template" type="text/kendo-tmpl">
+        @(Html.Kendo().TabStrip()
+            .Name("tabStrip_#=CashRecID#")
+            .SelectedIndex(0)
+            .Animation(animation => animation.Open(open => open.Fade(FadeDirection.In)))
+            .Items(items =>
+            {
+                items.Add().Text("CashRecieptDetail").Content(@<text>
+            @(Html.Kendo().Grid<CashRecDetViewM>()
+                        .Name("grid_#=CashRecID#") // template expression, to be evaluated in the master context
+                        .Columns(columns =>
+                        {
+                            columns.Bound(o => o.CashRecDetID).Hidden();
+                            columns.Bound(o => o.CutomerId).Hidden();
+                            columns.Bound(o => o.Name).Title("Customer");
+
+                            columns.Bound(o => o.Amount);
+                            columns.Command(command => { command.Edit(); }).Width(180);
+
+                        })
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(30)
+                            .Model(model =>
+                            {
+                                model.Id(p => p.CashRecDetID);
+                                model.Field(p => p.Name).Editable(false);
+                            })
+                            .Read(read => read.Action("DetailRead", "CashReciept", new { CashRecieptID = "#=CashRecID#" }))
+                            .Update(update => update.Action("UpdateDetail", "CashReciept"))
+                        )
+                        .Pageable()
+                        .Sortable()
+                        .ToClientTemplate())
+                </text>
+                );
+
+            })
+            .ToClientTemplate())
+    </script>
+
+</div>
+<script type="text/javascript">
+
+</script>
+@section scripts{
+    <script>
+        $('.cmd-mark-inactive').click(function () {
+            return confirm("Do you really want to change status of this record?")
+        });
+
+
+
+        $('#sub').on('click', function () {
+            SearchGrid();
+        });
+
+        function SearchGrid() {
+            debugger;
+            var filters = [];
+
+            var grid = $("#grid").data("kendoGrid");
+
+            var Name = $("#Search").val();
+
+            if (Name != "") {
+                grid.dataSource.filter({
+                    field: "OrderID",
+                    operator: "eq",
+                    value: Name
+                });
+            }
+            else {
+                grid.dataSource.filter({});
+            }
+
+        }
+
+
+    </script>
+}

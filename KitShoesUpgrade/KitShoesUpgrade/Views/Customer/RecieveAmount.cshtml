@@ -1,0 +1,83 @@
+﻿@model  CustomerAccount
+@{
+    Layout = "~/Views/Shared/_PopupLayout.cshtml";
+    ViewBag.Title = "Add Article Stock";
+}
+
+<link href="~/Content/css/devoops/tooltip.css" rel="stylesheet" />
+
+@using (Html.BeginForm())
+{
+
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <div class="box-">
+                <div class="box-content">
+                    <p class="bg-danger">@Html.ValidationSummary(true)</p>
+                    @if (TempData["ERROR"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissable">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <span>@TempData["ERROR"] </span>
+                        </div>
+                    }
+
+                    <fieldset>
+                        <legend>Add Account</legend>
+                        <div class="form-group">
+                            @Html.HiddenFor(m => m.ID)
+                            @Html.HiddenFor(m => m.CustomerID)
+                            @Html.LabelFor(model => model.OutStandingAmount, "OutStanding Amount", new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.DisplayFor(model => model.OutStandingAmount)
+                            </div>
+                            <div class="col-sm-6">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Amount Recieved", new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @(Html.Kendo().NumericTextBox<decimal>()
+.Name("amount")
+                            .Min(0)
+                                )
+                              
+                            </div>
+                            <div class="col-sm-6">
+                            </div>
+
+                        </div>
+                   
+                    </fieldset>
+
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <button type="submit" name="submit" value="ItemsList" class="btn btn-primary btn-label-left">
+                                Save
+                            </button>
+                            <button type="button" id="close-popup" class="btn btn-primary btn-label-left">
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#close-popup").click(function () {
+                parent.$.fancybox.close();
+
+            });
+        });
+    </script>
+
+}

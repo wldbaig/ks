@@ -1,0 +1,548 @@
+﻿/* info and errors */
+.message-info {
+    border: 1px solid;
+    clear: both;
+    padding: 10px 20px;
+}
+
+.message-error {
+    clear: both;
+    color: #e80c4d;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+}
+
+.message-success {
+    color: #7ac0da;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+}
+
+.error {
+    color: #e80c4d;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #e80c4d;
+    font-weight: bold;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #e80c4d;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #e80c4d;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+.k-link {
+    text-decoration: none !important;
+}
+
+.k-button {
+    text-decoration: none !important;
+}
+
+.bottom-margin {
+    margin-bottom: 7px;
+    font-weight: 600;
+}
+
+.dropdown-menu li a {
+    padding-top: 7px !important;
+    padding-bottom: 7px !important;
+    font-size: 12px;
+}
+
+.product-item td {
+    border-style: none !important;
+}
+
+.product-item .image-col {
+    width: 170px;
+}
+
+.booking-steps-menu {
+    padding: 5px;
+}
+
+.active-step a {
+    color: #428bca !important;
+}
+
+.booking-steps-menu a {
+    color: #000;
+}
+
+    .booking-steps-menu a:hover {
+        color: #000;
+        text-decoration: none;
+    }
+
+.active-step span.number {
+    background-color: #d3d3d3;
+    border: 1px solid #428bca;
+    border-radius: 50%;
+    height: 30px;
+    padding: 6px;
+    text-align: center;
+    width: 30px;
+}
+
+span.number {
+    border: 1px solid #555;
+    border-radius: 50%;
+    display: inline-block;
+    height: 30px;
+    padding: 6px;
+    text-align: center;
+    width: 30px;
+}
+
+span.step {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+/* Main section */
+#main-section {
+    float: none;
+    width: auto;
+    overflow: hidden;
+    height: 100%;
+    background-color: #eee;
+}
+
+#employee-list {
+    height: 100%;
+}
+
+#dash-logo,
+#main-section-header > h2 {
+    font-size: 18px;
+    text-transform: uppercase;
+    line-height: 26px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+#main-section-header > h2 {
+    padding-left: 1.667em;
+    white-space: nowrap;
+}
+
+#main-section-header {
+    height: auto;
+    border-bottom: 1px solid #ededee;
+    -moz-box-shadow: 1px 0 4px #ededee;
+    -webkit-box-shadow: 1px 0 4px #ededee;
+    box-shadow: 1px 0 4px #ededee;
+    background-color: #fff;
+}
+
+/* Kendo widgets */
+.k-sparkline {
+    display: inline-block;
+    width: 100%;
+}
+
+.k-tooltip {
+    width: 200px;
+}
+
+/* Regional sales */
+#statsContainer {
+    background-color: #fff;
+}
+
+#regional-sales {
+    border: none;
+    overflow-y: auto;
+    height: calc(100% - 86px);
+}
+
+    #regional-sales .row {
+        height: auto;
+    }
+
+#map-wrapper {
+    background-color: #eeeeee;
+}
+
+#map-details span {
+    line-height: 13px;
+}
+
+#countryCustomers {
+    font-size: 11px;
+}
+
+#topProductsContainer {
+    padding: 15px;
+}
+
+    #topProductsContainer h3 {
+        padding-left: 15px;
+    }
+
+div.tab-pane {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-top: none;
+}
+
+table.order-table {
+    width: 100%;
+}
+
+    table.order-table tbody td, table.order-table thead th {
+        padding: 15px;
+    }
+
+    table.order-table td.points a {
+        background-color: lightblue;
+        color: black;
+        padding: 5px;
+        margin-left: 4px;
+        text-decoration: none;
+    }
+
+textarea.form-control {
+    resize: vertical;
+}
+
+/*--------------------------DashBoard--------------------------------*/
+.unique-visitor {
+    border: solid 2px #dbdbdb;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 30px;
+    background-color: white;
+}
+
+    .unique-visitor h4 {
+        border-bottom: solid 1px #dbdbdb;
+        color: #0069bd;
+        padding-bottom: 10px;
+        margin-bottom: 0px;
+    }
+
+.visitor-nbrs {
+    font-weight: bold;
+    color: #000;
+    font-size: 21px;
+}
+
+.unique-visitor span {
+    color: #9f9999;
+}
+
+.unique-visitor img {
+    float: right;
+}
+
+.favorite-browers table {
+    border: solid 1px #dbdbdb;
+    margin-top: 10px;
+    line-height: 31px;
+}
+
+    .favorite-browers table tr th {
+        color: #000;
+        font-weight: bold;
+        padding-left: 8px;
+        padding-top: 8px;
+    }
+
+    .favorite-browers table tr:nth-child(even) {
+        background-color: #f8f8f8;
+    }
+
+    .favorite-browers table tr:nth-child(odd) {
+        background-color: #fff;
+    }
+
+    .favorite-browers table td {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+        .favorite-browers table td:last-child {
+            /*text-align: right;*/
+        }
+
+.user-graph {
+    height: auto;
+}
+
+/*.k-chart {
+   height: 280px;
+    width: 200px;
+}*/
+
+
+
+/*-----Invoice Styling---- */
+.strongText p {
+    font-weight: bold;
+    font-size: 18px;
+    padding-left: 10px;
+}
+
+/*.Sold-to h4, .Shiped-to h4{
+    
+}*/
+
+.invoice-page {
+    border: solid 1px;
+    padding: 10px 0;
+}
+
+.sold-inv, .methods {
+    margin: 0px;
+}
+
+.methods {
+    border: 1px solid;
+    margin: 15px 0;
+}
+
+    .sold-inv .col-lg-6, .methods .col-lg-6 {
+        padding: 0;
+    }
+
+    .sold-inv p, .methods p {
+        padding-left: 10px;
+        font-weight: 600;
+    }
+
+    .sold-inv h4, .methods h4 {
+        padding: 10px;
+        border: 1px solid #777777;
+        font-weight: bold;
+        background-color: #e3e3e3;
+        margin-top: 0px;
+    }
+
+.table-details {
+    border: 1px solid;
+}
+
+    .table-details .invoice-details {
+        background-color: #e3e3e3;
+        font-weight: 800;
+        border-color: #777777;
+        border-bottom-width: 1px;
+    }
+
+.invoice-table td {
+    border: 0px !important;
+}
+
+.invoice-table > tbody > tr > th, .invoice-table > tfoot > tr > th, .invoice-table > thead > tr > td, .invoice-table > tbody > tr > td, .invoice-table > tfoot > tr > td {
+    border: 0px;
+}
+
+.Sold-to, .Shiped-to, .half {
+    float: left;
+    width: 50%;
+}
+
+.clear {
+    clear: both;
+}
+
+
+
+
+
+
+
+
+
+/* Dashboard Css*/
+
+.store-view {
+    padding: 30px 15px;
+    border-top: 1px solid #e3e3e3;
+    border-bottom: 1px solid #e3e3e3;
+    background-color: #f8f8f8;
+    margin: 20px 0;
+}
+
+    .store-view strong {
+        padding: 5px 15px 5px 0;
+    }
+
+    .store-view .btn.dropdown-toggle {
+        padding-top: 0px;
+        padding-bottom: 0px;
+        background: transparent;
+    }
+
+    .store-view .btn:focus {
+        box-shadow: none;
+    }
+
+.left-column .section {
+    margin-bottom: 40px;
+}
+
+.table-row {
+    border-bottom: 1px solid #e3e3e3;
+    padding: 10px 0;
+}
+
+section#bottom-tabs {
+    margin-top: 100px;
+}
+
+.tab-area .tab-pane {
+    background-color: white;
+}
+
+.row-heading {
+    font-weight: bold;
+}
+
+.tab-area .nav-tabs > li.active > a:before {
+    position: absolute;
+    content: '';
+    width: 100%;
+    top: 0;
+    height: 5px;
+    background: #ef5203;
+    left: 0;
+    border-radius: 3px 3px 0 0;
+}
+
+.tab-area .nav-tabs > li.active > a {
+    background: #ffffff;
+}
+
+.tab-area .nav-tabs > li > a {
+    background: #D0D0D0;
+}
+
+.left-column span.price {
+    font-size: 26px;
+    color: #ef5203;
+}
+
+.tab-area #weekly-btn {
+    min-width: 160px;
+    right: auto;
+    left: 0;
+}
+
+.left-column table tr, .tab-area table tr {
+    border-bottom: 1px solid #e3e3e3;
+}
+
+    .left-column table tr td,
+    .left-column table tr th,
+    .tab-area table tr td,
+    .tab-area table tr th {
+        padding: 5px 0;
+    }
+
+    .left-column table tr th,
+    .tab-area table tr th {
+        font-weight: 800;
+    }
+
+        .left-column table tr td:first-child,
+        .left-column table tr th:first-child {
+            width: 60% !important;
+        }
+
+        .tab-area table tr td:first-child,
+        .tab-area table tr th:first-child {
+            width: 80% !important;
+        }
+
+.payment_history table tr th:first-child, .payment_history table tr td:first-child {
+    width: auto !important;
+}
+
+.left-column table tr td:last-child,
+.left-column table tr th:last-child,
+.tab-area table tr th:last-child,
+.tab-area table tr td:last-child {
+    text-align: right;
+}
+
+.left-column .section.last-orders {
+    background-color: #ffffff;
+    padding: 0 5px;
+}
+
+/* Shipment creation Styles */
+
+/*img{width: 100%;}*/
+.left {
+    margin-bottom: 100px;
+}
+
+    .left.col-md-8 {
+        background: #f8f8f8;
+    }
+/*           Copy From Here               */
+.form-group.cust-popup .form-control {
+    float: right;
+    width: 70%;
+    margin-bottom: 20px;
+}
+
+.form-group.cust-popup label {
+    float: left;
+}
+
+.text-center div {
+    background: #e3e3e3;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#amount_transaction thead th:nth-child(2), #amount_transaction tbody td:nth-child(2) {
+    /*width: 60%;*/
+}
+
+#amount_transaction td, #amount_transaction th {
+    padding: 10px;
+}
+
+#amount_transaction thead th {
+    background: #e3e3e3;
+}
+
+#amount_transaction tbody tr {
+    border-bottom: 1px solid #e3e3e3;
+}
+
+#other_amount {
+    width: 50px;
+    margin-right: 5px;
+}
+
+.withdr_radio input[type=radio] {
+    position: static !important;
+    margin-left: -30px;
+}

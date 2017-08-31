@@ -1,0 +1,139 @@
+﻿@model PurchaseRecieptViewModel
+@{
+    ViewBag.Title = "PurchaseReciept";
+    var db = new KitSEntities();
+
+    var pairCount = 0;
+
+}
+
+
+<div class="row">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#">Return Management</a></li>
+            <li><a href="~/Return/CM">ChahMiran Returns</a></li>
+            <li><a href="#">Return Reciept</a></li>
+        </ol>
+    </div>
+</div>
+@if (TempData["ERROR"] != null)
+{
+    <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <span>@TempData["ERROR"] </span>
+    </div>
+}
+
+@if (TempData["SUCCESS"] != null)
+{
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <span>@TempData["SUCCESS"] </span>
+    </div>
+}
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12">
+        <div class="box">
+            <div class="box-content">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <a id="btnPrint" class="btn btn-success pull-right">Print</a>
+                    </div>
+                </div>
+
+                <div id="dvContainer">
+                    <h3>@Model.ReturnID</h3>
+                    <table style="border: 1px solid; width: 100%; border-collapse: collapse; color: black; padding: 5px; margin-left: 4px; text-decoration: none; ">
+                        <thead>
+                            <tr>
+                                <th style="background-color: #e3e3e3; font-weight: 800; border-color: #777777; border-bottom-width: 1px; padding: 15px; width:100px;">Article</th>
+                                <th style="background-color: #e3e3e3; font-weight: 800; border-color: #777777; border-bottom-width: 1px; padding: 15px; width: 100px;">Image</th>
+                                <th style="background-color: #e3e3e3; font-weight: 800; border-color: #777777; border-bottom-width: 1px; padding: 15px; width: 100px;"></th>
+
+                            </tr>
+                        </thead>
+                        <tbody class="">
+                            @foreach (var Item in Model.PReciept)
+                            {
+                                <tr>
+                                    @{
+
+                                        var article = db.CMArticles.Find(Item.Article);
+                                        <td style="border:  solid 1px black ;  padding: 15px;">
+                                            @article.ArticleName
+                                        </td>
+                                        <td style="border :solid 1px black; padding: 15px;"> <img src="@ImageHelper.Source(eDirectory.WHArticle, "300", article.ID, article.Image)" style="width:150px; height:100px;" /> </td>
+
+                                    }
+
+                                    <td style="border: solid 1px black; padding: 15px;">
+                                        <table style="border: 1px solid;">
+
+                                            <tbody>
+                                                @foreach (var adetail in Item.LPRDetail)
+                                                {
+                                                    <tr>
+                                                        <td style="border: 1px black !important; padding: 15px;">
+                                                            @{
+                                                                var artCol = db.CMArticleDetails.Find(adetail.ArticleDetail);
+                                                                <text>
+                                                                    @artCol.Color.ColorName
+                                                                </text>
+                                                            }
+
+
+                                                        </td>
+
+                                                        <td style="border:   1px black !important; padding: 15px;">
+                                                            @adetail.QuantiyAdded
+                                                            @{ pairCount += adetail.QuantiyAdded;}
+
+                                                        </td>
+                                                    </tr>
+                                                                }
+
+                                            </tbody>
+                                        </table>
+
+                                    </td>
+                                </tr>
+
+                                                                }
+
+                            <tr>
+                                <td></td>
+                                <td style="border: solid 1px black !important; padding: 15px; text-align:right;"> Total Pair</td>
+                                <td style="border: solid 1px black !important; padding: 15px; ">
+                                    @pairCount
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                    <div class="clearfix"></div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval");
+
+    <script type="text/javascript">
+        $("#btnPrint").on("click", function () {
+            var divContents = $("#dvContainer").html();
+            var printWindow = window.open('', '', 'height=400,width=800');
+            printWindow.document.write(divContents);
+            printWindow.document.close();
+            printWindow.print();
+        });
+    </script>
+}        

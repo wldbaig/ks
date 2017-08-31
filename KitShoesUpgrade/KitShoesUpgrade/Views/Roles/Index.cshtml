@@ -1,0 +1,44 @@
+﻿@model IEnumerable<KitShoesUpgrade.Models.Role>
+    @{
+        ViewBag.Title = "Index";
+    }
+
+    <div class="row">
+        <div id="breadcrumb" class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="#"> User Management</a></li>
+                <li><a href="#"> Roles</a></li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+              
+                    @(Html.Kendo().Grid(Model)
+                    .Name("RoleGrid")
+                    .Columns(columns =>
+                    {
+                        columns.Bound(p => p.FullName).Title("Name").Width(160);
+                        columns.Command(commands =>
+                        {
+                            commands.Custom("Edit").Action("Edit", "Roles");
+                            //commands.Custom( Delete).Action("Delete", "Roles").HtmlAttributes(new { @class = "cmd-mark-delete" });
+                        }).Width(140).Title("Command");
+                    })
+                    .Pageable(pageable => pageable
+                            .ButtonCount(5))
+                    .Sortable()
+                    .Scrollable().HtmlAttributes(new { style = "height: 350px" })
+                    .Filterable()
+                    .ColumnMenu()
+                    .Resizable(resize => resize.Columns(true))
+                    .Reorderable(reorder => reorder.Columns(true))
+                    .DataSource(dataSource => dataSource
+                        .Server()
+                        .Model(model => model.Id(p => p.ID))
+                        .Read("Index", "Roles")
+                    )
+                    )
+                </div>
+            </div>
+       

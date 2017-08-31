@@ -1,0 +1,306 @@
+﻿@model EditReserveSaleViewModel
+@{
+    var baseUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["BaseURL"];
+    ViewBag.Title = "Edit ReserveSale";
+    int? pair = 0;
+    int? carton = 0;
+    decimal? price = 0;
+    var db = new KSEntities();
+}
+<link href="~/Content/css/devoops/tooltip.css" rel="stylesheet" />
+
+
+@using (Html.BeginForm("Edit", "ReserveSale", FormMethod.Post, new
+{
+    id = "uploadForm1",
+    enctype = "multipart/form-data",
+    onsubmit = "return confirm('Do you really want to submit the form?');"
+}))
+{
+    <div class="row">
+        <div id="breadcrumb" class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="#">ReserveSale Management</a></li>
+                <li><a href="~/ReserveSale">ReserveSale</a></li>
+                <li><a href="#">Edit</a></li>
+            </ol>
+        </div>
+    </div>
+    @Html.HiddenFor(m => m.ReserveSaleID)
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+
+            <div class="box">
+                <div class="box-header">
+                    <div class="box-name">
+                        <i class="fa fa-search"></i>
+                        <span>ReserveSale </span>
+                    </div>
+                    <div class="box-icons">
+                        <a class="collapse-link">
+                            @*<i class="fa fa-chevron-up"></i>*@
+                        </a>
+                    </div>
+                    <div class="no-move"></div>
+                </div>
+                <div class="box-content">
+                    <div class="row">
+                        <p class="bg-danger">@Html.ValidationSummary(true)</p>
+                        @if (TempData["ERROR"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <span>@TempData["ERROR"] </span>
+                            </div>
+                        }
+                        @if (TempData["SUCCESS"] != null)
+                        {
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <span>@TempData["SUCCESS"] </span>
+                            </div>
+                        }
+
+                        <div class="col-lg-6">
+
+                            <fieldset>
+ 
+                                    <div class="form-group" id="CredCus">
+                                        <div class="col-sm-4">
+                                            Customer
+                                        </div>
+                                        <div class="col-sm-4">
+                                            @Html.DropDownListFor(model => model.ResSale.CustomerID, (SelectList)ViewBag.CustomerList, " Select Cutomer ", new { @class = "populate placeholder", id = "s2_with_tag" })
+
+                                        </div>
+                                    </div>
+                              
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                        @Html.Label("Articles", new { @class = "control-label" })
+
+                                    </div>
+                                    <div class="col-sm-4">
+                                        @(Html.Kendo().MultiSelect().Name("b").Value(Model.ArtilceList).DataTextField("Name")
+            .DataValueField("ID").DataSource(d => d.Read(r => r.Action("GetArticles", "ReserveSale")))
+            .Events(e =>
+                                    {
+                                        e.Change("onChange").Select("onSelect").DataBound("onDataBound");
+                                    }))
+                                          @Html.ValidationMessageFor(model => model.Article)
+                                    </div>
+                                </div>
+
+                                <div id="articleDetails" class="form-group">
+                                    @foreach (var artDet in Model.Article)
+                                    {
+                                        <div class="custom" id=@artDet.ID>
+                                            <div class="form-group">
+                                                <div class="col-sm-6"> <b> @artDet.ArticleName  </b></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="hidden" id="item-price-@artDet.ID" value=@artDet.Price />
+                                            </div>
+                                            <div class="form-group"> <div class="col-sm-3" style="width:33.33%">Color</div> <div class="col-sm-3" style="width:33.33%">Carton</div> <div class="col-sm-3" style="width:33.33%">Pair</div> </div>
+                                            @foreach (var ii in artDet.ArticleDetails)
+                                            {
+                                                pair = db.ReserveSaleDetails.FirstOrDefault(c => c.ArticleDetailID == ii.ID && c.ReserveSaleID == Model.ReserveSaleID).ArticlePairs;
+                                                carton = db.ReserveSaleDetails.FirstOrDefault(c => c.ArticleDetailID == ii.ID && c.ReserveSaleID == Model.ReserveSaleID).ArticleCartons;
+                                                price = db.ReserveSaleDetails.FirstOrDefault(c => c.ArticleDetailID == ii.ID && c.ReserveSaleID == Model.ReserveSaleID).Price;
+                                                <div class="form-group">
+                                                    <div class="col-sm-2" style="width:33.33%"> @ii.Color.ColorName   </div>
+                                                    <div class="col-sm-3" style="width:33.33%">
+                                                        @ii.Carton
+                                                        <input class="numberBox k-widget k-numerictextbox k-input" type="number" id="item-carton-@ii.ID" placeholder="Enter Cartons" name="item-carton-color-ID*@ii.ID" value=@carton min="0" onchange="calcuatePrice(@artDet.ID,@ii.ID,@ii.Article.PairInCarton)" />
+                                                    </div>
+                                                    <div class="col-sm-3" style="width:33.33%">
+                                                        @ii.Pairs
+                                                        <input class="numberBox k-widget k-numerictextbox k-input" type="number" id="item-pair-@ii.ID" placeholder="Enter Pairs" name="item-color-ID*@ii.ID" value=@pair min="0" onchange="calcuatePrice(@artDet.ID,@ii.ID,@ii.Article.PairInCarton )" />
+                                                    </div>
+                                                </div>
+                                                <div class="itemPrices" id="artDet-@ii.ID" style="display:none">@price</div>
+                                                <div class="itemPrices-@artDet.ID" id="artDetr-@ii.ID" style="display:none">@price</div>
+                                            }
+                                            <hr />
+                                        </div>
+                                    }
+                                </div>
+                            </fieldset>
+
+                            <div class="clearfix"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <button type="submit" class="btn btn-primary btn-label-left">
+                                        Save
+                                    </button>
+                                    <a href="~/ReserveSale" class="btn btn-primary btn-label-left">
+                                        Cancel
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <fieldset>
+                                
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                        Total Amount
+                                    </div>
+                                    <div class="col-sm-4" id="total-Amount">
+                                        @Model.ResSale.TotalPrice
+                                    </div>
+                                </div>
+                               
+                                    <div class="form-group" id="amount-paid">
+                                        <div class="col-sm-4">
+                                            Amount
+
+                                        </div>
+                                        <div class="col-sm-4">
+                                            @(Html.Kendo().NumericTextBoxFor<decimal>(m=>m.AmountPaid)
+                                            .Name("AmountPaid")
+                                            .Min(0)
+                                            .Value(0)
+                                            )
+                                        </div>
+                                    </div>
+                                
+                            </fieldset>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="ajax-loading" id="loading"><p></p></div>
+
+}
+@section Styles{
+    <style scoped>
+        .populate {
+            width: 200px;
+        }
+    </style>
+}
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval");
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+             
+            $('#s2_with_tag').select2({ placeholder: "Select Customer" });
+            $('#s3_with_tag').select2({ placeholder: "Select Articles" });
+             
+        });
+
+
+        function calcuatePrice(artID, artDtlId, pairInCarton) {
+            debugger;
+            // var input = $(element).val();
+
+            var carton = parseFloat($("#item-carton-" + artDtlId).val());
+            var pair = parseFloat($("#item-pair-" + artDtlId).val());
+
+            var input = (carton * pairInCarton) + pair;
+
+            var artPrice = "#item-price-" + artID;
+
+            var price = $(artPrice).val();
+
+            var amontOfArticle = price * input;
+
+            var artDtlPrice = "#artDet-" + artDtlId;
+
+            var artDtlrPrice = "#artDetr-" + artDtlId;   // to remove price
+
+            $(artDtlPrice).text(amontOfArticle);
+            $(artDtlrPrice).text(amontOfArticle);
+
+            var str = 0;
+            $('.itemPrices').each(function () {
+                str += parseFloat($(this).text());
+            })
+            $('#total-Amount').text(str);
+
+
+            var numerictextbox = $("#AmountPaid").data("kendoNumericTextBox");
+
+            var max = numerictextbox.max();
+
+            numerictextbox.max(str);
+        }
+
+    </script>
+
+    <script>
+
+        function onDataBound()
+        {
+            var current = this.value();
+            this._savedOld = current.slice(0);
+        }
+
+
+        function onChange() {
+
+            debugger;
+
+            var previous = this._savedOld;
+            var current = this.value();
+            var diff = [];
+            if (previous) {
+                diff = $(previous).not(current).get();
+            }
+            this._savedOld = current.slice(0);
+            if (diff.length > 0) {
+                debugger;
+                var item = "#" + diff;
+                var artRempvPrice = ".itemPrices-" + diff; //e.params.data.id;
+                var str = 0;
+                $(artRempvPrice).each(function () {
+                    str += parseFloat($(this).text());
+                })
+                var ttlAmount = parseFloat($('#total-Amount').text());
+                ttlAmount = ttlAmount - str;
+                $('#total-Amount').text(ttlAmount);
+
+                $(item).remove();
+
+                console.log('deleted')
+            }
+
+        }
+
+        function onSelect(e) {
+            debugger;
+            var item = e.item;
+            var text = item.text();
+
+            $.ajax({
+                type: "POST",
+                url: "@baseUrl/ReserveSale/GetArticleDetailforReserve",
+                data: JSON.stringify({ ArticleID: text }),
+                datatype: "json",
+                contentType: "application/json",
+                success: function (data) {
+                    $('#articleDetails').prepend(data);
+                    $('#articleDetails').show();
+                },
+                error: function (error) {
+                    $('#articleDetails').hide();
+                }
+            });
+
+        }
+
+    </script>
+}

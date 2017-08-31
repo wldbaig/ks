@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#">Configuration</a></li>
+            <li><a href="~/Category">Categories</a></li>
+        </ol>
+    </div>
+</div>
+<div>
+    @(Html.Kendo().Grid<Category>()
+                .Name("Grid")
+                        .ToolBar(toolbar =>
+                        {
+                            toolbar.Create();
+                        })
+                .Columns(columns =>
+                {
+                    columns.Bound(p => p.CategoryName).Title("Category").Width(150);
+
+                    columns.Command(command => { command.Edit(); }).Width(180);
+                })
+                .Editable(editable => editable.Mode(GridEditMode.InLine))
+                         .Pageable()
+                .HtmlAttributes(new { style = "height: 525px" })
+                .Sortable()
+                .Scrollable()
+                .DataSource(dataSource => dataSource
+                    .Ajax()
+                    .Events(events => events.Error("error_handler"))
+                              .Model(model =>
+                                                    {
+                                                        model.Id(p => p.ID);
+                                                    })
+                                                    .PageSize(15)
+                                                    .Create("Create", "Category")
+                                    .Read(read => read.Action("Read", "Category"))
+                                        .Update(update => update.Action("Update", "Category"))
+                                        .Destroy(update => update.Action("Destroy", "Category"))
+                )
+    )
+</div>
+<script type="text/javascript">
+
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+            $('#Grid').data('kendoGrid').dataSource.read();
+        }
+    }
+</script>

@@ -1,0 +1,896 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Article">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ArticleName" Type="nvarchar" MaxLength="56" Nullable="false" />
+    <Property Name="Image" Type="nvarchar" MaxLength="500" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Cost" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="PairInCarton" Type="int" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ArticleDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ArticleId" Type="int" Nullable="false" />
+    <Property Name="ColorId" Type="int" Nullable="false" />
+    <Property Name="Pairs" Type="int" Nullable="false" />
+    <Property Name="DateAdded" Type="datetime" />
+    <Property Name="IsDeleted" Type="bit" />
+    <Property Name="Carton" Type="int" Nullable="false" />
+    <Property Name="TotalStock" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Buyer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Phone" Type="varchar" MaxLength="50" />
+    <Property Name="Address" Type="varchar" MaxLength="500" />
+    <Property Name="AddedBy" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BuyerAccount">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BuyerID" Type="int" Nullable="false" />
+    <Property Name="OutStandingAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="TotalPaid" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="TotalBalance" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BuyerAccountDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BAccountID" Type="int" Nullable="false" />
+    <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="OrderID" Type="int" />
+  </EntityType>
+  <EntityType Name="CashReciept">
+    <Key>
+      <PropertyRef Name="CashRecieptID" />
+    </Key>
+    <Property Name="CashRecieptID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CashType" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="AddedOn" Type="datetime" Nullable="false" />
+    <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CashRecieptDetail">
+    <Key>
+      <PropertyRef Name="CashRecieptDetailID" />
+    </Key>
+    <Property Name="CashRecieptDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CashRecieptID" Type="int" Nullable="false" />
+    <Property Name="CustomerID" Type="int" />
+    <Property Name="BuyerID" Type="int" />
+    <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryName" Type="nvarchar" MaxLength="56" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Colors">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ColorName" Type="nvarchar" MaxLength="56" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="250" Nullable="false" />
+    <Property Name="Phone" Type="varchar" MaxLength="50" />
+    <Property Name="Address" Type="varchar" MaxLength="500" />
+    <Property Name="CustomerType" Type="varchar" MaxLength="50" />
+    <Property Name="CustomerCategoryID" Type="int" />
+    <Property Name="AddedBy" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CustomerAccount">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerID" Type="int" Nullable="false" />
+    <Property Name="OutStandingAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="TotalPaid" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="TotalBalance" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="PreviousOutStanding" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CustomerAccountDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CAccountID" Type="int" Nullable="false" />
+    <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="InvoiceID" Type="int" />
+    <Property Name="Description" Type="nvarchar" MaxLength="100" />
+    <Property Name="ReturnID" Type="int" />
+    <Property Name="ReserveID" Type="int" />
+    <Property Name="CashRecieptID" Type="int" />
+  </EntityType>
+  <EntityType Name="CustomerCategory">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="InvoiceID" />
+    </Key>
+    <Property Name="InvoiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerName" Type="nvarchar" MaxLength="150" />
+    <Property Name="CustomerType" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CustomerID" Type="int" />
+    <Property Name="AddedOn" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="AmountRecieved" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="DiscountAmount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="FreightAmount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InvoiceDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InvoiceID" Type="int" Nullable="false" />
+    <Property Name="ArticleID" Type="int" Nullable="false" />
+    <Property Name="ArticleDetailID" Type="int" Nullable="false" />
+    <Property Name="ArticlePairs" Type="int" />
+    <Property Name="ArticleCartons" Type="int" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BuyerID" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="OrderType" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="OrderStatus" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="AmountRecieved" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OrderDetail">
+    <Key>
+      <PropertyRef Name="OrderDetailID" />
+    </Key>
+    <Property Name="OrderDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderID" Type="int" Nullable="false" />
+    <Property Name="ArticleID" Type="int" Nullable="false" />
+    <Property Name="ArticleDetailID" Type="int" Nullable="false" />
+    <Property Name="ArticlePairs" Type="int" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="OrderHistory">
+    <Key>
+      <PropertyRef Name="OrderHistoryID" />
+    </Key>
+    <Property Name="OrderHistoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderID" Type="int" Nullable="false" />
+    <Property Name="OrderDetailID" Type="int" Nullable="false" />
+    <Property Name="ArticleID" Type="int" Nullable="false" />
+    <Property Name="ArticleDetailID" Type="int" Nullable="false" />
+    <Property Name="ArticlePairs" Type="int" Nullable="false" />
+    <Property Name="RecievedOn" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Permission">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="40" Nullable="false" />
+    <Property Name="ShowView" Type="bit" Nullable="false" />
+    <Property Name="ShowAdd" Type="bit" Nullable="false" />
+    <Property Name="ShowEdit" Type="bit" Nullable="false" />
+    <Property Name="ShowDelete" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ReserveSale">
+    <Key>
+      <PropertyRef Name="ReserveSaleID" />
+    </Key>
+    <Property Name="ReserveSaleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerID" Type="int" Nullable="false" />
+    <Property Name="AddedOn" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="AmountRecieved" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ReserveSaleDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReserveSaleID" Type="int" Nullable="false" />
+    <Property Name="ArticleID" Type="int" Nullable="false" />
+    <Property Name="ArticleDetailID" Type="int" Nullable="false" />
+    <Property Name="ArticlePairs" Type="int" />
+    <Property Name="ArticleCartons" Type="int" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ReturnItem">
+    <Key>
+      <PropertyRef Name="ReturnItemID" />
+    </Key>
+    <Property Name="ReturnItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerType" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="CustomerName" Type="nvarchar" MaxLength="150" />
+    <Property Name="CustomerID" Type="int" />
+    <Property Name="AddedOn" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ReturnItemDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReturnItemID" Type="int" Nullable="false" />
+    <Property Name="ArticleID" Type="int" Nullable="false" />
+    <Property Name="ArticleDetailID" Type="int" Nullable="false" />
+    <Property Name="ArticlePairs" Type="int" />
+    <Property Name="ArticleCartons" Type="int" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="RoleType" Type="nvarchar" MaxLength="10" />
+    <Property Name="ChildRoles" Type="nvarchar" MaxLength="25" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+  </EntityType>
+  <EntityType Name="RolePermission">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleID" Type="int" Nullable="false" />
+    <Property Name="PermissionID" Type="int" Nullable="false" />
+    <Property Name="CanView" Type="bit" Nullable="false" />
+    <Property Name="CanAdd" Type="bit" Nullable="false" />
+    <Property Name="CanEdit" Type="bit" Nullable="false" />
+    <Property Name="CanDelete" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserCredential">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LastLogin" Type="datetime" />
+    <Property Name="LoginCount" Type="int" />
+    <Property Name="UserSince" Type="datetime" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="15" />
+    <Property Name="Address" Type="nvarchar" MaxLength="350" />
+    <Property Name="PreviousLogin" Type="datetime" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="UpdatedBy" Type="int" />
+    <Property Name="CreatedOn" Type="datetime" />
+    <Property Name="UpdatedOn" Type="datetime" />
+    <Property Name="RoleID" Type="int" Nullable="false" />
+    <Property Name="LoginID" Type="nvarchar" MaxLength="50" />
+    <Property Name="Password" Type="nvarchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Article_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="Article" Type="Self.Article" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Article">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ArticleDetail_Article">
+    <End Role="Article" Type="Self.Article" Multiplicity="1" />
+    <End Role="ArticleDetail" Type="Self.ArticleDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ArticleDetail">
+        <PropertyRef Name="ArticleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ArticleDetail_Colors">
+    <End Role="Colors" Type="Self.Colors" Multiplicity="1" />
+    <End Role="ArticleDetail" Type="Self.ArticleDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Colors">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ArticleDetail">
+        <PropertyRef Name="ColorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Buyer_Accuont">
+    <End Role="Buyer" Type="Self.Buyer" Multiplicity="1" />
+    <End Role="BuyerAccount" Type="Self.BuyerAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Buyer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BuyerAccount">
+        <PropertyRef Name="BuyerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BuyerAccountDetail_BuyerAccount">
+    <End Role="BuyerAccount" Type="Self.BuyerAccount" Multiplicity="1" />
+    <End Role="BuyerAccountDetail" Type="Self.BuyerAccountDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BuyerAccount">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BuyerAccountDetail">
+        <PropertyRef Name="BAccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CashRecieptDetail_Buyer">
+    <End Role="Buyer" Type="Self.Buyer" Multiplicity="0..1" />
+    <End Role="CashRecieptDetail" Type="Self.CashRecieptDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Buyer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CashRecieptDetail">
+        <PropertyRef Name="BuyerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CashRecieptDetail_CashReciept">
+    <End Role="CashReciept" Type="Self.CashReciept" Multiplicity="1" />
+    <End Role="CashRecieptDetail" Type="Self.CashRecieptDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CashReciept">
+        <PropertyRef Name="CashRecieptID" />
+      </Principal>
+      <Dependent Role="CashRecieptDetail">
+        <PropertyRef Name="CashRecieptID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CashRecieptDetail_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="CashRecieptDetail" Type="Self.CashRecieptDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CashRecieptDetail">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customer_CustomerCategory">
+    <End Role="CustomerCategory" Type="Self.CustomerCategory" Multiplicity="0..1" />
+    <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustomerCategory">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="CustomerCategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerAccount_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="CustomerAccount" Type="Self.CustomerAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CustomerAccount">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerAccountDetail_CustomerAccount">
+    <End Role="CustomerAccount" Type="Self.CustomerAccount" Multiplicity="1" />
+    <End Role="CustomerAccountDetail" Type="Self.CustomerAccountDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustomerAccount">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CustomerAccountDetail">
+        <PropertyRef Name="CAccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoice_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvoiceDetail_Article">
+    <End Role="Article" Type="Self.Article" Multiplicity="1" />
+    <End Role="InvoiceDetail" Type="Self.InvoiceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="InvoiceDetail">
+        <PropertyRef Name="ArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvoiceDetail_ArticleDetail">
+    <End Role="ArticleDetail" Type="Self.ArticleDetail" Multiplicity="1" />
+    <End Role="InvoiceDetail" Type="Self.InvoiceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ArticleDetail">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="InvoiceDetail">
+        <PropertyRef Name="ArticleDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvoiceDetail_Invoice">
+    <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+    <End Role="InvoiceDetail" Type="Self.InvoiceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice">
+        <PropertyRef Name="InvoiceID" />
+      </Principal>
+      <Dependent Role="InvoiceDetail">
+        <PropertyRef Name="InvoiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Buyer">
+    <End Role="Buyer" Type="Self.Buyer" Multiplicity="0..1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Buyer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="BuyerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_Article">
+    <End Role="Article" Type="Self.Article" Multiplicity="1" />
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="ArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_ArticleDetail">
+    <End Role="ArticleDetail" Type="Self.ArticleDetail" Multiplicity="1" />
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ArticleDetail">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="ArticleDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderHistory_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="OrderHistory" Type="Self.OrderHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="OrderHistory">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderHistory_OrderDetail">
+    <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="1" />
+    <End Role="OrderHistory" Type="Self.OrderHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderDetail">
+        <PropertyRef Name="OrderDetailID" />
+      </Principal>
+      <Dependent Role="OrderHistory">
+        <PropertyRef Name="OrderDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReserveSale_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="ReserveSale" Type="Self.ReserveSale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ReserveSale">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReserveSaleDetail_Article">
+    <End Role="Article" Type="Self.Article" Multiplicity="1" />
+    <End Role="ReserveSaleDetail" Type="Self.ReserveSaleDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ReserveSaleDetail">
+        <PropertyRef Name="ArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReserveSaleDetail_ArticleDetail">
+    <End Role="ArticleDetail" Type="Self.ArticleDetail" Multiplicity="1" />
+    <End Role="ReserveSaleDetail" Type="Self.ReserveSaleDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ArticleDetail">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ReserveSaleDetail">
+        <PropertyRef Name="ArticleDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReserveSaleDetail_ReserveSale">
+    <End Role="ReserveSale" Type="Self.ReserveSale" Multiplicity="1" />
+    <End Role="ReserveSaleDetail" Type="Self.ReserveSaleDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ReserveSale">
+        <PropertyRef Name="ReserveSaleID" />
+      </Principal>
+      <Dependent Role="ReserveSaleDetail">
+        <PropertyRef Name="ReserveSaleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReturnItem_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="ReturnItem" Type="Self.ReturnItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ReturnItem">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReturnItemDetail_Article">
+    <End Role="Article" Type="Self.Article" Multiplicity="1" />
+    <End Role="ReturnItemDetail" Type="Self.ReturnItemDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ReturnItemDetail">
+        <PropertyRef Name="ArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReturnItemDetail_ArticleDetail">
+    <End Role="ArticleDetail" Type="Self.ArticleDetail" Multiplicity="1" />
+    <End Role="ReturnItemDetail" Type="Self.ReturnItemDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ArticleDetail">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ReturnItemDetail">
+        <PropertyRef Name="ArticleDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReturnItemDetail_ReturnItem">
+    <End Role="ReturnItem" Type="Self.ReturnItem" Multiplicity="1" />
+    <End Role="ReturnItemDetail" Type="Self.ReturnItemDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ReturnItem">
+        <PropertyRef Name="ReturnItemID" />
+      </Principal>
+      <Dependent Role="ReturnItemDetail">
+        <PropertyRef Name="ReturnItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolePermission_Permission">
+    <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
+    <End Role="RolePermission" Type="Self.RolePermission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Permission">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="RolePermission">
+        <PropertyRef Name="PermissionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolePermission_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="RolePermission" Type="Self.RolePermission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="RolePermission">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserCredential_Role">
+    <End Role="Role" Type="Self.Role" Multiplicity="1" />
+    <End Role="UserCredential" Type="Self.UserCredential" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserCredential">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="Report_ArticleOrderWithDates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="StartDate" Type="datetime" Mode="In" />
+    <Parameter Name="EndDate" Type="datetime" Mode="In" />
+    <Parameter Name="ArticleID" Type="int" Mode="In" />
+    <Parameter Name="CategoryID" Type="int" Mode="In" />
+    <Parameter Name="BuyerID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Report_ArticleSaleWithDates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="StartDate" Type="datetime" Mode="In" />
+    <Parameter Name="EndDate" Type="datetime" Mode="In" />
+    <Parameter Name="ArticleID" Type="int" Mode="In" />
+    <Parameter Name="CategoryID" Type="int" Mode="In" />
+    <Parameter Name="CustomerID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Report_BuyerAccountDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="StartDate" Type="datetime" Mode="In" />
+    <Parameter Name="EndDate" Type="datetime" Mode="In" />
+    <Parameter Name="BuyerID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Report_CustomerAccountDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="StartDate" Type="datetime" Mode="In" />
+    <Parameter Name="EndDate" Type="datetime" Mode="In" />
+    <Parameter Name="CustomerID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Report_CustomerOutStanding" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="CategoryCustomer" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Report_SalePerDay" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="StartDate" Type="datetime" Mode="In" />
+    <Parameter Name="EndDate" Type="datetime" Mode="In" />
+  </Function>
+  <EntityContainer Name="KSModelStoreContainer">
+    <EntitySet Name="Article" EntityType="Self.Article" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ArticleDetail" EntityType="Self.ArticleDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Buyer" EntityType="Self.Buyer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BuyerAccount" EntityType="Self.BuyerAccount" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BuyerAccountDetail" EntityType="Self.BuyerAccountDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CashReciept" EntityType="Self.CashReciept" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CashRecieptDetail" EntityType="Self.CashRecieptDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Colors" EntityType="Self.Colors" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustomerAccount" EntityType="Self.CustomerAccount" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustomerAccountDetail" EntityType="Self.CustomerAccountDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustomerCategory" EntityType="Self.CustomerCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InvoiceDetail" EntityType="Self.InvoiceDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OrderHistory" EntityType="Self.OrderHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReserveSale" EntityType="Self.ReserveSale" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReserveSaleDetail" EntityType="Self.ReserveSaleDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReturnItem" EntityType="Self.ReturnItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReturnItemDetail" EntityType="Self.ReturnItemDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RolePermission" EntityType="Self.RolePermission" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserCredential" EntityType="Self.UserCredential" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Article_Category" Association="Self.FK_Article_Category">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="Article" EntitySet="Article" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ArticleDetail_Article" Association="Self.FK_ArticleDetail_Article">
+      <End Role="Article" EntitySet="Article" />
+      <End Role="ArticleDetail" EntitySet="ArticleDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ArticleDetail_Colors" Association="Self.FK_ArticleDetail_Colors">
+      <End Role="Colors" EntitySet="Colors" />
+      <End Role="ArticleDetail" EntitySet="ArticleDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Buyer_Accuont" Association="Self.FK_Buyer_Accuont">
+      <End Role="Buyer" EntitySet="Buyer" />
+      <End Role="BuyerAccount" EntitySet="BuyerAccount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BuyerAccountDetail_BuyerAccount" Association="Self.FK_BuyerAccountDetail_BuyerAccount">
+      <End Role="BuyerAccount" EntitySet="BuyerAccount" />
+      <End Role="BuyerAccountDetail" EntitySet="BuyerAccountDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CashRecieptDetail_Buyer" Association="Self.FK_CashRecieptDetail_Buyer">
+      <End Role="Buyer" EntitySet="Buyer" />
+      <End Role="CashRecieptDetail" EntitySet="CashRecieptDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CashRecieptDetail_CashReciept" Association="Self.FK_CashRecieptDetail_CashReciept">
+      <End Role="CashReciept" EntitySet="CashReciept" />
+      <End Role="CashRecieptDetail" EntitySet="CashRecieptDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CashRecieptDetail_Customer" Association="Self.FK_CashRecieptDetail_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="CashRecieptDetail" EntitySet="CashRecieptDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customer_CustomerCategory" Association="Self.FK_Customer_CustomerCategory">
+      <End Role="CustomerCategory" EntitySet="CustomerCategory" />
+      <End Role="Customer" EntitySet="Customer" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerAccount_Customer" Association="Self.FK_CustomerAccount_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="CustomerAccount" EntitySet="CustomerAccount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerAccountDetail_CustomerAccount" Association="Self.FK_CustomerAccountDetail_CustomerAccount">
+      <End Role="CustomerAccount" EntitySet="CustomerAccount" />
+      <End Role="CustomerAccountDetail" EntitySet="CustomerAccountDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoice_Customer" Association="Self.FK_Invoice_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="Invoice" EntitySet="Invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvoiceDetail_Article" Association="Self.FK_InvoiceDetail_Article">
+      <End Role="Article" EntitySet="Article" />
+      <End Role="InvoiceDetail" EntitySet="InvoiceDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvoiceDetail_ArticleDetail" Association="Self.FK_InvoiceDetail_ArticleDetail">
+      <End Role="ArticleDetail" EntitySet="ArticleDetail" />
+      <End Role="InvoiceDetail" EntitySet="InvoiceDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvoiceDetail_Invoice" Association="Self.FK_InvoiceDetail_Invoice">
+      <End Role="Invoice" EntitySet="Invoice" />
+      <End Role="InvoiceDetail" EntitySet="InvoiceDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Buyer" Association="Self.FK_Order_Buyer">
+      <End Role="Buyer" EntitySet="Buyer" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_Article" Association="Self.FK_OrderDetail_Article">
+      <End Role="Article" EntitySet="Article" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_ArticleDetail" Association="Self.FK_OrderDetail_ArticleDetail">
+      <End Role="ArticleDetail" EntitySet="ArticleDetail" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_Order" Association="Self.FK_OrderDetail_Order">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderHistory_Order" Association="Self.FK_OrderHistory_Order">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="OrderHistory" EntitySet="OrderHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderHistory_OrderDetail" Association="Self.FK_OrderHistory_OrderDetail">
+      <End Role="OrderDetail" EntitySet="OrderDetail" />
+      <End Role="OrderHistory" EntitySet="OrderHistory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReserveSale_Customer" Association="Self.FK_ReserveSale_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="ReserveSale" EntitySet="ReserveSale" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReserveSaleDetail_Article" Association="Self.FK_ReserveSaleDetail_Article">
+      <End Role="Article" EntitySet="Article" />
+      <End Role="ReserveSaleDetail" EntitySet="ReserveSaleDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReserveSaleDetail_ArticleDetail" Association="Self.FK_ReserveSaleDetail_ArticleDetail">
+      <End Role="ArticleDetail" EntitySet="ArticleDetail" />
+      <End Role="ReserveSaleDetail" EntitySet="ReserveSaleDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReserveSaleDetail_ReserveSale" Association="Self.FK_ReserveSaleDetail_ReserveSale">
+      <End Role="ReserveSale" EntitySet="ReserveSale" />
+      <End Role="ReserveSaleDetail" EntitySet="ReserveSaleDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReturnItem_Customer" Association="Self.FK_ReturnItem_Customer">
+      <End Role="Customer" EntitySet="Customer" />
+      <End Role="ReturnItem" EntitySet="ReturnItem" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReturnItemDetail_Article" Association="Self.FK_ReturnItemDetail_Article">
+      <End Role="Article" EntitySet="Article" />
+      <End Role="ReturnItemDetail" EntitySet="ReturnItemDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReturnItemDetail_ArticleDetail" Association="Self.FK_ReturnItemDetail_ArticleDetail">
+      <End Role="ArticleDetail" EntitySet="ArticleDetail" />
+      <End Role="ReturnItemDetail" EntitySet="ReturnItemDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReturnItemDetail_ReturnItem" Association="Self.FK_ReturnItemDetail_ReturnItem">
+      <End Role="ReturnItem" EntitySet="ReturnItem" />
+      <End Role="ReturnItemDetail" EntitySet="ReturnItemDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolePermission_Permission" Association="Self.FK_RolePermission_Permission">
+      <End Role="Permission" EntitySet="Permission" />
+      <End Role="RolePermission" EntitySet="RolePermission" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolePermission_Role" Association="Self.FK_RolePermission_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="RolePermission" EntitySet="RolePermission" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserCredential_Role" Association="Self.FK_UserCredential_Role">
+      <End Role="Role" EntitySet="Role" />
+      <End Role="UserCredential" EntitySet="UserCredential" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,136 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    var actionRecTemplate = string.Empty;
+
+    var baseviewActionUrl = CommonFunction.GetBaseUrlForActions("ReturnReciept", "Return") + "/";
+
+    actionRecTemplate += "<a href=" + baseviewActionUrl + "#: ReturnItemID # >View Return</a>";
+
+    var actionColumnTemplate = string.Empty;
+    var baseDelActionUrl = CommonFunction.GetBaseUrlForActions("Delete", "Return") + "/";
+
+    actionColumnTemplate += "<a href=" + baseDelActionUrl + "#: ReturnItemID # >Delete</a>";
+
+}
+
+<div class="row">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#">Return Management</a></li>
+            <li><a href="~/Return">Return Items</a></li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-10">
+        <div class="row">
+
+        </div>
+    </div>
+</div>
+@if (TempData["ERROR"] != null)
+{
+    <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <span>@TempData["ERROR"] </span>
+    </div>
+}
+
+
+@if (TempData["SUCCESS"] != null)
+{
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <span>@TempData["SUCCESS"] </span>
+    </div>
+}
+
+<br />
+<div class="row">
+
+    @(Html.Kendo().Grid<ReturnItemM>()
+    .Name("grid")
+    .Columns(columns =>
+    {
+        columns.Bound(e => e.ReturnItemID).Width(120);
+        columns.Bound(e => e.AddedOn).Width(200);
+        columns.Bound(e => e.CustomerType).Width(120);
+        columns.Bound(e => e.CustomerName).Width(130).Title("Customer");
+        columns.Bound(e => e.Price).Width(120).Title("Return Price");
+        columns.Bound(s => s.ReturnItemID).Title("").Filterable(f => f.Enabled(false)).ClientTemplate(actionRecTemplate).Width(100).Sortable(false).HtmlAttributes(new { style = "text-align:center;" });
+        //  columns.Bound(s => s.ReturnItemID).Title("").Filterable(f => f.Enabled(false)).ClientTemplate(actionColumnTemplate).Width(100).Sortable(false).HtmlAttributes(new { style = "text-align:center;" });
+        columns.Command(command => { command.Destroy(); }).Width(180);
+
+    })
+    .HtmlAttributes(new { style = "height:725px;" })
+                .Sortable()
+                .Pageable()
+                .Scrollable()
+                .Filterable()
+                .ColumnMenu()
+                //    .Events(e=> e.DataBound("onDataBound") )
+
+                .Reorderable(reorder => reorder.Columns(true))
+                .DataSource(dataSource => dataSource.Ajax().PageSize(30)
+                .Model(model =>
+                {
+                    model.Id(p => p.ReturnItemID);
+                })
+        .Read(read => read.Action("Read", "Return"))
+        .Destroy(update => update.Action("Delete", "Return"))
+        )
+        .Sortable()
+
+    )
+
+    <script id="template" type="text/kendo-tmpl">
+        @(Html.Kendo().TabStrip()
+            .Name("tabStrip_#=ReturnItemID#")
+            .SelectedIndex(0)
+            .Animation(animation => animation.Open(open => open.Fade(FadeDirection.In)))
+            .Items(items =>
+            {
+                items.Add().Text("ReturnItemDetails").Content(@<text>
+            @(Html.Kendo().Grid<ReturnItemDetM>()
+                        .Name("grid_#=ReturnItemID#") // template expression, to be evaluated in the master context
+                        .Columns(columns =>
+                        {
+                            columns.Bound(o => o.ArticleName);
+                            columns.Bound(o => o.ColorName);
+                            columns.Bound(o => o.Pairs); // escaped template expression, to be evaluated in the child/detail context
+                            columns.Bound(o => o.Cartons);
+                            columns.Bound(o => o.Price);
+                        })
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(30)
+                            .Read(read => read.Action("DetailRead", "Return", new { ReturnItem = "#=ReturnItemID#" }))
+                        )
+                        .Pageable()
+                        .Sortable()
+                        .ToClientTemplate())
+                </text>
+                );
+
+            })
+            .ToClientTemplate())
+    </script>
+
+
+
+
+</div>
+
+<script type="text/javascript">
+
+</script>
+@section scripts{
+    <script>
+        $('.cmd-mark-inactive').click(function () {
+            return confirm("Do you really want to change status of this record?")
+        });
+
+    </script>
+}

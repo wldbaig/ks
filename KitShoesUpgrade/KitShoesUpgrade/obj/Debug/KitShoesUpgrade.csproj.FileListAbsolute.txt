@@ -1,0 +1,101 @@
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\obj\Debug\KitShoesUpgrade.csprojResolveAssemblyReference.cache
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\KitShoesUpgrade.dll.config
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\KitShoesUpgrade.dll
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\KitShoesUpgrade.pdb
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\Antlr3.Runtime.dll
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\EntityFramework.dll
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\Newtonsoft.Json.dll
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Helpers.dll
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Mvc.dll
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Optimization.dll
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Razor.dll
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.WebPages.dll
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.WebPages.Razor.dll
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\WebGrease.dll
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\EntityFramework.xml
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Helpers.xml
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Mvc.xml
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Razor.xml
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.WebPages.xml
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.WebPages.Razor.xml
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Optimization.xml
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\Newtonsoft.Json.xml
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\Antlr3.Runtime.pdb
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\obj\Debug\KitShoesUpgrade.dll
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\obj\Debug\KitShoesUpgrade.pdb
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\NLog.dll
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\NLog.Web.dll
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\NLog.xml
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\Kendo.Mvc.dll
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\EntityFramework.SqlServer.dll
+C:\Users\Waleed Baig\Documents\Visual Studio 2013\Projects\KitShoesUpgrade\KitShoesUpgrade\bin\EntityFramework.SqlServer.xml
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\KitShoesUpgrade.dll.config
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\KitShoesUpgrade.dll
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\KitShoesUpgrade.pdb
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\Antlr3.Runtime.dll
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\EntityFramework.dll
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\EntityFramework.SqlServer.dll
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\Microsoft.Web.Infrastructure.dll
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\Newtonsoft.Json.dll
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Helpers.dll
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Http.dll
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Mvc.dll
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Optimization.dll
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Razor.dll
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.WebPages.Deployment.dll
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.WebPages.dll
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.WebPages.Razor.dll
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\WebGrease.dll
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Net.Http.Formatting.dll
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\Antlr3.Runtime.pdb
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\EntityFramework.xml
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\EntityFramework.SqlServer.xml
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\Newtonsoft.Json.xml
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Helpers.xml
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Http.xml
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Mvc.xml
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Optimization.xml
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Razor.xml
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.WebPages.xml
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.WebPages.Deployment.xml
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.WebPages.Razor.xml
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Net.Http.Formatting.xml
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\obj\Debug\KitShoesUpgrade.dll
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\obj\Debug\KitShoesUpgrade.pdb
+D:\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\obj\Debug\KitShoesUpgrade.csprojResolveAssemblyReference.cache
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\KitShoesUpgrade.dll.config
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\KitShoesUpgrade.dll
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\KitShoesUpgrade.pdb
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\Antlr3.Runtime.dll
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\EntityFramework.dll
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\EntityFramework.SqlServer.dll
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\Microsoft.Web.Infrastructure.dll
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\Newtonsoft.Json.dll
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Helpers.dll
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Mvc.dll
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Optimization.dll
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Razor.dll
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.WebPages.Deployment.dll
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.WebPages.dll
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.WebPages.Razor.dll
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\WebGrease.dll
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Net.Http.Formatting.dll
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\Antlr3.Runtime.pdb
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\EntityFramework.xml
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\EntityFramework.SqlServer.xml
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\Newtonsoft.Json.xml
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Helpers.xml
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Http.xml
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Mvc.xml
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Optimization.xml
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.Razor.xml
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.WebPages.xml
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.WebPages.Deployment.xml
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Web.WebPages.Razor.xml
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\bin\System.Net.Http.Formatting.xml
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\obj\Debug\KitShoesUpgrade.csprojResolveAssemblyReference.cache
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\obj\Debug\KitShoesUpgrade.dll
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KitShoesUpgrade\obj\Debug\KitShoesUpgrade.pdb

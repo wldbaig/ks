@@ -1,0 +1,273 @@
+﻿@model PurchaseViewModel
+@{
+
+    var baseUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["BaseURL"];
+    ViewBag.Title = "MakeOrder";
+}
+<link href="~/Content/css/devoops/tooltip.css" rel="stylesheet" />
+
+
+
+@using (Html.BeginForm("MakeOrder", "Order", FormMethod.Post, new { id = "uploadForm1", enctype = "multipart/form-data",
+        onsubmit = "return confirm('Do you really want to submit the form?');" }))
+{
+    <div class="row">
+        <div id="breadcrumb" class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="#">Order Management</a></li>
+                <li><a href="~/Order">Orders</a></li>
+                <li><a href="#">MakeOrder</a></li>
+            </ol>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+
+            <div class="box">
+                <div class="box-header">
+                    <div class="box-name">
+                        <i class="fa fa-search"></i>
+                        <span>Order </span>
+                    </div>
+                    <div class="box-icons">
+                        <a class="collapse-link">
+                            @*<i class="fa fa-chevron-up"></i>*@
+                        </a>
+                    </div>
+                    <div class="no-move"></div>
+                </div>
+                <div class="box-content">
+                    <div class="row">
+                        <p class="bg-danger">@Html.ValidationSummary(true)</p>
+                        @if (TempData["ERROR"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <span>@TempData["ERROR"] </span>
+                            </div>
+                        }
+                        @if (TempData["SUCCESS"] != null)
+                        {
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <span>@TempData["SUCCESS"] </span>
+                            </div>
+                        }
+
+                        <div class="col-lg-6">
+                      
+                            <fieldset>
+
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                        @Html.LabelFor(model => model.OrderType, new { @class = "control-label" })
+
+                                    </div>
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(model => model.OrderType, (SelectList)ViewBag.Ordertype, "Select Order Type" ,new { @class = "populate placeholder", id = "s1_with_tag" })
+                                        @Html.ValidationMessageFor(model => model.OrderType)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                        @Html.LabelFor(model => model.BuyerID, new { @class = "control-label" })
+
+                                    </div>
+                                    <div class="col-sm-4">
+                                        @Html.DropDownListFor(model => model.BuyerID, (SelectList)ViewBag.BuyerList, "Select Buyer", new { @class = "populate placeholder", id = "s2_with_tag" })
+                                        @Html.ValidationMessageFor(model => model.BuyerID)
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                        @Html.Label("Articles", new { @class = "control-label" })
+
+                                    </div>
+                                    <div class="col-sm-4">
+                                          @(Html.Kendo().MultiSelectFor(m => m.Article).DataTextField("Name")
+            .DataValueField("ID").DataSource(d => d.Read(r => r.Action("GetArticles", "Order")))
+            .Events(e =>
+                                    {
+                                        e.Change("onChange").Select("onSelect");
+                                    }))
+                                        
+                                        
+                                           @Html.ValidationMessageFor(model => model.Article)
+                                    </div>
+                                </div>
+
+                                <div id="articleDetails" class="form-group">
+
+                                </div>
+                            </fieldset>
+
+                            <div class="clearfix"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <button type="submit" class="btn btn-primary btn-label-left">
+                                        Save
+                                    </button>
+                                    <a href="~/Order" class="btn btn-primary btn-label-left">
+                                        Cancel
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                             <fieldset>
+                                 <div class="form-group" >
+                                     <div class="col-sm-4">
+                                        Total Amount
+                                     </div>
+                                     <div class="col-sm-4" id="total-Amount">
+                                                   0
+                                     </div>
+                                 </div>
+                                 <div class="form-group" id="amount-paid" style="display: none">
+                                     <div class="col-sm-4">
+                                         @Html.LabelFor(model => model.AmountPaid, new { @class = "control-label" })
+
+                                     </div>
+                                     <div class="col-sm-4">
+                                         @(Html.Kendo().NumericTextBox<decimal>()
+.Name("AmountPaid")
+                            .Min(0)
+                                         )
+                                     </div>
+                                 </div>
+
+                             </fieldset>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="ajax-loading" id="loading"><p></p></div>
+
+}
+@section Styles{
+    <style scoped>
+        .populate {
+            width: 200px;
+        }
+    </style>
+}
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval");
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#s1_with_tag').select2({ placeholder: "Select Order Type" });
+            $('#s2_with_tag').select2({ placeholder: "Select Buyer" });
+            $('#s3_with_tag').select2({ placeholder: "Select Articles" });
+
+            $('#s1_with_tag').on('change', function () {
+                if (this.value == '2')             
+                {
+                    $("#amount-paid").show();
+                }
+                else {
+                    $("#amount-paid").hide();
+                }
+            });
+        });
+        
+
+        function calcuatePrice(element, artID, artDtlId) {
+            debugger;
+            var input = parseFloat($(element).val());
+            
+            var artPrice = "#item-price-" + artID;
+           
+            var price = $(artPrice).val();
+            
+            var amontOfArticle = price * input;
+                            
+            var artDtlPrice = "#artDet-" + artDtlId;
+
+            var artDtlrPrice = "#artDetr-" + artDtlId;   // to remove price
+
+            $(artDtlPrice).text(amontOfArticle);
+            $(artDtlrPrice).text(amontOfArticle);
+                               
+            var str = 0;
+            $('.itemPrices').each(function () {
+                str += parseFloat($(this).text());
+            })        
+            $('#total-Amount').text(str); 
+        }
+
+    </script>
+
+    <script>
+       
+        function onChange() {
+
+            debugger;
+
+            var previous = this._savedOld;
+            var current = this.value();
+            var diff = [];
+            if (previous) {
+                diff = $(previous).not(current).get();
+            }
+            this._savedOld = current.slice(0);
+            if (diff.length > 0) {
+                debugger;
+                var item = "#" + diff;
+                var artRempvPrice = ".itemPrices" + diff; //e.params.data.id;
+                var str = 0;
+                $(artRempvPrice).each(function () {
+                    str += parseFloat($(this).text());
+                })
+                var ttlAmount = parseFloat($('#total-Amount').text());
+                ttlAmount = ttlAmount - str;
+                $('#total-Amount').text(ttlAmount);
+
+                $(item).remove();
+
+                console.log('deleted')
+            }
+
+        }
+
+        function onSelect(e) {
+            debugger;
+            var item = e.item;
+            var text = item.text();
+
+            $.ajax({
+                type: "POST",
+                url: "@baseUrl/Order/GetArticleDetailforPurchase",
+                data: JSON.stringify({ ArticleID: text }),
+                datatype: "json",
+                contentType: "application/json",
+                success: function (data) {
+                    $('#articleDetails').prepend(data);
+                    $('#articleDetails').show();
+                },
+                error: function (error) {
+                    $('#articleDetails').hide();
+                }
+            });
+
+        }
+
+
+
+    </script>
+}

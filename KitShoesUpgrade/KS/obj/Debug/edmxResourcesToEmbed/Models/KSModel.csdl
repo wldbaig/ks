@@ -1,0 +1,1068 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KitSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="KitSEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BPArticles" EntityType="KitSModel.BPArticle" />
+    <EntitySet Name="BPArticleDetails" EntityType="KitSModel.BPArticleDetail" />
+    <EntitySet Name="BPInvoices" EntityType="KitSModel.BPInvoice" />
+    <EntitySet Name="BPInvoiceDetails" EntityType="KitSModel.BPInvoiceDetail" />
+    <EntitySet Name="Categories" EntityType="KitSModel.Category" />
+    <EntitySet Name="CMArticles" EntityType="KitSModel.CMArticle" />
+    <EntitySet Name="CMArticleDetails" EntityType="KitSModel.CMArticleDetail" />
+    <EntitySet Name="CMInvoices" EntityType="KitSModel.CMInvoice" />
+    <EntitySet Name="CMInvoiceDetails" EntityType="KitSModel.CMInvoiceDetail" />
+    <EntitySet Name="Colors" EntityType="KitSModel.Color" />
+    <EntitySet Name="Orders" EntityType="KitSModel.Order" />
+    <EntitySet Name="OrderDetails" EntityType="KitSModel.OrderDetail" />
+    <EntitySet Name="OrderHistories" EntityType="KitSModel.OrderHistory" />
+    <EntitySet Name="Permissions" EntityType="KitSModel.Permission" />
+    <EntitySet Name="Roles" EntityType="KitSModel.Role" />
+    <EntitySet Name="RolePermissions" EntityType="KitSModel.RolePermission" />
+    <EntitySet Name="TSArticles" EntityType="KitSModel.TSArticle" />
+    <EntitySet Name="TSArticleDetails" EntityType="KitSModel.TSArticleDetail" />
+    <EntitySet Name="TSInvoices" EntityType="KitSModel.TSInvoice" />
+    <EntitySet Name="TSInvoiceDetails" EntityType="KitSModel.TSInvoiceDetail" />
+    <EntitySet Name="UserCredentials" EntityType="KitSModel.UserCredential" />
+    <EntitySet Name="WHArticles" EntityType="KitSModel.WHArticle" />
+    <EntitySet Name="WHArticleDetails" EntityType="KitSModel.WHArticleDetail" />
+    <AssociationSet Name="FK_BPArticle_Category" Association="KitSModel.FK_BPArticle_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="BPArticle" EntitySet="BPArticles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BPArticleDetail_BPArticle" Association="KitSModel.FK_BPArticleDetail_BPArticle">
+      <End Role="BPArticle" EntitySet="BPArticles" />
+      <End Role="BPArticleDetail" EntitySet="BPArticleDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BPInvoiceDetail_BPArticle" Association="KitSModel.FK_BPInvoiceDetail_BPArticle">
+      <End Role="BPArticle" EntitySet="BPArticles" />
+      <End Role="BPInvoiceDetail" EntitySet="BPInvoiceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BPArticleDetail_Colors" Association="KitSModel.FK_BPArticleDetail_Colors">
+      <End Role="Color" EntitySet="Colors" />
+      <End Role="BPArticleDetail" EntitySet="BPArticleDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BPInvoiceDetail_BPArticleDetail" Association="KitSModel.FK_BPInvoiceDetail_BPArticleDetail">
+      <End Role="BPArticleDetail" EntitySet="BPArticleDetails" />
+      <End Role="BPInvoiceDetail" EntitySet="BPInvoiceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BPInvoiceDetail_BPInvoice" Association="KitSModel.FK_BPInvoiceDetail_BPInvoice">
+      <End Role="BPInvoice" EntitySet="BPInvoices" />
+      <End Role="BPInvoiceDetail" EntitySet="BPInvoiceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Article_Category" Association="KitSModel.FK_Article_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="WHArticle" EntitySet="WHArticles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CMArticle_Category" Association="KitSModel.FK_CMArticle_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="CMArticle" EntitySet="CMArticles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TSArticle_Category" Association="KitSModel.FK_TSArticle_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="TSArticle" EntitySet="TSArticles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CMArticleDetail_CMArticle" Association="KitSModel.FK_CMArticleDetail_CMArticle">
+      <End Role="CMArticle" EntitySet="CMArticles" />
+      <End Role="CMArticleDetail" EntitySet="CMArticleDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CMInvoiceDetail_CMArticle" Association="KitSModel.FK_CMInvoiceDetail_CMArticle">
+      <End Role="CMArticle" EntitySet="CMArticles" />
+      <End Role="CMInvoiceDetail" EntitySet="CMInvoiceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CMArticleDetail_Colors" Association="KitSModel.FK_CMArticleDetail_Colors">
+      <End Role="Color" EntitySet="Colors" />
+      <End Role="CMArticleDetail" EntitySet="CMArticleDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CMInvoiceDetail_CMArticleDetail" Association="KitSModel.FK_CMInvoiceDetail_CMArticleDetail">
+      <End Role="CMArticleDetail" EntitySet="CMArticleDetails" />
+      <End Role="CMInvoiceDetail" EntitySet="CMInvoiceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CMInvoiceDetail_CMInvoice" Association="KitSModel.FK_CMInvoiceDetail_CMInvoice">
+      <End Role="CMInvoice" EntitySet="CMInvoices" />
+      <End Role="CMInvoiceDetail" EntitySet="CMInvoiceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ArticleDetail_Colors" Association="KitSModel.FK_ArticleDetail_Colors">
+      <End Role="Color" EntitySet="Colors" />
+      <End Role="WHArticleDetail" EntitySet="WHArticleDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TSArticleDetail_Colors" Association="KitSModel.FK_TSArticleDetail_Colors">
+      <End Role="Color" EntitySet="Colors" />
+      <End Role="TSArticleDetail" EntitySet="TSArticleDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_Order" Association="KitSModel.FK_OrderDetail_Order">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="OrderDetail" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderHistory_Order" Association="KitSModel.FK_OrderHistory_Order">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="OrderHistory" EntitySet="OrderHistories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_WHArticle" Association="KitSModel.FK_OrderDetail_WHArticle">
+      <End Role="WHArticle" EntitySet="WHArticles" />
+      <End Role="OrderDetail" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_WHArticleDetail" Association="KitSModel.FK_OrderDetail_WHArticleDetail">
+      <End Role="WHArticleDetail" EntitySet="WHArticleDetails" />
+      <End Role="OrderDetail" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderHistory_OrderDetail" Association="KitSModel.FK_OrderHistory_OrderDetail">
+      <End Role="OrderDetail" EntitySet="OrderDetails" />
+      <End Role="OrderHistory" EntitySet="OrderHistories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolePermission_Permission" Association="KitSModel.FK_RolePermission_Permission">
+      <End Role="Permission" EntitySet="Permissions" />
+      <End Role="RolePermission" EntitySet="RolePermissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolePermission_Role" Association="KitSModel.FK_RolePermission_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="RolePermission" EntitySet="RolePermissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserCredential_Role" Association="KitSModel.FK_UserCredential_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="UserCredential" EntitySet="UserCredentials" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TSArticleDetail_TSArticle" Association="KitSModel.FK_TSArticleDetail_TSArticle">
+      <End Role="TSArticle" EntitySet="TSArticles" />
+      <End Role="TSArticleDetail" EntitySet="TSArticleDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TSArticlleDetail_TSArticle" Association="KitSModel.FK_TSArticlleDetail_TSArticle">
+      <End Role="TSArticle" EntitySet="TSArticles" />
+      <End Role="TSInvoiceDetail" EntitySet="TSInvoiceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TSInvoiceDetail_TSInvoiceDetail" Association="KitSModel.FK_TSInvoiceDetail_TSInvoiceDetail">
+      <End Role="TSArticleDetail" EntitySet="TSArticleDetails" />
+      <End Role="TSInvoiceDetail" EntitySet="TSInvoiceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TSInvoiceDetail_TSInvoice" Association="KitSModel.FK_TSInvoiceDetail_TSInvoice">
+      <End Role="TSInvoice" EntitySet="TSInvoices" />
+      <End Role="TSInvoiceDetail" EntitySet="TSInvoiceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ArticleDetail_Article" Association="KitSModel.FK_ArticleDetail_Article">
+      <End Role="WHArticle" EntitySet="WHArticles" />
+      <End Role="WHArticleDetail" EntitySet="WHArticleDetails" />
+    </AssociationSet>
+    <EntitySet Name="BPReturnItems" EntityType="KitSModel.BPReturnItem" />
+    <EntitySet Name="BPReturnItemDetails" EntityType="KitSModel.BPReturnItemDetail" />
+    <EntitySet Name="CMReturnItems" EntityType="KitSModel.CMReturnItem" />
+    <EntitySet Name="CMReturnItemDetails" EntityType="KitSModel.CMReturnItemDetail" />
+    <EntitySet Name="TSReturnItems" EntityType="KitSModel.TSReturnItem" />
+    <EntitySet Name="TSReturnItemDetails" EntityType="KitSModel.TSReturnItemDetail" />
+    <AssociationSet Name="FK_BPReturnItemDetail_BPArticle" Association="KitSModel.FK_BPReturnItemDetail_BPArticle">
+      <End Role="BPArticle" EntitySet="BPArticles" />
+      <End Role="BPReturnItemDetail" EntitySet="BPReturnItemDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BPReturnItemDetail_BPArticleDetail" Association="KitSModel.FK_BPReturnItemDetail_BPArticleDetail">
+      <End Role="BPArticleDetail" EntitySet="BPArticleDetails" />
+      <End Role="BPReturnItemDetail" EntitySet="BPReturnItemDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BPReturnItemDetail_BPReturnItem" Association="KitSModel.FK_BPReturnItemDetail_BPReturnItem">
+      <End Role="BPReturnItem" EntitySet="BPReturnItems" />
+      <End Role="BPReturnItemDetail" EntitySet="BPReturnItemDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CMReturnItemDetail_CMArticle" Association="KitSModel.FK_CMReturnItemDetail_CMArticle">
+      <End Role="CMArticle" EntitySet="CMArticles" />
+      <End Role="CMReturnItemDetail" EntitySet="CMReturnItemDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CMReturnItemDetail_CMArticleDetail" Association="KitSModel.FK_CMReturnItemDetail_CMArticleDetail">
+      <End Role="CMArticleDetail" EntitySet="CMArticleDetails" />
+      <End Role="CMReturnItemDetail" EntitySet="CMReturnItemDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CMReturnItemDetail_CMReturnItem" Association="KitSModel.FK_CMReturnItemDetail_CMReturnItem">
+      <End Role="CMReturnItem" EntitySet="CMReturnItems" />
+      <End Role="CMReturnItemDetail" EntitySet="CMReturnItemDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TSReturnItemDetail_TSArticle" Association="KitSModel.FK_TSReturnItemDetail_TSArticle">
+      <End Role="TSArticle" EntitySet="TSArticles" />
+      <End Role="TSReturnItemDetail" EntitySet="TSReturnItemDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TSReturnItemDetail_TSArticleDetail" Association="KitSModel.FK_TSReturnItemDetail_TSArticleDetail">
+      <End Role="TSArticleDetail" EntitySet="TSArticleDetails" />
+      <End Role="TSReturnItemDetail" EntitySet="TSReturnItemDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TSReturnItemDetail_TSReturnItem" Association="KitSModel.FK_TSReturnItemDetail_TSReturnItem">
+      <End Role="TSReturnItem" EntitySet="TSReturnItems" />
+      <End Role="TSReturnItemDetail" EntitySet="TSReturnItemDetails" />
+    </AssociationSet>
+    <EntitySet Name="Shops" EntityType="KitSModel.Shop" />
+    <FunctionImport Name="Report_BPArticleSaleWithDates" ReturnType="Collection(KitSModel.Report_BPArticleSaleWithDates_Result)">
+      <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="Report_CMArticleSaleWithDates" ReturnType="Collection(KitSModel.Report_CMArticleSaleWithDates_Result)">
+      <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+  </EntityContainer>
+  <EntityType Name="BPArticle">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleName" Type="String" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Category" Relationship="KitSModel.FK_BPArticle_Category" FromRole="BPArticle" ToRole="Category" />
+    <NavigationProperty Name="BPArticleDetails" Relationship="KitSModel.FK_BPArticleDetail_BPArticle" FromRole="BPArticle" ToRole="BPArticleDetail" />
+    <NavigationProperty Name="BPInvoiceDetails" Relationship="KitSModel.FK_BPInvoiceDetail_BPArticle" FromRole="BPArticle" ToRole="BPInvoiceDetail" />
+    <NavigationProperty Name="BPReturnItemDetails" Relationship="KitSModel.FK_BPReturnItemDetail_BPArticle" FromRole="BPArticle" ToRole="BPReturnItemDetail" />
+  </EntityType>
+  <EntityType Name="BPArticleDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="BPArticleId" Type="Int32" Nullable="false" />
+    <Property Name="ColorId" Type="Int32" Nullable="false" />
+    <Property Name="DateAdded" Type="DateTime" Precision="3" />
+    <Property Name="TotalStock" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="BPArticle" Relationship="KitSModel.FK_BPArticleDetail_BPArticle" FromRole="BPArticleDetail" ToRole="BPArticle" />
+    <NavigationProperty Name="Color" Relationship="KitSModel.FK_BPArticleDetail_Colors" FromRole="BPArticleDetail" ToRole="Color" />
+    <NavigationProperty Name="BPInvoiceDetails" Relationship="KitSModel.FK_BPInvoiceDetail_BPArticleDetail" FromRole="BPArticleDetail" ToRole="BPInvoiceDetail" />
+    <NavigationProperty Name="BPReturnItemDetails" Relationship="KitSModel.FK_BPReturnItemDetail_BPArticleDetail" FromRole="BPArticleDetail" ToRole="BPReturnItemDetail" />
+  </EntityType>
+  <EntityType Name="BPInvoice">
+    <Key>
+      <PropertyRef Name="InvoiceID" />
+    </Key>
+    <Property Name="InvoiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="BPInvoiceDetails" Relationship="KitSModel.FK_BPInvoiceDetail_BPInvoice" FromRole="BPInvoice" ToRole="BPInvoiceDetail" />
+  </EntityType>
+  <EntityType Name="BPInvoiceDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BPInvoiceID" Type="Int32" Nullable="false" />
+    <Property Name="BPArticleID" Type="Int32" Nullable="false" />
+    <Property Name="BPArticleDetailID" Type="Int32" Nullable="false" />
+    <Property Name="Pairs" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="BPArticle" Relationship="KitSModel.FK_BPInvoiceDetail_BPArticle" FromRole="BPInvoiceDetail" ToRole="BPArticle" />
+    <NavigationProperty Name="BPArticleDetail" Relationship="KitSModel.FK_BPInvoiceDetail_BPArticleDetail" FromRole="BPInvoiceDetail" ToRole="BPArticleDetail" />
+    <NavigationProperty Name="BPInvoice" Relationship="KitSModel.FK_BPInvoiceDetail_BPInvoice" FromRole="BPInvoiceDetail" ToRole="BPInvoice" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BPArticles" Relationship="KitSModel.FK_BPArticle_Category" FromRole="Category" ToRole="BPArticle" />
+    <NavigationProperty Name="WHArticles" Relationship="KitSModel.FK_Article_Category" FromRole="Category" ToRole="WHArticle" />
+    <NavigationProperty Name="CMArticles" Relationship="KitSModel.FK_CMArticle_Category" FromRole="Category" ToRole="CMArticle" />
+    <NavigationProperty Name="TSArticles" Relationship="KitSModel.FK_TSArticle_Category" FromRole="Category" ToRole="TSArticle" />
+  </EntityType>
+  <EntityType Name="CMArticle">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleName" Type="String" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Category" Relationship="KitSModel.FK_CMArticle_Category" FromRole="CMArticle" ToRole="Category" />
+    <NavigationProperty Name="CMArticleDetails" Relationship="KitSModel.FK_CMArticleDetail_CMArticle" FromRole="CMArticle" ToRole="CMArticleDetail" />
+    <NavigationProperty Name="CMInvoiceDetails" Relationship="KitSModel.FK_CMInvoiceDetail_CMArticle" FromRole="CMArticle" ToRole="CMInvoiceDetail" />
+    <NavigationProperty Name="CMReturnItemDetails" Relationship="KitSModel.FK_CMReturnItemDetail_CMArticle" FromRole="CMArticle" ToRole="CMReturnItemDetail" />
+  </EntityType>
+  <EntityType Name="CMArticleDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="CMArticleId" Type="Int32" Nullable="false" />
+    <Property Name="ColorId" Type="Int32" Nullable="false" />
+    <Property Name="DateAdded" Type="DateTime" Precision="3" />
+    <Property Name="TotalStock" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CMArticle" Relationship="KitSModel.FK_CMArticleDetail_CMArticle" FromRole="CMArticleDetail" ToRole="CMArticle" />
+    <NavigationProperty Name="Color" Relationship="KitSModel.FK_CMArticleDetail_Colors" FromRole="CMArticleDetail" ToRole="Color" />
+    <NavigationProperty Name="CMInvoiceDetails" Relationship="KitSModel.FK_CMInvoiceDetail_CMArticleDetail" FromRole="CMArticleDetail" ToRole="CMInvoiceDetail" />
+    <NavigationProperty Name="CMReturnItemDetails" Relationship="KitSModel.FK_CMReturnItemDetail_CMArticleDetail" FromRole="CMArticleDetail" ToRole="CMReturnItemDetail" />
+  </EntityType>
+  <EntityType Name="CMInvoice">
+    <Key>
+      <PropertyRef Name="InvoiceID" />
+    </Key>
+    <Property Name="InvoiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="CMInvoiceDetails" Relationship="KitSModel.FK_CMInvoiceDetail_CMInvoice" FromRole="CMInvoice" ToRole="CMInvoiceDetail" />
+  </EntityType>
+  <EntityType Name="CMInvoiceDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CMInvoiceID" Type="Int32" Nullable="false" />
+    <Property Name="CMArticleID" Type="Int32" Nullable="false" />
+    <Property Name="CMArticleDetailID" Type="Int32" Nullable="false" />
+    <Property Name="Pairs" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="CMArticle" Relationship="KitSModel.FK_CMInvoiceDetail_CMArticle" FromRole="CMInvoiceDetail" ToRole="CMArticle" />
+    <NavigationProperty Name="CMArticleDetail" Relationship="KitSModel.FK_CMInvoiceDetail_CMArticleDetail" FromRole="CMInvoiceDetail" ToRole="CMArticleDetail" />
+    <NavigationProperty Name="CMInvoice" Relationship="KitSModel.FK_CMInvoiceDetail_CMInvoice" FromRole="CMInvoiceDetail" ToRole="CMInvoice" />
+  </EntityType>
+  <EntityType Name="Color">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ColorName" Type="String" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BPArticleDetails" Relationship="KitSModel.FK_BPArticleDetail_Colors" FromRole="Color" ToRole="BPArticleDetail" />
+    <NavigationProperty Name="CMArticleDetails" Relationship="KitSModel.FK_CMArticleDetail_Colors" FromRole="Color" ToRole="CMArticleDetail" />
+    <NavigationProperty Name="WHArticleDetails" Relationship="KitSModel.FK_ArticleDetail_Colors" FromRole="Color" ToRole="WHArticleDetail" />
+    <NavigationProperty Name="TSArticleDetails" Relationship="KitSModel.FK_TSArticleDetail_Colors" FromRole="Color" ToRole="TSArticleDetail" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="OrderStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="OrderDetails" Relationship="KitSModel.FK_OrderDetail_Order" FromRole="Order" ToRole="OrderDetail" />
+    <NavigationProperty Name="OrderHistories" Relationship="KitSModel.FK_OrderHistory_Order" FromRole="Order" ToRole="OrderHistory" />
+  </EntityType>
+  <EntityType Name="OrderDetail">
+    <Key>
+      <PropertyRef Name="OrderDetailID" />
+    </Key>
+    <Property Name="OrderDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderID" Type="Int32" Nullable="false" />
+    <Property Name="WHArticleID" Type="Int32" Nullable="false" />
+    <Property Name="WHArticleDetailID" Type="Int32" Nullable="false" />
+    <Property Name="Pairs" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="Order" Relationship="KitSModel.FK_OrderDetail_Order" FromRole="OrderDetail" ToRole="Order" />
+    <NavigationProperty Name="WHArticle" Relationship="KitSModel.FK_OrderDetail_WHArticle" FromRole="OrderDetail" ToRole="WHArticle" />
+    <NavigationProperty Name="WHArticleDetail" Relationship="KitSModel.FK_OrderDetail_WHArticleDetail" FromRole="OrderDetail" ToRole="WHArticleDetail" />
+    <NavigationProperty Name="OrderHistories" Relationship="KitSModel.FK_OrderHistory_OrderDetail" FromRole="OrderDetail" ToRole="OrderHistory" />
+  </EntityType>
+  <EntityType Name="OrderHistory">
+    <Key>
+      <PropertyRef Name="OrderHistoryID" />
+    </Key>
+    <Property Name="OrderHistoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderID" Type="Int32" Nullable="false" />
+    <Property Name="OrderDetailID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleDetailID" Type="Int32" Nullable="false" />
+    <Property Name="Pairs" Type="Int32" Nullable="false" />
+    <Property Name="TransferDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TransferTo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Order" Relationship="KitSModel.FK_OrderHistory_Order" FromRole="OrderHistory" ToRole="Order" />
+    <NavigationProperty Name="OrderDetail" Relationship="KitSModel.FK_OrderHistory_OrderDetail" FromRole="OrderHistory" ToRole="OrderDetail" />
+  </EntityType>
+  <EntityType Name="Permission">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="ShowView" Type="Boolean" Nullable="false" />
+    <Property Name="ShowAdd" Type="Boolean" Nullable="false" />
+    <Property Name="ShowEdit" Type="Boolean" Nullable="false" />
+    <Property Name="ShowDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="RolePermissions" Relationship="KitSModel.FK_RolePermission_Permission" FromRole="Permission" ToRole="RolePermission" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RoleType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="ChildRoles" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="RolePermissions" Relationship="KitSModel.FK_RolePermission_Role" FromRole="Role" ToRole="RolePermission" />
+    <NavigationProperty Name="UserCredentials" Relationship="KitSModel.FK_UserCredential_Role" FromRole="Role" ToRole="UserCredential" />
+  </EntityType>
+  <EntityType Name="RolePermission">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="PermissionID" Type="Int32" Nullable="false" />
+    <Property Name="CanView" Type="Boolean" Nullable="false" />
+    <Property Name="CanAdd" Type="Boolean" Nullable="false" />
+    <Property Name="CanEdit" Type="Boolean" Nullable="false" />
+    <Property Name="CanDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Permission" Relationship="KitSModel.FK_RolePermission_Permission" FromRole="RolePermission" ToRole="Permission" />
+    <NavigationProperty Name="Role" Relationship="KitSModel.FK_RolePermission_Role" FromRole="RolePermission" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="TSArticle">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleName" Type="String" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Category" Relationship="KitSModel.FK_TSArticle_Category" FromRole="TSArticle" ToRole="Category" />
+    <NavigationProperty Name="TSArticleDetails" Relationship="KitSModel.FK_TSArticleDetail_TSArticle" FromRole="TSArticle" ToRole="TSArticleDetail" />
+    <NavigationProperty Name="TSInvoiceDetails" Relationship="KitSModel.FK_TSArticlleDetail_TSArticle" FromRole="TSArticle" ToRole="TSInvoiceDetail" />
+    <NavigationProperty Name="TSReturnItemDetails" Relationship="KitSModel.FK_TSReturnItemDetail_TSArticle" FromRole="TSArticle" ToRole="TSReturnItemDetail" />
+  </EntityType>
+  <EntityType Name="TSArticleDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="TSArticleId" Type="Int32" Nullable="false" />
+    <Property Name="ColorId" Type="Int32" Nullable="false" />
+    <Property Name="DateAdded" Type="DateTime" Precision="3" />
+    <Property Name="TotalStock" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Color" Relationship="KitSModel.FK_TSArticleDetail_Colors" FromRole="TSArticleDetail" ToRole="Color" />
+    <NavigationProperty Name="TSArticle" Relationship="KitSModel.FK_TSArticleDetail_TSArticle" FromRole="TSArticleDetail" ToRole="TSArticle" />
+    <NavigationProperty Name="TSInvoiceDetails" Relationship="KitSModel.FK_TSInvoiceDetail_TSInvoiceDetail" FromRole="TSArticleDetail" ToRole="TSInvoiceDetail" />
+    <NavigationProperty Name="TSReturnItemDetails" Relationship="KitSModel.FK_TSReturnItemDetail_TSArticleDetail" FromRole="TSArticleDetail" ToRole="TSReturnItemDetail" />
+  </EntityType>
+  <EntityType Name="TSInvoice">
+    <Key>
+      <PropertyRef Name="InvoiceID" />
+    </Key>
+    <Property Name="InvoiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="TSInvoiceDetails" Relationship="KitSModel.FK_TSInvoiceDetail_TSInvoice" FromRole="TSInvoice" ToRole="TSInvoiceDetail" />
+  </EntityType>
+  <EntityType Name="TSInvoiceDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TSInvoiceID" Type="Int32" Nullable="false" />
+    <Property Name="TSArticleID" Type="Int32" Nullable="false" />
+    <Property Name="TSArticleDetailID" Type="Int32" Nullable="false" />
+    <Property Name="Pairs" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="TSArticle" Relationship="KitSModel.FK_TSArticlleDetail_TSArticle" FromRole="TSInvoiceDetail" ToRole="TSArticle" />
+    <NavigationProperty Name="TSArticleDetail" Relationship="KitSModel.FK_TSInvoiceDetail_TSInvoiceDetail" FromRole="TSInvoiceDetail" ToRole="TSArticleDetail" />
+    <NavigationProperty Name="TSInvoice" Relationship="KitSModel.FK_TSInvoiceDetail_TSInvoice" FromRole="TSInvoiceDetail" ToRole="TSInvoice" />
+  </EntityType>
+  <EntityType Name="UserCredential">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastLogin" Type="DateTime" Precision="3" />
+    <Property Name="LoginCount" Type="Int32" />
+    <Property Name="UserSince" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+    <Property Name="PreviousLogin" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="LoginID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Role" Relationship="KitSModel.FK_UserCredential_Role" FromRole="UserCredential" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="WHArticle">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ArticleName" Type="String" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Category" Relationship="KitSModel.FK_Article_Category" FromRole="WHArticle" ToRole="Category" />
+    <NavigationProperty Name="OrderDetails" Relationship="KitSModel.FK_OrderDetail_WHArticle" FromRole="WHArticle" ToRole="OrderDetail" />
+    <NavigationProperty Name="WHArticleDetails" Relationship="KitSModel.FK_ArticleDetail_Article" FromRole="WHArticle" ToRole="WHArticleDetail" />
+  </EntityType>
+  <EntityType Name="WHArticleDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="WHArticleId" Type="Int32" Nullable="false" />
+    <Property Name="ColorId" Type="Int32" Nullable="false" />
+    <Property Name="DateAdded" Type="DateTime" Precision="3" />
+    <Property Name="TotalStock" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Color" Relationship="KitSModel.FK_ArticleDetail_Colors" FromRole="WHArticleDetail" ToRole="Color" />
+    <NavigationProperty Name="OrderDetails" Relationship="KitSModel.FK_OrderDetail_WHArticleDetail" FromRole="WHArticleDetail" ToRole="OrderDetail" />
+    <NavigationProperty Name="WHArticle" Relationship="KitSModel.FK_ArticleDetail_Article" FromRole="WHArticleDetail" ToRole="WHArticle" />
+  </EntityType>
+  <Association Name="FK_BPArticle_Category">
+    <End Type="KitSModel.Category" Role="Category" Multiplicity="1" />
+    <End Type="KitSModel.BPArticle" Role="BPArticle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BPArticle">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BPArticleDetail_BPArticle">
+    <End Type="KitSModel.BPArticle" Role="BPArticle" Multiplicity="1" />
+    <End Type="KitSModel.BPArticleDetail" Role="BPArticleDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BPArticle">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BPArticleDetail">
+        <PropertyRef Name="BPArticleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BPInvoiceDetail_BPArticle">
+    <End Type="KitSModel.BPArticle" Role="BPArticle" Multiplicity="1" />
+    <End Type="KitSModel.BPInvoiceDetail" Role="BPInvoiceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BPArticle">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BPInvoiceDetail">
+        <PropertyRef Name="BPArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BPArticleDetail_Colors">
+    <End Type="KitSModel.Color" Role="Color" Multiplicity="1" />
+    <End Type="KitSModel.BPArticleDetail" Role="BPArticleDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Color">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BPArticleDetail">
+        <PropertyRef Name="ColorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BPInvoiceDetail_BPArticleDetail">
+    <End Type="KitSModel.BPArticleDetail" Role="BPArticleDetail" Multiplicity="1" />
+    <End Type="KitSModel.BPInvoiceDetail" Role="BPInvoiceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BPArticleDetail">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BPInvoiceDetail">
+        <PropertyRef Name="BPArticleDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BPInvoiceDetail_BPInvoice">
+    <End Type="KitSModel.BPInvoice" Role="BPInvoice" Multiplicity="1" />
+    <End Type="KitSModel.BPInvoiceDetail" Role="BPInvoiceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BPInvoice">
+        <PropertyRef Name="InvoiceID" />
+      </Principal>
+      <Dependent Role="BPInvoiceDetail">
+        <PropertyRef Name="BPInvoiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Article_Category">
+    <End Type="KitSModel.Category" Role="Category" Multiplicity="1" />
+    <End Type="KitSModel.WHArticle" Role="WHArticle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="WHArticle">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CMArticle_Category">
+    <End Type="KitSModel.Category" Role="Category" Multiplicity="1" />
+    <End Type="KitSModel.CMArticle" Role="CMArticle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CMArticle">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TSArticle_Category">
+    <End Type="KitSModel.Category" Role="Category" Multiplicity="1" />
+    <End Type="KitSModel.TSArticle" Role="TSArticle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TSArticle">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CMArticleDetail_CMArticle">
+    <End Type="KitSModel.CMArticle" Role="CMArticle" Multiplicity="1" />
+    <End Type="KitSModel.CMArticleDetail" Role="CMArticleDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CMArticle">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CMArticleDetail">
+        <PropertyRef Name="CMArticleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CMInvoiceDetail_CMArticle">
+    <End Type="KitSModel.CMArticle" Role="CMArticle" Multiplicity="1" />
+    <End Type="KitSModel.CMInvoiceDetail" Role="CMInvoiceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CMArticle">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CMInvoiceDetail">
+        <PropertyRef Name="CMArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CMArticleDetail_Colors">
+    <End Type="KitSModel.Color" Role="Color" Multiplicity="1" />
+    <End Type="KitSModel.CMArticleDetail" Role="CMArticleDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Color">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CMArticleDetail">
+        <PropertyRef Name="ColorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CMInvoiceDetail_CMArticleDetail">
+    <End Type="KitSModel.CMArticleDetail" Role="CMArticleDetail" Multiplicity="1" />
+    <End Type="KitSModel.CMInvoiceDetail" Role="CMInvoiceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CMArticleDetail">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CMInvoiceDetail">
+        <PropertyRef Name="CMArticleDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CMInvoiceDetail_CMInvoice">
+    <End Type="KitSModel.CMInvoice" Role="CMInvoice" Multiplicity="1" />
+    <End Type="KitSModel.CMInvoiceDetail" Role="CMInvoiceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CMInvoice">
+        <PropertyRef Name="InvoiceID" />
+      </Principal>
+      <Dependent Role="CMInvoiceDetail">
+        <PropertyRef Name="CMInvoiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ArticleDetail_Colors">
+    <End Type="KitSModel.Color" Role="Color" Multiplicity="1" />
+    <End Type="KitSModel.WHArticleDetail" Role="WHArticleDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Color">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="WHArticleDetail">
+        <PropertyRef Name="ColorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TSArticleDetail_Colors">
+    <End Type="KitSModel.Color" Role="Color" Multiplicity="1" />
+    <End Type="KitSModel.TSArticleDetail" Role="TSArticleDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Color">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TSArticleDetail">
+        <PropertyRef Name="ColorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_Order">
+    <End Type="KitSModel.Order" Role="Order" Multiplicity="1" />
+    <End Type="KitSModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderHistory_Order">
+    <End Type="KitSModel.Order" Role="Order" Multiplicity="1" />
+    <End Type="KitSModel.OrderHistory" Role="OrderHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="OrderHistory">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_WHArticle">
+    <End Type="KitSModel.WHArticle" Role="WHArticle" Multiplicity="1" />
+    <End Type="KitSModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WHArticle">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="WHArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_WHArticleDetail">
+    <End Type="KitSModel.WHArticleDetail" Role="WHArticleDetail" Multiplicity="1" />
+    <End Type="KitSModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WHArticleDetail">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="WHArticleDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderHistory_OrderDetail">
+    <End Type="KitSModel.OrderDetail" Role="OrderDetail" Multiplicity="1" />
+    <End Type="KitSModel.OrderHistory" Role="OrderHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderDetail">
+        <PropertyRef Name="OrderDetailID" />
+      </Principal>
+      <Dependent Role="OrderHistory">
+        <PropertyRef Name="OrderDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolePermission_Permission">
+    <End Type="KitSModel.Permission" Role="Permission" Multiplicity="1" />
+    <End Type="KitSModel.RolePermission" Role="RolePermission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Permission">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="RolePermission">
+        <PropertyRef Name="PermissionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolePermission_Role">
+    <End Type="KitSModel.Role" Role="Role" Multiplicity="1" />
+    <End Type="KitSModel.RolePermission" Role="RolePermission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="RolePermission">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserCredential_Role">
+    <End Type="KitSModel.Role" Role="Role" Multiplicity="1" />
+    <End Type="KitSModel.UserCredential" Role="UserCredential" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserCredential">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TSArticleDetail_TSArticle">
+    <End Type="KitSModel.TSArticle" Role="TSArticle" Multiplicity="1" />
+    <End Type="KitSModel.TSArticleDetail" Role="TSArticleDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TSArticle">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TSArticleDetail">
+        <PropertyRef Name="TSArticleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TSArticlleDetail_TSArticle">
+    <End Type="KitSModel.TSArticle" Role="TSArticle" Multiplicity="1" />
+    <End Type="KitSModel.TSInvoiceDetail" Role="TSInvoiceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TSArticle">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TSInvoiceDetail">
+        <PropertyRef Name="TSArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TSInvoiceDetail_TSInvoiceDetail">
+    <End Type="KitSModel.TSArticleDetail" Role="TSArticleDetail" Multiplicity="1" />
+    <End Type="KitSModel.TSInvoiceDetail" Role="TSInvoiceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TSArticleDetail">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TSInvoiceDetail">
+        <PropertyRef Name="TSArticleDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TSInvoiceDetail_TSInvoice">
+    <End Type="KitSModel.TSInvoice" Role="TSInvoice" Multiplicity="1" />
+    <End Type="KitSModel.TSInvoiceDetail" Role="TSInvoiceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TSInvoice">
+        <PropertyRef Name="InvoiceID" />
+      </Principal>
+      <Dependent Role="TSInvoiceDetail">
+        <PropertyRef Name="TSInvoiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ArticleDetail_Article">
+    <End Type="KitSModel.WHArticle" Role="WHArticle" Multiplicity="1" />
+    <End Type="KitSModel.WHArticleDetail" Role="WHArticleDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WHArticle">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="WHArticleDetail">
+        <PropertyRef Name="WHArticleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="BPReturnItem">
+    <Key>
+      <PropertyRef Name="ReturnItemID" />
+    </Key>
+    <Property Name="ReturnItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="BPReturnItemDetails" Relationship="KitSModel.FK_BPReturnItemDetail_BPReturnItem" FromRole="BPReturnItem" ToRole="BPReturnItemDetail" />
+  </EntityType>
+  <EntityType Name="BPReturnItemDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BPReturnItemID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleDetailID" Type="Int32" Nullable="false" />
+    <Property Name="ArticlePairs" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="BPArticle" Relationship="KitSModel.FK_BPReturnItemDetail_BPArticle" FromRole="BPReturnItemDetail" ToRole="BPArticle" />
+    <NavigationProperty Name="BPArticleDetail" Relationship="KitSModel.FK_BPReturnItemDetail_BPArticleDetail" FromRole="BPReturnItemDetail" ToRole="BPArticleDetail" />
+    <NavigationProperty Name="BPReturnItem" Relationship="KitSModel.FK_BPReturnItemDetail_BPReturnItem" FromRole="BPReturnItemDetail" ToRole="BPReturnItem" />
+  </EntityType>
+  <EntityType Name="CMReturnItem">
+    <Key>
+      <PropertyRef Name="ReturnItemID" />
+    </Key>
+    <Property Name="ReturnItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="CMReturnItemDetails" Relationship="KitSModel.FK_CMReturnItemDetail_CMReturnItem" FromRole="CMReturnItem" ToRole="CMReturnItemDetail" />
+  </EntityType>
+  <EntityType Name="CMReturnItemDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CMReturnItemID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleDetailID" Type="Int32" Nullable="false" />
+    <Property Name="ArticlePairs" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="CMArticle" Relationship="KitSModel.FK_CMReturnItemDetail_CMArticle" FromRole="CMReturnItemDetail" ToRole="CMArticle" />
+    <NavigationProperty Name="CMArticleDetail" Relationship="KitSModel.FK_CMReturnItemDetail_CMArticleDetail" FromRole="CMReturnItemDetail" ToRole="CMArticleDetail" />
+    <NavigationProperty Name="CMReturnItem" Relationship="KitSModel.FK_CMReturnItemDetail_CMReturnItem" FromRole="CMReturnItemDetail" ToRole="CMReturnItem" />
+  </EntityType>
+  <EntityType Name="TSReturnItem">
+    <Key>
+      <PropertyRef Name="ReturnItemID" />
+    </Key>
+    <Property Name="ReturnItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="TSReturnItemDetails" Relationship="KitSModel.FK_TSReturnItemDetail_TSReturnItem" FromRole="TSReturnItem" ToRole="TSReturnItemDetail" />
+  </EntityType>
+  <EntityType Name="TSReturnItemDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TSReturnItemID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleDetailID" Type="Int32" Nullable="false" />
+    <Property Name="ArticlePairs" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="TSArticle" Relationship="KitSModel.FK_TSReturnItemDetail_TSArticle" FromRole="TSReturnItemDetail" ToRole="TSArticle" />
+    <NavigationProperty Name="TSArticleDetail" Relationship="KitSModel.FK_TSReturnItemDetail_TSArticleDetail" FromRole="TSReturnItemDetail" ToRole="TSArticleDetail" />
+    <NavigationProperty Name="TSReturnItem" Relationship="KitSModel.FK_TSReturnItemDetail_TSReturnItem" FromRole="TSReturnItemDetail" ToRole="TSReturnItem" />
+  </EntityType>
+  <Association Name="FK_BPReturnItemDetail_BPArticle">
+    <End Type="KitSModel.BPArticle" Role="BPArticle" Multiplicity="1" />
+    <End Type="KitSModel.BPReturnItemDetail" Role="BPReturnItemDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BPArticle">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BPReturnItemDetail">
+        <PropertyRef Name="ArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BPReturnItemDetail_BPArticleDetail">
+    <End Type="KitSModel.BPArticleDetail" Role="BPArticleDetail" Multiplicity="1" />
+    <End Type="KitSModel.BPReturnItemDetail" Role="BPReturnItemDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BPArticleDetail">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BPReturnItemDetail">
+        <PropertyRef Name="ArticleDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BPReturnItemDetail_BPReturnItem">
+    <End Type="KitSModel.BPReturnItem" Role="BPReturnItem" Multiplicity="1" />
+    <End Type="KitSModel.BPReturnItemDetail" Role="BPReturnItemDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BPReturnItem">
+        <PropertyRef Name="ReturnItemID" />
+      </Principal>
+      <Dependent Role="BPReturnItemDetail">
+        <PropertyRef Name="BPReturnItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CMReturnItemDetail_CMArticle">
+    <End Type="KitSModel.CMArticle" Role="CMArticle" Multiplicity="1" />
+    <End Type="KitSModel.CMReturnItemDetail" Role="CMReturnItemDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CMArticle">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CMReturnItemDetail">
+        <PropertyRef Name="ArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CMReturnItemDetail_CMArticleDetail">
+    <End Type="KitSModel.CMArticleDetail" Role="CMArticleDetail" Multiplicity="1" />
+    <End Type="KitSModel.CMReturnItemDetail" Role="CMReturnItemDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CMArticleDetail">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CMReturnItemDetail">
+        <PropertyRef Name="ArticleDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CMReturnItemDetail_CMReturnItem">
+    <End Type="KitSModel.CMReturnItem" Role="CMReturnItem" Multiplicity="1" />
+    <End Type="KitSModel.CMReturnItemDetail" Role="CMReturnItemDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CMReturnItem">
+        <PropertyRef Name="ReturnItemID" />
+      </Principal>
+      <Dependent Role="CMReturnItemDetail">
+        <PropertyRef Name="CMReturnItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TSReturnItemDetail_TSArticle">
+    <End Type="KitSModel.TSArticle" Role="TSArticle" Multiplicity="1" />
+    <End Type="KitSModel.TSReturnItemDetail" Role="TSReturnItemDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TSArticle">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TSReturnItemDetail">
+        <PropertyRef Name="ArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TSReturnItemDetail_TSArticleDetail">
+    <End Type="KitSModel.TSArticleDetail" Role="TSArticleDetail" Multiplicity="1" />
+    <End Type="KitSModel.TSReturnItemDetail" Role="TSReturnItemDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TSArticleDetail">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="TSReturnItemDetail">
+        <PropertyRef Name="ArticleDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TSReturnItemDetail_TSReturnItem">
+    <End Type="KitSModel.TSReturnItem" Role="TSReturnItem" Multiplicity="1" />
+    <End Type="KitSModel.TSReturnItemDetail" Role="TSReturnItemDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TSReturnItem">
+        <PropertyRef Name="ReturnItemID" />
+      </Principal>
+      <Dependent Role="TSReturnItemDetail">
+        <PropertyRef Name="TSReturnItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Shop">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ShopName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="NickName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <ComplexType Name="Report_BPArticleSaleWithDates_Result">
+    <Property Type="Int32" Name="ArticleId" Nullable="false" />
+    <Property Type="String" Name="Article" Nullable="false" MaxLength="56" />
+    <Property Type="Int32" Name="Pair" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="Report_CMArticleSaleWithDates_Result">
+    <Property Type="Int32" Name="ArticleId" Nullable="false" />
+    <Property Type="String" Name="Article" Nullable="false" MaxLength="56" />
+    <Property Type="Int32" Name="Pair" Nullable="true" />
+  </ComplexType>
+</Schema>

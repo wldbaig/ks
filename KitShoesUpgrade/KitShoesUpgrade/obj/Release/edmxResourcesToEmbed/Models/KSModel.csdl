@@ -1,0 +1,1013 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="KSEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Articles" EntityType="KSModel.Article" />
+    <EntitySet Name="ArticleDetails" EntityType="KSModel.ArticleDetail" />
+    <EntitySet Name="Buyers" EntityType="KSModel.Buyer" />
+    <EntitySet Name="BuyerAccounts" EntityType="KSModel.BuyerAccount" />
+    <EntitySet Name="BuyerAccountDetails" EntityType="KSModel.BuyerAccountDetail" />
+    <EntitySet Name="Categories" EntityType="KSModel.Category" />
+    <EntitySet Name="Colors" EntityType="KSModel.Color" />
+    <EntitySet Name="Customers" EntityType="KSModel.Customer" />
+    <EntitySet Name="CustomerAccounts" EntityType="KSModel.CustomerAccount" />
+    <EntitySet Name="CustomerAccountDetails" EntityType="KSModel.CustomerAccountDetail" />
+    <EntitySet Name="CustomerCategories" EntityType="KSModel.CustomerCategory" />
+    <EntitySet Name="Invoices" EntityType="KSModel.Invoice" />
+    <EntitySet Name="InvoiceDetails" EntityType="KSModel.InvoiceDetail" />
+    <EntitySet Name="Orders" EntityType="KSModel.Order" />
+    <EntitySet Name="OrderDetails" EntityType="KSModel.OrderDetail" />
+    <EntitySet Name="OrderHistories" EntityType="KSModel.OrderHistory" />
+    <EntitySet Name="Permissions" EntityType="KSModel.Permission" />
+    <EntitySet Name="ReserveSaleDetails" EntityType="KSModel.ReserveSaleDetail" />
+    <EntitySet Name="ReturnItems" EntityType="KSModel.ReturnItem" />
+    <EntitySet Name="ReturnItemDetails" EntityType="KSModel.ReturnItemDetail" />
+    <EntitySet Name="Roles" EntityType="KSModel.Role" />
+    <EntitySet Name="RolePermissions" EntityType="KSModel.RolePermission" />
+    <EntitySet Name="UserCredentials" EntityType="KSModel.UserCredential" />
+    <AssociationSet Name="FK_Article_Category" Association="KSModel.FK_Article_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Article" EntitySet="Articles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ArticleDetail_Article" Association="KSModel.FK_ArticleDetail_Article">
+      <End Role="Article" EntitySet="Articles" />
+      <End Role="ArticleDetail" EntitySet="ArticleDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvoiceDetail_Article" Association="KSModel.FK_InvoiceDetail_Article">
+      <End Role="Article" EntitySet="Articles" />
+      <End Role="InvoiceDetail" EntitySet="InvoiceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_Article" Association="KSModel.FK_OrderDetail_Article">
+      <End Role="Article" EntitySet="Articles" />
+      <End Role="OrderDetail" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReserveSaleDetail_Article" Association="KSModel.FK_ReserveSaleDetail_Article">
+      <End Role="Article" EntitySet="Articles" />
+      <End Role="ReserveSaleDetail" EntitySet="ReserveSaleDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReturnItemDetail_Article" Association="KSModel.FK_ReturnItemDetail_Article">
+      <End Role="Article" EntitySet="Articles" />
+      <End Role="ReturnItemDetail" EntitySet="ReturnItemDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ArticleDetail_Colors" Association="KSModel.FK_ArticleDetail_Colors">
+      <End Role="Color" EntitySet="Colors" />
+      <End Role="ArticleDetail" EntitySet="ArticleDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvoiceDetail_ArticleDetail" Association="KSModel.FK_InvoiceDetail_ArticleDetail">
+      <End Role="ArticleDetail" EntitySet="ArticleDetails" />
+      <End Role="InvoiceDetail" EntitySet="InvoiceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_ArticleDetail" Association="KSModel.FK_OrderDetail_ArticleDetail">
+      <End Role="ArticleDetail" EntitySet="ArticleDetails" />
+      <End Role="OrderDetail" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReserveSaleDetail_ArticleDetail" Association="KSModel.FK_ReserveSaleDetail_ArticleDetail">
+      <End Role="ArticleDetail" EntitySet="ArticleDetails" />
+      <End Role="ReserveSaleDetail" EntitySet="ReserveSaleDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReturnItemDetail_ArticleDetail" Association="KSModel.FK_ReturnItemDetail_ArticleDetail">
+      <End Role="ArticleDetail" EntitySet="ArticleDetails" />
+      <End Role="ReturnItemDetail" EntitySet="ReturnItemDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Buyer_Accuont" Association="KSModel.FK_Buyer_Accuont">
+      <End Role="Buyer" EntitySet="Buyers" />
+      <End Role="BuyerAccount" EntitySet="BuyerAccounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Buyer" Association="KSModel.FK_Order_Buyer">
+      <End Role="Buyer" EntitySet="Buyers" />
+      <End Role="Order" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BuyerAccountDetail_BuyerAccount" Association="KSModel.FK_BuyerAccountDetail_BuyerAccount">
+      <End Role="BuyerAccount" EntitySet="BuyerAccounts" />
+      <End Role="BuyerAccountDetail" EntitySet="BuyerAccountDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customer_CustomerCategory" Association="KSModel.FK_Customer_CustomerCategory">
+      <End Role="CustomerCategory" EntitySet="CustomerCategories" />
+      <End Role="Customer" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerAccount_Customer" Association="KSModel.FK_CustomerAccount_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="CustomerAccount" EntitySet="CustomerAccounts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReturnItem_Customer" Association="KSModel.FK_ReturnItem_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="ReturnItem" EntitySet="ReturnItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CustomerAccountDetail_CustomerAccount" Association="KSModel.FK_CustomerAccountDetail_CustomerAccount">
+      <End Role="CustomerAccount" EntitySet="CustomerAccounts" />
+      <End Role="CustomerAccountDetail" EntitySet="CustomerAccountDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InvoiceDetail_Invoice" Association="KSModel.FK_InvoiceDetail_Invoice">
+      <End Role="Invoice" EntitySet="Invoices" />
+      <End Role="InvoiceDetail" EntitySet="InvoiceDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderDetail_Order" Association="KSModel.FK_OrderDetail_Order">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="OrderDetail" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderHistory_Order" Association="KSModel.FK_OrderHistory_Order">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="OrderHistory" EntitySet="OrderHistories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderHistory_OrderDetail" Association="KSModel.FK_OrderHistory_OrderDetail">
+      <End Role="OrderDetail" EntitySet="OrderDetails" />
+      <End Role="OrderHistory" EntitySet="OrderHistories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolePermission_Permission" Association="KSModel.FK_RolePermission_Permission">
+      <End Role="Permission" EntitySet="Permissions" />
+      <End Role="RolePermission" EntitySet="RolePermissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReturnItemDetail_ReturnItem" Association="KSModel.FK_ReturnItemDetail_ReturnItem">
+      <End Role="ReturnItem" EntitySet="ReturnItems" />
+      <End Role="ReturnItemDetail" EntitySet="ReturnItemDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RolePermission_Role" Association="KSModel.FK_RolePermission_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="RolePermission" EntitySet="RolePermissions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserCredential_Role" Association="KSModel.FK_UserCredential_Role">
+      <End Role="Role" EntitySet="Roles" />
+      <End Role="UserCredential" EntitySet="UserCredentials" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoice_Customer" Association="KSModel.FK_Invoice_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Invoice" EntitySet="Invoices" />
+    </AssociationSet>
+    <EntitySet Name="ReserveSales" EntityType="KSModel.ReserveSale" />
+    <AssociationSet Name="FK_ReserveSale_Customer" Association="KSModel.FK_ReserveSale_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="ReserveSale" EntitySet="ReserveSales" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ReserveSaleDetail_ReserveSale" Association="KSModel.FK_ReserveSaleDetail_ReserveSale">
+      <End Role="ReserveSale" EntitySet="ReserveSales" />
+      <End Role="ReserveSaleDetail" EntitySet="ReserveSaleDetails" />
+    </AssociationSet>
+    <EntitySet Name="CashReciepts" EntityType="KSModel.CashReciept" />
+    <EntitySet Name="CashRecieptDetails" EntityType="KSModel.CashRecieptDetail" />
+    <AssociationSet Name="FK_CashRecieptDetail_Buyer" Association="KSModel.FK_CashRecieptDetail_Buyer">
+      <End Role="Buyer" EntitySet="Buyers" />
+      <End Role="CashRecieptDetail" EntitySet="CashRecieptDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CashRecieptDetail_CashReciept" Association="KSModel.FK_CashRecieptDetail_CashReciept">
+      <End Role="CashReciept" EntitySet="CashReciepts" />
+      <End Role="CashRecieptDetail" EntitySet="CashRecieptDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CashRecieptDetail_Customer" Association="KSModel.FK_CashRecieptDetail_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="CashRecieptDetail" EntitySet="CashRecieptDetails" />
+    </AssociationSet>
+    <FunctionImport Name="Report_ArticleOrderWithDates" ReturnType="Collection(KSModel.Report_ArticleOrderWithDates_Result)">
+      <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+      <Parameter Name="ArticleID" Mode="In" Type="Int32" />
+      <Parameter Name="CategoryID" Mode="In" Type="Int32" />
+      <Parameter Name="BuyerID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Report_ArticleSaleWithDates" ReturnType="Collection(KSModel.Report_ArticleSaleWithDates_Result)">
+      <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+      <Parameter Name="ArticleID" Mode="In" Type="Int32" />
+      <Parameter Name="CategoryID" Mode="In" Type="Int32" />
+      <Parameter Name="CustomerID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Report_CustomerAccountDetail" ReturnType="Collection(KSModel.Report_CustomerAccountDetail_Result)">
+      <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+      <Parameter Name="CustomerID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Report_CustomerOutStanding" ReturnType="Collection(KSModel.Report_CustomerOutStanding_Result)">
+      <Parameter Name="CategoryCustomer" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="Report_SalePerDay" ReturnType="Collection(KSModel.Report_SalePerDay_Result)">
+      <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="Report_BuyerAccountDetail" ReturnType="Collection(KSModel.Report_BuyerAccountDetail_Result)">
+      <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+      <Parameter Name="BuyerID" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <EntityType Name="Article">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ArticleName" Type="String" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
+    <Property Name="Image" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Cost" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="PairInCarton" Type="Int32" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Category" Relationship="KSModel.FK_Article_Category" FromRole="Article" ToRole="Category" />
+    <NavigationProperty Name="ArticleDetails" Relationship="KSModel.FK_ArticleDetail_Article" FromRole="Article" ToRole="ArticleDetail" />
+    <NavigationProperty Name="InvoiceDetails" Relationship="KSModel.FK_InvoiceDetail_Article" FromRole="Article" ToRole="InvoiceDetail" />
+    <NavigationProperty Name="OrderDetails" Relationship="KSModel.FK_OrderDetail_Article" FromRole="Article" ToRole="OrderDetail" />
+    <NavigationProperty Name="ReserveSaleDetails" Relationship="KSModel.FK_ReserveSaleDetail_Article" FromRole="Article" ToRole="ReserveSaleDetail" />
+    <NavigationProperty Name="ReturnItemDetails" Relationship="KSModel.FK_ReturnItemDetail_Article" FromRole="Article" ToRole="ReturnItemDetail" />
+  </EntityType>
+  <EntityType Name="ArticleDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ArticleId" Type="Int32" Nullable="false" />
+    <Property Name="ColorId" Type="Int32" Nullable="false" />
+    <Property Name="Pairs" Type="Int32" Nullable="false" />
+    <Property Name="DateAdded" Type="DateTime" Precision="3" />
+    <Property Name="IsDeleted" Type="Boolean" />
+    <Property Name="Carton" Type="Int32" Nullable="false" />
+    <Property Name="TotalStock" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Article" Relationship="KSModel.FK_ArticleDetail_Article" FromRole="ArticleDetail" ToRole="Article" />
+    <NavigationProperty Name="Color" Relationship="KSModel.FK_ArticleDetail_Colors" FromRole="ArticleDetail" ToRole="Color" />
+    <NavigationProperty Name="InvoiceDetails" Relationship="KSModel.FK_InvoiceDetail_ArticleDetail" FromRole="ArticleDetail" ToRole="InvoiceDetail" />
+    <NavigationProperty Name="OrderDetails" Relationship="KSModel.FK_OrderDetail_ArticleDetail" FromRole="ArticleDetail" ToRole="OrderDetail" />
+    <NavigationProperty Name="ReserveSaleDetails" Relationship="KSModel.FK_ReserveSaleDetail_ArticleDetail" FromRole="ArticleDetail" ToRole="ReserveSaleDetail" />
+    <NavigationProperty Name="ReturnItemDetails" Relationship="KSModel.FK_ReturnItemDetail_ArticleDetail" FromRole="ArticleDetail" ToRole="ReturnItemDetail" />
+  </EntityType>
+  <EntityType Name="Buyer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="AddedBy" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="BuyerAccounts" Relationship="KSModel.FK_Buyer_Accuont" FromRole="Buyer" ToRole="BuyerAccount" />
+    <NavigationProperty Name="Orders" Relationship="KSModel.FK_Order_Buyer" FromRole="Buyer" ToRole="Order" />
+    <NavigationProperty Name="CashRecieptDetails" Relationship="KSModel.FK_CashRecieptDetail_Buyer" FromRole="Buyer" ToRole="CashRecieptDetail" />
+  </EntityType>
+  <EntityType Name="BuyerAccount">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BuyerID" Type="Int32" Nullable="false" />
+    <Property Name="OutStandingAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="TotalPaid" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="TotalBalance" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="Buyer" Relationship="KSModel.FK_Buyer_Accuont" FromRole="BuyerAccount" ToRole="Buyer" />
+    <NavigationProperty Name="BuyerAccountDetails" Relationship="KSModel.FK_BuyerAccountDetail_BuyerAccount" FromRole="BuyerAccount" ToRole="BuyerAccountDetail" />
+  </EntityType>
+  <EntityType Name="BuyerAccountDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BAccountID" Type="Int32" Nullable="false" />
+    <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="OrderID" Type="Int32" />
+    <NavigationProperty Name="BuyerAccount" Relationship="KSModel.FK_BuyerAccountDetail_BuyerAccount" FromRole="BuyerAccountDetail" ToRole="BuyerAccount" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Articles" Relationship="KSModel.FK_Article_Category" FromRole="Category" ToRole="Article" />
+  </EntityType>
+  <EntityType Name="Color">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ColorName" Type="String" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ArticleDetails" Relationship="KSModel.FK_ArticleDetail_Colors" FromRole="Color" ToRole="ArticleDetail" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CustomerType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CustomerCategoryID" Type="Int32" />
+    <Property Name="AddedBy" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="CustomerCategory" Relationship="KSModel.FK_Customer_CustomerCategory" FromRole="Customer" ToRole="CustomerCategory" />
+    <NavigationProperty Name="CustomerAccounts" Relationship="KSModel.FK_CustomerAccount_Customer" FromRole="Customer" ToRole="CustomerAccount" />
+    <NavigationProperty Name="ReturnItems" Relationship="KSModel.FK_ReturnItem_Customer" FromRole="Customer" ToRole="ReturnItem" />
+    <NavigationProperty Name="Invoices" Relationship="KSModel.FK_Invoice_Customer" FromRole="Customer" ToRole="Invoice" />
+    <NavigationProperty Name="ReserveSales" Relationship="KSModel.FK_ReserveSale_Customer" FromRole="Customer" ToRole="ReserveSale" />
+    <NavigationProperty Name="CashRecieptDetails" Relationship="KSModel.FK_CashRecieptDetail_Customer" FromRole="Customer" ToRole="CashRecieptDetail" />
+  </EntityType>
+  <EntityType Name="CustomerAccount">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerID" Type="Int32" Nullable="false" />
+    <Property Name="OutStandingAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="TotalPaid" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="TotalBalance" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="Customer" Relationship="KSModel.FK_CustomerAccount_Customer" FromRole="CustomerAccount" ToRole="Customer" />
+    <NavigationProperty Name="CustomerAccountDetails" Relationship="KSModel.FK_CustomerAccountDetail_CustomerAccount" FromRole="CustomerAccount" ToRole="CustomerAccountDetail" />
+    <Property Name="PreviousOutStanding" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="CustomerAccountDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CAccountID" Type="Int32" Nullable="false" />
+    <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="InvoiceID" Type="Int32" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ReturnID" Type="Int32" />
+    <NavigationProperty Name="CustomerAccount" Relationship="KSModel.FK_CustomerAccountDetail_CustomerAccount" FromRole="CustomerAccountDetail" ToRole="CustomerAccount" />
+    <Property Name="ReserveID" Type="Int32" />
+    <Property Name="CashRecieptID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="CustomerCategory">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Customers" Relationship="KSModel.FK_Customer_CustomerCategory" FromRole="CustomerCategory" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="Invoice">
+    <Key>
+      <PropertyRef Name="InvoiceID" />
+    </Key>
+    <Property Name="InvoiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="CustomerType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CustomerID" Type="Int32" />
+    <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="AmountRecieved" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="InvoiceDetails" Relationship="KSModel.FK_InvoiceDetail_Invoice" FromRole="Invoice" ToRole="InvoiceDetail" />
+    <NavigationProperty Name="Customer" Relationship="KSModel.FK_Invoice_Customer" FromRole="Invoice" ToRole="Customer" />
+    <Property Name="DiscountAmount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="FreightAmount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="InvoiceDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InvoiceID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleDetailID" Type="Int32" Nullable="false" />
+    <Property Name="ArticlePairs" Type="Int32" />
+    <Property Name="ArticleCartons" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="Article" Relationship="KSModel.FK_InvoiceDetail_Article" FromRole="InvoiceDetail" ToRole="Article" />
+    <NavigationProperty Name="ArticleDetail" Relationship="KSModel.FK_InvoiceDetail_ArticleDetail" FromRole="InvoiceDetail" ToRole="ArticleDetail" />
+    <NavigationProperty Name="Invoice" Relationship="KSModel.FK_InvoiceDetail_Invoice" FromRole="InvoiceDetail" ToRole="Invoice" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderID" />
+    </Key>
+    <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BuyerID" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="OrderType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="OrderStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Buyer" Relationship="KSModel.FK_Order_Buyer" FromRole="Order" ToRole="Buyer" />
+    <NavigationProperty Name="OrderDetails" Relationship="KSModel.FK_OrderDetail_Order" FromRole="Order" ToRole="OrderDetail" />
+    <NavigationProperty Name="OrderHistories" Relationship="KSModel.FK_OrderHistory_Order" FromRole="Order" ToRole="OrderHistory" />
+    <Property Name="AmountRecieved" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+  </EntityType>
+  <EntityType Name="OrderDetail">
+    <Key>
+      <PropertyRef Name="OrderDetailID" />
+    </Key>
+    <Property Name="OrderDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleDetailID" Type="Int32" Nullable="false" />
+    <Property Name="ArticlePairs" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="Article" Relationship="KSModel.FK_OrderDetail_Article" FromRole="OrderDetail" ToRole="Article" />
+    <NavigationProperty Name="ArticleDetail" Relationship="KSModel.FK_OrderDetail_ArticleDetail" FromRole="OrderDetail" ToRole="ArticleDetail" />
+    <NavigationProperty Name="Order" Relationship="KSModel.FK_OrderDetail_Order" FromRole="OrderDetail" ToRole="Order" />
+    <NavigationProperty Name="OrderHistories" Relationship="KSModel.FK_OrderHistory_OrderDetail" FromRole="OrderDetail" ToRole="OrderHistory" />
+  </EntityType>
+  <EntityType Name="OrderHistory">
+    <Key>
+      <PropertyRef Name="OrderHistoryID" />
+    </Key>
+    <Property Name="OrderHistoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderID" Type="Int32" Nullable="false" />
+    <Property Name="OrderDetailID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleDetailID" Type="Int32" Nullable="false" />
+    <Property Name="ArticlePairs" Type="Int32" Nullable="false" />
+    <Property Name="RecievedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Order" Relationship="KSModel.FK_OrderHistory_Order" FromRole="OrderHistory" ToRole="Order" />
+    <NavigationProperty Name="OrderDetail" Relationship="KSModel.FK_OrderHistory_OrderDetail" FromRole="OrderHistory" ToRole="OrderDetail" />
+  </EntityType>
+  <EntityType Name="Permission">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="ShowView" Type="Boolean" Nullable="false" />
+    <Property Name="ShowAdd" Type="Boolean" Nullable="false" />
+    <Property Name="ShowEdit" Type="Boolean" Nullable="false" />
+    <Property Name="ShowDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="RolePermissions" Relationship="KSModel.FK_RolePermission_Permission" FromRole="Permission" ToRole="RolePermission" />
+  </EntityType>
+  <EntityType Name="ReserveSaleDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ReserveSaleID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleDetailID" Type="Int32" Nullable="false" />
+    <Property Name="ArticlePairs" Type="Int32" />
+    <Property Name="ArticleCartons" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="Article" Relationship="KSModel.FK_ReserveSaleDetail_Article" FromRole="ReserveSaleDetail" ToRole="Article" />
+    <NavigationProperty Name="ArticleDetail" Relationship="KSModel.FK_ReserveSaleDetail_ArticleDetail" FromRole="ReserveSaleDetail" ToRole="ArticleDetail" />
+    <NavigationProperty Name="ReserveSale" Relationship="KSModel.FK_ReserveSaleDetail_ReserveSale" FromRole="ReserveSaleDetail" ToRole="ReserveSale" />
+  </EntityType>
+  <EntityType Name="ReturnItem">
+    <Key>
+      <PropertyRef Name="ReturnItemID" />
+    </Key>
+    <Property Name="ReturnItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CustomerName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="CustomerID" Type="Int32" />
+    <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="Customer" Relationship="KSModel.FK_ReturnItem_Customer" FromRole="ReturnItem" ToRole="Customer" />
+    <NavigationProperty Name="ReturnItemDetails" Relationship="KSModel.FK_ReturnItemDetail_ReturnItem" FromRole="ReturnItem" ToRole="ReturnItemDetail" />
+  </EntityType>
+  <EntityType Name="ReturnItemDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ReturnItemID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleDetailID" Type="Int32" Nullable="false" />
+    <Property Name="ArticlePairs" Type="Int32" />
+    <Property Name="ArticleCartons" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="Article" Relationship="KSModel.FK_ReturnItemDetail_Article" FromRole="ReturnItemDetail" ToRole="Article" />
+    <NavigationProperty Name="ArticleDetail" Relationship="KSModel.FK_ReturnItemDetail_ArticleDetail" FromRole="ReturnItemDetail" ToRole="ArticleDetail" />
+    <NavigationProperty Name="ReturnItem" Relationship="KSModel.FK_ReturnItemDetail_ReturnItem" FromRole="ReturnItemDetail" ToRole="ReturnItem" />
+  </EntityType>
+  <EntityType Name="Role">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RoleType" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="ChildRoles" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="RolePermissions" Relationship="KSModel.FK_RolePermission_Role" FromRole="Role" ToRole="RolePermission" />
+    <NavigationProperty Name="UserCredentials" Relationship="KSModel.FK_UserCredential_Role" FromRole="Role" ToRole="UserCredential" />
+  </EntityType>
+  <EntityType Name="RolePermission">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="PermissionID" Type="Int32" Nullable="false" />
+    <Property Name="CanView" Type="Boolean" Nullable="false" />
+    <Property Name="CanAdd" Type="Boolean" Nullable="false" />
+    <Property Name="CanEdit" Type="Boolean" Nullable="false" />
+    <Property Name="CanDelete" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Permission" Relationship="KSModel.FK_RolePermission_Permission" FromRole="RolePermission" ToRole="Permission" />
+    <NavigationProperty Name="Role" Relationship="KSModel.FK_RolePermission_Role" FromRole="RolePermission" ToRole="Role" />
+  </EntityType>
+  <EntityType Name="UserCredential">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastLogin" Type="DateTime" Precision="3" />
+    <Property Name="LoginCount" Type="Int32" />
+    <Property Name="UserSince" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+    <Property Name="PreviousLogin" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="UpdatedBy" Type="Int32" />
+    <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="LoginID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Role" Relationship="KSModel.FK_UserCredential_Role" FromRole="UserCredential" ToRole="Role" />
+  </EntityType>
+  <Association Name="FK_Article_Category">
+    <End Type="KSModel.Category" Role="Category" Multiplicity="1" />
+    <End Type="KSModel.Article" Role="Article" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Article">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ArticleDetail_Article">
+    <End Type="KSModel.Article" Role="Article" Multiplicity="1" />
+    <End Type="KSModel.ArticleDetail" Role="ArticleDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ArticleDetail">
+        <PropertyRef Name="ArticleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvoiceDetail_Article">
+    <End Type="KSModel.Article" Role="Article" Multiplicity="1" />
+    <End Type="KSModel.InvoiceDetail" Role="InvoiceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="InvoiceDetail">
+        <PropertyRef Name="ArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_Article">
+    <End Type="KSModel.Article" Role="Article" Multiplicity="1" />
+    <End Type="KSModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="ArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReserveSaleDetail_Article">
+    <End Type="KSModel.Article" Role="Article" Multiplicity="1" />
+    <End Type="KSModel.ReserveSaleDetail" Role="ReserveSaleDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ReserveSaleDetail">
+        <PropertyRef Name="ArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReturnItemDetail_Article">
+    <End Type="KSModel.Article" Role="Article" Multiplicity="1" />
+    <End Type="KSModel.ReturnItemDetail" Role="ReturnItemDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Article">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ReturnItemDetail">
+        <PropertyRef Name="ArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ArticleDetail_Colors">
+    <End Type="KSModel.Color" Role="Color" Multiplicity="1" />
+    <End Type="KSModel.ArticleDetail" Role="ArticleDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Color">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ArticleDetail">
+        <PropertyRef Name="ColorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvoiceDetail_ArticleDetail">
+    <End Type="KSModel.ArticleDetail" Role="ArticleDetail" Multiplicity="1" />
+    <End Type="KSModel.InvoiceDetail" Role="InvoiceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ArticleDetail">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="InvoiceDetail">
+        <PropertyRef Name="ArticleDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_ArticleDetail">
+    <End Type="KSModel.ArticleDetail" Role="ArticleDetail" Multiplicity="1" />
+    <End Type="KSModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ArticleDetail">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="ArticleDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReserveSaleDetail_ArticleDetail">
+    <End Type="KSModel.ArticleDetail" Role="ArticleDetail" Multiplicity="1" />
+    <End Type="KSModel.ReserveSaleDetail" Role="ReserveSaleDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ArticleDetail">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ReserveSaleDetail">
+        <PropertyRef Name="ArticleDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReturnItemDetail_ArticleDetail">
+    <End Type="KSModel.ArticleDetail" Role="ArticleDetail" Multiplicity="1" />
+    <End Type="KSModel.ReturnItemDetail" Role="ReturnItemDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ArticleDetail">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ReturnItemDetail">
+        <PropertyRef Name="ArticleDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Buyer_Accuont">
+    <End Type="KSModel.Buyer" Role="Buyer" Multiplicity="1" />
+    <End Type="KSModel.BuyerAccount" Role="BuyerAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Buyer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BuyerAccount">
+        <PropertyRef Name="BuyerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Buyer">
+    <End Type="KSModel.Buyer" Role="Buyer" Multiplicity="0..1" />
+    <End Type="KSModel.Order" Role="Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Buyer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="BuyerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BuyerAccountDetail_BuyerAccount">
+    <End Type="KSModel.BuyerAccount" Role="BuyerAccount" Multiplicity="1" />
+    <End Type="KSModel.BuyerAccountDetail" Role="BuyerAccountDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BuyerAccount">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="BuyerAccountDetail">
+        <PropertyRef Name="BAccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customer_CustomerCategory">
+    <End Type="KSModel.CustomerCategory" Role="CustomerCategory" Multiplicity="0..1" />
+    <End Type="KSModel.Customer" Role="Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustomerCategory">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="CustomerCategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerAccount_Customer">
+    <End Type="KSModel.Customer" Role="Customer" Multiplicity="1" />
+    <End Type="KSModel.CustomerAccount" Role="CustomerAccount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CustomerAccount">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReturnItem_Customer">
+    <End Type="KSModel.Customer" Role="Customer" Multiplicity="0..1" />
+    <End Type="KSModel.ReturnItem" Role="ReturnItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ReturnItem">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CustomerAccountDetail_CustomerAccount">
+    <End Type="KSModel.CustomerAccount" Role="CustomerAccount" Multiplicity="1" />
+    <End Type="KSModel.CustomerAccountDetail" Role="CustomerAccountDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CustomerAccount">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CustomerAccountDetail">
+        <PropertyRef Name="CAccountID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InvoiceDetail_Invoice">
+    <End Type="KSModel.Invoice" Role="Invoice" Multiplicity="1" />
+    <End Type="KSModel.InvoiceDetail" Role="InvoiceDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice">
+        <PropertyRef Name="InvoiceID" />
+      </Principal>
+      <Dependent Role="InvoiceDetail">
+        <PropertyRef Name="InvoiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderDetail_Order">
+    <End Type="KSModel.Order" Role="Order" Multiplicity="1" />
+    <End Type="KSModel.OrderDetail" Role="OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="OrderDetail">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderHistory_Order">
+    <End Type="KSModel.Order" Role="Order" Multiplicity="1" />
+    <End Type="KSModel.OrderHistory" Role="OrderHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="OrderHistory">
+        <PropertyRef Name="OrderID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderHistory_OrderDetail">
+    <End Type="KSModel.OrderDetail" Role="OrderDetail" Multiplicity="1" />
+    <End Type="KSModel.OrderHistory" Role="OrderHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderDetail">
+        <PropertyRef Name="OrderDetailID" />
+      </Principal>
+      <Dependent Role="OrderHistory">
+        <PropertyRef Name="OrderDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolePermission_Permission">
+    <End Type="KSModel.Permission" Role="Permission" Multiplicity="1" />
+    <End Type="KSModel.RolePermission" Role="RolePermission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Permission">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="RolePermission">
+        <PropertyRef Name="PermissionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReturnItemDetail_ReturnItem">
+    <End Type="KSModel.ReturnItem" Role="ReturnItem" Multiplicity="1" />
+    <End Type="KSModel.ReturnItemDetail" Role="ReturnItemDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ReturnItem">
+        <PropertyRef Name="ReturnItemID" />
+      </Principal>
+      <Dependent Role="ReturnItemDetail">
+        <PropertyRef Name="ReturnItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RolePermission_Role">
+    <End Type="KSModel.Role" Role="Role" Multiplicity="1" />
+    <End Type="KSModel.RolePermission" Role="RolePermission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="RolePermission">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserCredential_Role">
+    <End Type="KSModel.Role" Role="Role" Multiplicity="1" />
+    <End Type="KSModel.UserCredential" Role="UserCredential" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Role">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="UserCredential">
+        <PropertyRef Name="RoleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoice_Customer">
+    <End Type="KSModel.Customer" Role="Customer" Multiplicity="0..1" />
+    <End Type="KSModel.Invoice" Role="Invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Invoice">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ReserveSale">
+    <Key>
+      <PropertyRef Name="ReserveSaleID" />
+    </Key>
+    <Property Name="ReserveSaleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CustomerID" Type="Int32" Nullable="false" />
+    <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="AmountRecieved" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="Customer" Relationship="KSModel.FK_ReserveSale_Customer" FromRole="ReserveSale" ToRole="Customer" />
+    <NavigationProperty Name="ReserveSaleDetails" Relationship="KSModel.FK_ReserveSaleDetail_ReserveSale" FromRole="ReserveSale" ToRole="ReserveSaleDetail" />
+  </EntityType>
+  <Association Name="FK_ReserveSale_Customer">
+    <End Type="KSModel.Customer" Role="Customer" Multiplicity="1" />
+    <End Type="KSModel.ReserveSale" Role="ReserveSale" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="ReserveSale">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ReserveSaleDetail_ReserveSale">
+    <End Type="KSModel.ReserveSale" Role="ReserveSale" Multiplicity="1" />
+    <End Type="KSModel.ReserveSaleDetail" Role="ReserveSaleDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ReserveSale">
+        <PropertyRef Name="ReserveSaleID" />
+      </Principal>
+      <Dependent Role="ReserveSaleDetail">
+        <PropertyRef Name="ReserveSaleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="CashReciept">
+    <Key>
+      <PropertyRef Name="CashRecieptID" />
+    </Key>
+    <Property Name="CashRecieptID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CashType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="CashRecieptDetails" Relationship="KSModel.FK_CashRecieptDetail_CashReciept" FromRole="CashReciept" ToRole="CashRecieptDetail" />
+  </EntityType>
+  <EntityType Name="CashRecieptDetail">
+    <Key>
+      <PropertyRef Name="CashRecieptDetailID" />
+    </Key>
+    <Property Name="CashRecieptDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CashRecieptID" Type="Int32" Nullable="false" />
+    <Property Name="CustomerID" Type="Int32" />
+    <Property Name="BuyerID" Type="Int32" />
+    <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="Buyer" Relationship="KSModel.FK_CashRecieptDetail_Buyer" FromRole="CashRecieptDetail" ToRole="Buyer" />
+    <NavigationProperty Name="CashReciept" Relationship="KSModel.FK_CashRecieptDetail_CashReciept" FromRole="CashRecieptDetail" ToRole="CashReciept" />
+    <NavigationProperty Name="Customer" Relationship="KSModel.FK_CashRecieptDetail_Customer" FromRole="CashRecieptDetail" ToRole="Customer" />
+  </EntityType>
+  <Association Name="FK_CashRecieptDetail_Buyer">
+    <End Type="KSModel.Buyer" Role="Buyer" Multiplicity="0..1" />
+    <End Type="KSModel.CashRecieptDetail" Role="CashRecieptDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Buyer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CashRecieptDetail">
+        <PropertyRef Name="BuyerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CashRecieptDetail_CashReciept">
+    <End Type="KSModel.CashReciept" Role="CashReciept" Multiplicity="1" />
+    <End Type="KSModel.CashRecieptDetail" Role="CashRecieptDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CashReciept">
+        <PropertyRef Name="CashRecieptID" />
+      </Principal>
+      <Dependent Role="CashRecieptDetail">
+        <PropertyRef Name="CashRecieptID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CashRecieptDetail_Customer">
+    <End Type="KSModel.Customer" Role="Customer" Multiplicity="0..1" />
+    <End Type="KSModel.CashRecieptDetail" Role="CashRecieptDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CashRecieptDetail">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="Report_ArticleOrderWithDates_Result">
+    <Property Type="DateTime" Name="AddedDate" Nullable="true" />
+    <Property Type="Int32" Name="ArticleId" Nullable="false" />
+    <Property Type="String" Name="Article" Nullable="false" MaxLength="56" />
+    <Property Type="String" Name="Color" Nullable="false" MaxLength="56" />
+    <Property Type="String" Name="OrderType" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="Pair" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="Report_ArticleSaleWithDates_Result">
+    <Property Type="DateTime" Name="AddedDate" Nullable="true" />
+    <Property Type="Int32" Name="ArticleId" Nullable="false" />
+    <Property Type="String" Name="Article" Nullable="false" MaxLength="56" />
+    <Property Type="String" Name="Color" Nullable="false" MaxLength="56" />
+    <Property Type="Int32" Name="Pair" Nullable="true" />
+    <Property Type="Int32" Name="Carton" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="Report_CustomerAccountDetail_Result">
+    <Property Type="DateTime" Name="CDate" Nullable="true" />
+    <Property Type="String" Name="TransactionDetail" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="Amount" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="InvoiceID" Nullable="true" />
+    <Property Type="Decimal" Name="InvoicePrice" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Claim" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="Freight" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="TotalInvoiceBill" Nullable="true" Precision="22" Scale="2" />
+    <Property Type="Int32" Name="ReserveID" Nullable="true" />
+    <Property Type="Decimal" Name="ReservePrice" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="ReturnID" Nullable="true" />
+    <Property Type="Decimal" Name="ReturnPrice" Nullable="true" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="Report_CustomerOutStanding_Result">
+    <Property Type="String" Name="Customer" Nullable="false" MaxLength="250" />
+    <Property Type="Decimal" Name="OutStandingAmount" Nullable="false" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="Report_SalePerDay_Result">
+    <Property Type="DateTime" Name="BillDate" Nullable="true" />
+    <Property Type="String" Name="CustomerType" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="150" />
+    <Property Type="String" Name="CreditCustomer" Nullable="true" MaxLength="250" />
+    <Property Type="Int32" Name="Pair" Nullable="true" />
+    <Property Type="Int32" Name="Carton" Nullable="true" />
+    <Property Type="Decimal" Name="TotalBill" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Decimal" Name="Claim" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="Freight" Nullable="false" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="TotalInvoiceBill" Nullable="true" Precision="22" Scale="2" />
+    <Property Type="Decimal" Name="AmountRecieved" Nullable="false" Precision="18" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="Report_BuyerAccountDetail_Result">
+    <Property Type="DateTime" Name="CDate" Nullable="true" />
+    <Property Type="Decimal" Name="Amount" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="OrderID" Nullable="true" />
+    <Property Type="Decimal" Name="OrderPrice" Nullable="true" Precision="18" Scale="2" />
+  </ComplexType>
+</Schema>

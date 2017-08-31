@@ -1,0 +1,163 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+
+    var actionColumnTemplate = string.Empty;
+    var baseEditActionUrl = CommonFunction.GetBaseUrlForActions("PurchaseReciept", "Invoice") + "/";
+
+    actionColumnTemplate += "<a href=" + baseEditActionUrl + "#: InvoiceID # >View Invoice</a>";
+
+    var ColumnTemplate = string.Empty;
+    var basestatusActionUrl = CommonFunction.GetBaseUrlForActions("EditInvoice", "Invoice") + "/";
+
+    ColumnTemplate += "<a class='cmd-mark-inactive' href=" + basestatusActionUrl + "#: InvoiceID # >Edit Invoice</a>";
+
+    //var cancilTemp = string.Empty;
+    //var basecancilActionUrl = CommonFunction.GetBaseUrlForActions("CancilInvoice", "Invoice") + "/";
+
+    //cancilTemp += "<a id='cmd-mark-inactive' href=" + basecancilActionUrl + "#: InvoiceID # >Delete Invoice</a>";
+
+}
+
+
+<div class="row">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#">Invoice Management</a></li>
+            <li><a href="~/Invoice">Invoices</a></li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-10">
+        <div class="row">
+            <div class="col-sm-6" style="margin-top: 0px;">
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        <input type="text" placeholder="Enter Date" id="Search" value="@ViewBag.Date" data-field="Search" class="form-control" />
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" id="sub" class="btn btn-primary btn-label-left">
+                            Search
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (TempData["ERROR"] != null)
+{
+    <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <span>@TempData["ERROR"] </span>
+    </div>
+}
+
+@if (TempData["SUCCESS"] != null)
+{
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <span>@TempData["SUCCESS"] </span>
+    </div>
+}
+<div>
+
+    @(Html.Kendo().Grid<InvoiceViewM>()
+                    .Name("grid")
+                    .Columns(columns =>
+                    {
+                        columns.Bound(p => p.InvoiceID).Title("Invoice Number");
+                        columns.Bound(p => p.AddedOn).Title("Date");
+                        columns.Bound(p => p.TotalPrice).Title("Total Price");
+                        columns.Bound(p => p.CustomerType).Title("Customer Type");
+
+                        columns.Bound(p => p.CashCustomer).Title("Cash Cust");
+                        columns.Bound(p => p.CreditCustomer).Title("Cred Cust");
+                        columns.Bound(s => s.InvoiceID).Title("").Filterable(f => f.Enabled(false)).ClientTemplate(actionColumnTemplate).Sortable(false).HtmlAttributes(new { style = "text-align:center;" });
+                        columns.Bound(s => s.InvoiceID).Title("").Filterable(f => f.Enabled(false)).ClientTemplate(ColumnTemplate).Sortable(false).HtmlAttributes(new { style = "text-align:center;" });
+                        columns.Command(command => { command.Destroy(); }).Width(180);
+
+                    })
+                .HtmlAttributes(new { style = "height:725px;" })
+                .Sortable()
+                .Pageable()
+                .Scrollable()
+                .Filterable()
+                .ColumnMenu()
+                //    .Events(e=> e.DataBound("onDataBound") )
+
+                .Reorderable(reorder => reorder.Columns(true))
+                .DataSource(dataSource => dataSource.Ajax().PageSize(30)
+                .Model(model =>
+                {
+                    model.Id(p => p.InvoiceID);
+                })
+        .Read(read => read.Action("Read", "Invoice"))
+        .Destroy(update => update.Action("CancilInvoice", "Invoice"))
+        )
+        .Sortable()
+
+
+    )
+</div>
+@section scripts{
+    <script>
+
+        $('#cmd-mark-inactive').click(function () {
+            return confirm("Do you really want to delete this record?")
+        });
+
+
+        function onDataBound(arg) {
+            debugger;
+            var filters = [];
+
+            var grid = $("#grid").data("kendoGrid");
+
+            var Name = $("#Search").val();
+
+            if (Name != "") {
+                grid.dataSource.filter({
+                    field: "AddedOn",
+                    operator: "eq",
+                    value: Name
+                });
+            }
+            else {
+                grid.dataSource.filter({});
+            }
+        }
+
+        $('#sub').on('click', function () {
+            SearchGrid();
+        });
+
+        function SearchGrid() {
+            debugger;
+            var filters = [];
+
+            var grid = $("#grid").data("kendoGrid");
+
+            var Name = $("#Search").val();
+
+            if (Name != "") {
+                grid.dataSource.filter({
+                    field: "AddedOn",
+                    operator: "eq",
+                    value: Name
+                });
+            }
+            else {
+                grid.dataSource.filter({});
+            }
+
+        }
+
+
+    </script>
+}

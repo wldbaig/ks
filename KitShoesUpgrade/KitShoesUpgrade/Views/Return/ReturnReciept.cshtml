@@ -1,0 +1,211 @@
+﻿@model PurchaseRecieptViewModel
+@{
+    ViewBag.Title = "PurchaseReciept";
+    var db = new KSEntities();
+    var customer = Model.CustomerInfo;
+    var cartonCount = 0;
+    var pairCount = 0;
+    decimal tprice = 0;
+}
+
+
+<div class="row">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#">Return Management</a></li>
+            <li><a href="~/Return">Return Item</a></li>
+            <li><a href="#">Return Reciept</a></li>
+        </ol>
+    </div>
+</div>
+@if (TempData["ERROR"] != null)
+{
+    <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <span>@TempData["ERROR"] </span>
+    </div>
+}
+
+@if (TempData["SUCCESS"] != null)
+{
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <span>@TempData["SUCCESS"] </span>
+    </div>
+}
+ 
+<div class="row">
+    <div class="col-xs-12 col-sm-12">
+        <div class="box">
+            <div class="box-content">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <a id="btnPrint" class="btn btn-success pull-right">Print</a>
+                    </div>
+                </div>
+
+                <div id="dvContainer">
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="invoice-title">
+                                <h2>Return</h2><h3 class="pull-right">Return # @Model.ReturnID</h3>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <address>
+                                        <strong>Billed To:</strong><br>
+                                        <b> @Model.CustomerInfo.Name </b><br>
+
+                                    </address>
+                                </div>
+                                <div class="col-xs-6 text-right">
+                                    <address>
+                                        <strong>Shop:</strong><br>
+                                        K Material<br>
+                                        SHOP NO. F-2054<br>
+                                        AJWA CENTRE, MOTI BAZAR, LAHORE<br>
+                                        042-3766090, 0321-4984106<br>
+                                    </address>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-xs-6">
+                                    <address>
+                                        <strong>Return Date:</strong>
+                                        @Model.Date<br><br>
+                                    </address>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><strong>Return summary</strong></h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-condensed">
+                                            <thead>
+                                                <tr>
+                                                    <td><strong>Article</strong></td>
+                                                    <td class="text-center"><strong>Image</strong></td>
+                                                    <td class="text-center"></td>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var Item in Model.PReciept)
+                                                {
+                                                    <tr>
+                                                        @{
+
+                                                            var article = db.Articles.Find(Item.Article);
+                                                            <td>@article.ArticleName</td>
+                                                            <td class="text-center"><img src="@ImageHelper.Source(eDirectory.Article, "300", article)" style="width:150px; height:100px;" /></td>
+                                                        }
+
+                                                        <td>
+
+                                                            <table class="table table-condensed">
+                                                                <tbody>
+                                                                    @foreach (var adetail in Item.LPRDetail)
+                                                                    {
+                                                                        <tr>
+                                                                            <td style="width:330px;">
+                                                                                @{
+                                                                                    var artCol = db.ArticleDetails.Find(adetail.ArticleDetail);
+
+                                                                                    tprice += adetail.Price;
+                                                                                    <text>
+
+                                                                                        @artCol.Color.ColorName
+                                                                                    </text>
+                                                                                }
+
+
+                                                                            </td>
+                                                                            <td>
+                                                                                @adetail.CartonAdded
+                                                                                @{ cartonCount += adetail.CartonAdded;}
+
+                                                                            </td>
+                                                                            <td>
+                                                                                @adetail.QuantiyAdded
+                                                                                @{ pairCount += adetail.QuantiyAdded;}
+
+                                                                            </td>
+
+                                                                            <td>
+                                                                                @adetail.Price
+                                                                            </td>
+                                                                        </tr>
+                                                                                    }
+
+                                                                </tbody>
+                                                            </table>
+
+                                                        </td>
+
+                                                    </tr>
+                                                                                    }
+
+                                                <tr>
+                                                    <td class="thick-line"></td>
+                                                    <td class="thick-line text-right"><strong>Total Carton</strong></td>
+                                                    <td class="thick-line text-center">@cartonCount</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="no-line"></td>
+                                                    <td class="no-line text-right"><strong>Total Pair</strong></td>
+                                                    <td class="no-line text-center">@pairCount</td>
+                                                </tr>
+                                                 
+                                                <tr>
+                                                    <td class="no-line"></td>
+                                                    <td class="no-line text-right"><strong>Total Price</strong></td>
+                                                    <td class="no-line text-right">@tprice</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval");
+
+    <script type="text/javascript">
+        $("#btnPrint").on("click", function () {
+            debugger;
+            var divContents = $("#dvContainer").html();
+            var printWindow = window.open('', '', 'height=400,width=800');
+            printWindow.document.write('<html><head><title></title>');
+            printWindow.document.write('<link rel="stylesheet" href="@BaseURL/Content/css/bootstrap.css" type="text/css" />');
+            printWindow.document.write('<link rel="stylesheet" href="@BaseURL/Content/css/devoops/admin.css" type="text/css" />');
+            printWindow.document.write('<link rel="stylesheet" href="@BaseURL/Content/css/new-styles.css" type="text/css" />');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(divContents);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        });
+    </script>
+}

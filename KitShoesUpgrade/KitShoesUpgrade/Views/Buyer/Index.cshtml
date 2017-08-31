@@ -1,0 +1,126 @@
+﻿@model IEnumerable<Buyer>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#">User Management</a></li>
+            <li><a href="~/Buyer">Buyers</a></li>
+        </ol>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-10">
+        <div class="row">
+            <div class="col-sm-2">
+                @Html.ActionLink("Add", "Add", new object { }, new { @class = "btn btn-primary custom-btn-class" })
+
+            </div>
+
+            <div class="col-sm-8" style="margin-top: -16px;">
+                @using (Html.BeginForm("Search", "Buyer", FormMethod.Post, new { id = "uploadForm1", enctype = "multipart/form-data" }))
+                {
+                    <div class="form-group">
+
+                        <div class="col-sm-4">
+                            <input type="text" placeholder="Enter Buyer name" name="Search" class="form-control" value="@ViewBag.Ser" />
+
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="submit" class="btn btn-primary btn-label-left">
+                                Search
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@if (TempData["ERROR"] != null)
+{
+    <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <span>@TempData["ERROR"] </span>
+    </div>
+}
+<br />
+<div class="row">
+
+    <div class="col-xs-12 col-sm-12">
+        @{ Html.Kendo().Grid(Model)
+                         .Name("Articles")
+                         .Columns(columns =>
+                         {
+                             columns.Bound(e => e.Name).Width(150);
+
+                           //  columns.Bound(e => e.BuyerAccounts.FirstOrDefault().TotalBalance).Width(140).Title("Total Balance");
+                             columns.Bound(e => e.BuyerAccounts.FirstOrDefault().OutStandingAmount).Width(140).Title("OutStanding Balance");
+                          //   columns.Bound(e => e.BuyerAccounts.FirstOrDefault().TotalPaid).Width(140).Title("Total Paid");
+                             columns.Bound(e => e.IsActive).Width(120).Title("Is Active");
+
+                             columns.Bound(e => e.Phone).Title("Phone").Width(100);
+                             columns.Command(command =>
+                             {
+                                 command.Custom("Edit").Action("Edit", "Buyer");
+
+                                 command.Custom("Amount Paid").HtmlAttributes(new
+                                 {
+                                     @class = "fancybox",
+                                     @data_fancybox_type = "iframe",
+                                     @data_fancybox_width = "400",
+                                     @data_fancybox_height = "250"
+                                 }).Action("PaidAmount", "Buyer",
+                                  new { p = Url.RequestContext.RouteData.Values["id"], popup = true });
+                                 command.Custom("Active/InActive").Action("ChangeStatus", "Buyer");
+
+                             }).Title("Command").Width(400);
+                         })
+
+                         .HtmlAttributes(new { style = "height:725px;" })
+                         .Sortable()
+                         .Pageable(pageable => pageable
+                                 .Refresh(true)
+                                 .PageSizes(true)
+                                 .ButtonCount(20))
+                         .Scrollable()
+                         .Filterable()
+                         .ColumnMenu()
+                         .Reorderable(reorder => reorder.Columns(true))
+                         .DataSource(dataSource => dataSource.Server().Model(model => model.Id(p => p.ID)).PageSize(20))
+                         .Sortable()
+                         .Render();
+        }
+    </div>
+
+
+
+</div>
+<script type="text/javascript">
+
+</script>
+@section scripts{
+    <script>
+        $('.cmd-mark-inactive').click(function () {
+            return confirm("Do you really want to change status of this record?")
+        });
+
+        $(document).ready(function () {
+
+            $(".fancybox").fancybox({
+                type: 'iframe',
+                autoSize: false,
+                beforeLoad: function () {
+                    this.width = parseInt(this.element.data('fancybox-width'));
+                    this.height = parseInt(this.element.data('fancybox-height'));
+                },
+                afterClose: function () { // USE THIS IT IS YOUR ANSWER THE KEY WORD IS "afterClose"
+                    parent.location.reload(true);
+                }
+            });
+        });
+
+    </script>
+}

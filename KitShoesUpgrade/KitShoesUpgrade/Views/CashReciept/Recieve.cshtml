@@ -1,0 +1,230 @@
+﻿@model CashCustViewModel
+@{
+    var baseUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["BaseURL"];
+    ViewBag.Title = "Add New Reciept";
+}
+<link href="~/Content/css/devoops/tooltip.css" rel="stylesheet" />
+
+
+@using (Html.BeginForm("Recieve", "CashReciept", FormMethod.Post, new
+{
+    id = "uploadForm1",
+    enctype = "multipart/form-data",
+    onsubmit = "return confirm('Do you really want to submit the form?');"
+}))
+{
+    <div class="row">
+        <div id="breadcrumb" class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="#">CashReciept Management</a></li>
+                <li><a href="~/CashReciept">CashReciepts</a></li>
+                <li><a href="#">Make Reciept</a></li>
+            </ol>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+
+            <div class="box">
+                <div class="box-header">
+                    <div class="box-name">
+                        <i class="fa fa-search"></i>
+                        <span>Recieve Cash Reciept </span>
+                    </div>
+                    <div class="box-icons">
+                        <a class="collapse-link">
+                            @*<i class="fa fa-chevron-up"></i>*@
+                        </a>
+                    </div>
+                    <div class="no-move"></div>
+                </div>
+                <div class="box-content">
+                    <div class="row">
+                        <p class="bg-danger">@Html.ValidationSummary(true)</p>
+                        @if (TempData["ERROR"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <span>@TempData["ERROR"] </span>
+                            </div>
+                        }
+                        @if (TempData["SUCCESS"] != null)
+                        {
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <span>@TempData["SUCCESS"] </span>
+                            </div>
+                        }
+
+                        <div class="col-lg-6">
+
+                            <fieldset>
+                                 
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                        @Html.Label("Customers", new { @class = "control-label" })
+
+                                    </div>
+                                    <div class="col-sm-4">
+                                        @(Html.Kendo().MultiSelectFor(m => m.Custs).DataTextField("Name")
+            .DataValueField("ID").DataSource(d => d.Read(r => r.Action("GetCustomerList", "CashReciept")))
+            .Events(e =>
+                                    {
+                                        e.Change("onChange").Select("onSelect");
+                                    }))
+
+                                         @Html.ValidationMessageFor(model => model.Custs)
+                                    </div>
+                                </div>
+
+                                <div id="articleDetails" class="form-group">
+
+                                </div>
+                            </fieldset>
+
+                            <div class="clearfix"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <button type="submit" class="btn btn-primary btn-label-left">
+                                        Save
+                                    </button>
+                                    <a href="~/CashReciept" class="btn btn-primary btn-label-left">
+                                        Cancel
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6">
+                            <fieldset>
+                                
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                        Total Amount
+                                    </div>
+                                    <div class="col-sm-4" id="total-Amount">
+                                        0
+                                    </div>
+                                </div>
+
+                                
+
+                            </fieldset>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="ajax-loading" id="loading"><p></p></div>
+
+}
+@section Styles{
+    <style scoped>
+        .populate {
+            width: 200px;
+        }
+    </style>
+}
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval");
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+
+              $('#s2_with_tag').select2({ placeholder: "Select Customer" });
+             
+        });
+
+
+        function calcuatePrice(CUSTid) {
+            debugger;
+            // var input = $(element).val();
+
+            var cust = parseFloat($("#item-Cust-" + CUSTid).val());
+            
+            var amount = cust;
+             
+            var custP = "#cust-" + CUSTid;
+
+            var custrP = "#custr-" + CUSTid;   // to remove price
+
+            $(custP).text(amount);
+            $(custrP).text(amount);
+
+            var str = 0;
+            $('.itemPrices').each(function () {
+                str += parseFloat($(this).text());
+            })
+            $('#total-Amount').text(str);
+
+             
+        }
+
+    </script>
+
+    <script>
+
+        function onChange() {
+
+        debugger;
+
+            var previous = this._savedOld;
+            var current = this.value();
+            var diff = [];
+            if (previous) {
+                diff = $(previous).not(current).get();
+            }
+            this._savedOld = current.slice(0);
+            if (diff.length > 0) {
+                debugger;
+                var item = "#" + diff;
+                var artRempvPrice = ".itemrPrices-" + diff; //e.params.data.id;
+                var str = 0;
+                $(artRempvPrice).each(function () {
+                    str += parseFloat($(this).text());
+                })
+                var ttlAmount = parseFloat($('#total-Amount').text());
+                ttlAmount = ttlAmount - str;
+                $('#total-Amount').text(ttlAmount);
+
+                $(item).remove();
+                 
+            }
+
+        }
+
+        function onSelect(e) {
+            debugger;
+            var item = e.item;
+            var text = item.text();
+            
+            $.ajax({
+                type: "POST",
+                url: "@baseUrl/CashReciept/GetCustomers",
+                data: JSON.stringify({ CustomerNAME: text }),
+                datatype: "json",
+                contentType: "application/json",
+                success: function (data) {
+                    $('#articleDetails').prepend(data);
+                    $('#articleDetails').show();
+                },
+                error: function (error) {
+                    $('#articleDetails').hide();
+                }
+            });
+
+        }
+
+         
+    </script>
+}

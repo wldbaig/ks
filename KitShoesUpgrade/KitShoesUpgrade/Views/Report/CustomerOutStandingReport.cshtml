@@ -1,0 +1,113 @@
+﻿@model IEnumerable<CustomerOutStandingReport>
+@{
+    ViewBag.Title = "CustomerOutStanding";
+
+    decimal osamount = 0;
+}
+
+<div class="row">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#">Report Management</a></li>
+            <li><a href="~/Report/CustomerOutStanding">CustomerOutStanding Report</a></li>
+            <li><a href="#">Report</a></li>
+        </ol>
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div class="col-xs-12 col-sm-12">
+        <div class="box">
+            <div class="box-content">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <a id="btnPrint" class="btn btn-success pull-right">Print</a>
+                    </div>
+                </div>
+
+                <div id="dvContainer">
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><strong>CustomerOutStanding Report summary</strong></h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-condensed">
+                                            <thead>
+                                                <tr>
+                                                    <td><strong>Customer</strong></td>
+                                                    <td><strong>OutStanding Amount</strong></td>
+
+
+                                                    <td></td>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var Item in Model)
+                                                {
+                                                    <tr>
+                                                        <td> @Item.CustomerName</td>
+                                                        <td>
+                                                            @Item.OSAmount
+                                                        @{osamount += Item.OSAmount;}
+                                                    </td>
+
+                                                    <td></td>
+
+                                                </tr>
+                                                            }
+                                                <tr>
+
+                                                    <td class="thick-line"><strong>Total Amount</strong></td>
+                                                    <td class="thick-line">@osamount</td>
+                                                    <td class="thick-line"></td>
+
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval");
+
+    <script type="text/javascript">
+        $("#btnPrint").on("click", function () {
+            debugger;
+            var divContents = $("#dvContainer").html();
+            var printWindow = window.open('', '', 'height=400,width=800');
+            printWindow.document.write('<html><head><title></title>');
+            printWindow.document.write('<link rel="stylesheet" href="@BaseURL/Content/css/bootstrap.css" type="text/css" />');
+            printWindow.document.write('<link rel="stylesheet" href="@BaseURL/Content/css/devoops/admin.css" type="text/css" />');
+            printWindow.document.write('<link rel="stylesheet" href="@BaseURL/Content/css/new-styles.css" type="text/css" />');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(divContents);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        });
+    </script>
+}
+
+

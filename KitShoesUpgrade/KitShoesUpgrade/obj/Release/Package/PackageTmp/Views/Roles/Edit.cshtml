@@ -1,0 +1,239 @@
+﻿@model KitShoesUpgrade.Models.RoleAndPermissions
+
+@{
+    //Layout = null;
+    ViewBag.Title = "Edit Role";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div id="breadcrumb" class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="#"> User Management</a></li>
+                <li><a href="~/Roles"> Roles</a></li>
+                <li><a href="#"> Edit</a></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+
+            <div class="box">
+                <div class="box-header">
+                    <div class="box-name">
+                        <i class="fa fa-search"></i>
+                        <span> Edit Role</span>
+                    </div>
+                    <div class="box-icons">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                    <div class="no-move"></div>
+                </div>
+                <div class="box-content">
+                    @Html.HiddenFor(model => model.CRole.ID)
+                    <p class="bg-danger">@Html.ValidationSummary(true)</p>
+                    @if (Model != null && Model.DisplayMessage)
+                    {
+                        <p class="bg-danger">@Model.Message</p>
+                    }
+                    <fieldset>
+                        <legend>Role</legend>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CRole.FullName, new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.TextBoxFor(model => model.CRole.FullName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.CRole.FullName)
+                            </div>
+                            @*@if (Model.CRole.RoleType != "ADMIN") { 
+                            @Html.LabelFor(model => model.RolesList, new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.ListBoxFor(model => model.RolesList, (MultiSelectList)ViewBag.ListRoles, new { @class = "populate placeholder", id = "s2_with_tag" })
+                                @Html.ValidationMessageFor(model => model.RolesList)
+                            </div>
+                            }*@
+                        </div>
+                    </fieldset>
+
+                    <div class="col-lg-12">
+                        <table class="table table-bordered table-hover table-striped tablesorter" id="dsTable">
+                            <thead class="table_header_gd">
+                                <tr>
+                                    <th>
+                                         Permission
+                                    </th>
+                                    <th>
+                                         Can View
+                                    </th>
+                                    <th>
+                                         Can Add
+                                    </th>
+                                    <th>
+                                         Can Edit
+                                    </th>
+                                    <th>
+                                         Can Delete
+                                    </th>
+                                </tr>
+                            </thead>
+                            @{var count = Model.CRolePermission.Where(s => s.showView == true && s.showAdd == true && s.showEdit == true && s.showDelete == true).Count();}
+                            @for (int i = 0; i < count; i++)
+                            {
+                                <tr>
+                                    @Html.HiddenFor(modelItem => modelItem.CRolePermission[i].ID)
+                                    @Html.HiddenFor(modelItem => modelItem.CRolePermission[i].NAME)
+                                    <td>
+                                        @Html.DisplayFor(modelItem => modelItem.CRolePermission[i].NAME)
+                                    </td>
+                                    <td>
+                                        @if (Model.CRolePermission[i].showView)
+                                        {
+                                            @Html.CheckBoxFor(modelitem => modelitem.CRolePermission[i].canView)
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (Model.CRolePermission[i].showAdd)
+                                        {
+                                            @Html.CheckBoxFor(modelitem => modelitem.CRolePermission[i].canAdd)
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (Model.CRolePermission[i].showEdit)
+                                        {
+                                            @Html.CheckBoxFor(modelitem => modelitem.CRolePermission[i].canEdit)
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (Model.CRolePermission[i].showDelete)
+                                        {
+                                            @Html.CheckBoxFor(modelitem => modelitem.CRolePermission[i].canDelete)
+                                        }
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+                    </div>
+                    <div class="col-lg-12">
+                        <table class="table table-bordered table-hover table-striped tablesorter" id="dsTable">
+                            <thead class="table_header_gd">
+                                <tr>
+                                    <th>
+                                         Permission
+                                    </th>
+                                    <th>
+                                         Can View
+                                    </th>
+                                    <th>
+                                         Can Perform
+                                    </th>
+                                </tr>
+                            </thead>
+                            @{var limit = Model.CRolePermission.Where(s => s.showView == true && s.showAdd == true && s.showEdit == false && s.showDelete == false).Count() + count;}
+                            @for (int i = count; i < limit; i++)
+                            {
+                                <tr>
+                                    @Html.HiddenFor(modelItem => modelItem.CRolePermission[i].ID)
+                                    @Html.HiddenFor(modelItem => modelItem.CRolePermission[i].NAME)
+                                    <td>
+                                        @Html.DisplayFor(modelItem => modelItem.CRolePermission[i].NAME)
+                                    </td>
+                                    <td>
+                                        @if (Model.CRolePermission[i].showView)
+                                        {
+                                            @Html.CheckBoxFor(modelitem => modelitem.CRolePermission[i].canView)
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (Model.CRolePermission[i].showAdd)
+                                        {
+                                            @Html.CheckBoxFor(modelitem => modelitem.CRolePermission[i].canAdd)
+                                        }
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </table>
+                    </div>
+                    <div class="col-lg-12">
+                        <table class="table table-bordered table-hover table-striped tablesorter" id="dsTable">
+                            <thead class="table_header_gd">
+                                <tr>
+                                    <th>
+                                         Permission
+                                    </th>
+                                    <th>
+                                         Can View
+                                    </th>
+                                </tr>
+                            </thead>
+                            @{var endLimit = Model.CRolePermission.Where(s => s.showView == true && s.showAdd == false && s.showEdit == false && s.showDelete == false).Count() + limit;}
+                            @for (int i = limit; i < endLimit; i++)
+                            {
+                                <tr>
+                                    @Html.HiddenFor(modelItem => modelItem.CRolePermission[i].ID)
+                                    @Html.HiddenFor(modelItem => modelItem.CRolePermission[i].NAME)
+                                    <td>
+                                        @Html.DisplayFor(modelItem => modelItem.CRolePermission[i].NAME)
+                                    </td>
+                                    <td>
+                                        @if (Model.CRolePermission[i].showView)
+                                        {
+                                            @Html.CheckBoxFor(modelitem => modelitem.CRolePermission[i].showView)
+                                        }
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </table>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <button type="submit" class="btn btn-primary btn-label-left">
+                                 Update
+                            </button>
+                            <a href="~/Roles" class="btn btn-primary btn-label-left">
+                                 Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+}
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval");
+    <script type="text/javascript">
+        // Run Select2 plugin on elements
+        function DemoSelect2() {
+            $('#s2_with_tag').select2({ placeholder: "Select Roles" });
+            $('#s2_country').select2();
+        }
+        $(document).ready(function () {
+            $('.form-control').tooltip();
+            LoadSelect2Script(DemoSelect2);
+            // Load example of form validation
+            LoadBootstrapValidatorScript(DemoFormValidator);
+            // Add drag-n-drop feature to boxes
+            WinMove();
+            @if (Model.CRole.RoleType == "ADMIN")
+            {
+                <text>$('input[type="checkbox"]').prop("disabled", true);</text>
+            }
+        });
+    </script>
+}

@@ -1,0 +1,133 @@
+﻿@model UserViewModel
+
+@{
+    //Layout = null;
+    ViewBag.Title = "Edit User";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div id="breadcrumb" class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="#"> User Management</a></li>
+                <li><a href="#"> Users</a></li>
+                <li><a href="#"> Edit</a></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            @Html.HiddenFor(model => model.userCredentials.ID)
+            <div class="box">
+                <div class="box-header">
+                    <div class="box-name">
+                        <i class="fa fa-search"></i>
+                        <span> User</span>
+                    </div>
+                    <div class="box-icons">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                    <div class="no-move"></div>
+                </div>
+                <div class="box-content">
+                    <p class="bg-danger">@Html.ValidationSummary(true)</p>
+                    @if (Model != null && Model.DisplayMessage)
+                    {
+                        <p class="bg-danger">@Model.Message</p>
+                    }
+                    <fieldset>
+                        <legend> User Information</legend>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.userCredentials.Name, new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.TextBoxFor(model => model.userCredentials.Name, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.userCredentials.Name)
+                            </div>
+                           
+                        </div>
+                        <div class="form-group">
+                           
+                            @Html.LabelFor(model => model.userCredentials.Phone, new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.TextBoxFor(model => model.userCredentials.Phone, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.userCredentials.Phone)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.userCredentials.Address, new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.TextAreaFor(model => model.userCredentials.Address, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.userCredentials.Address)
+                            </div>
+                          
+                        </div>
+                    
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.userCredentials.LoginID, new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.DisplayFor(model => model.userCredentials.LoginID)
+                                @Html.HiddenFor(model => model.userCredentials.LoginID)
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.userCredentials.RoleID, new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.DropDownListFor(model => model.userCredentials.RoleID, (SelectList)ViewBag.RoleList, new { @class = "populate placeholder", id = "s2_country" })
+                                @Html.ValidationMessageFor(model => model.userCredentials.RoleID)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PASSWORD, new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.PasswordFor(model => model.PASSWORD, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.PASSWORD)
+                            </div>
+                          
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CONFIRMPASSWORD, new { @class = "col-sm-2 control-label" })
+                            <div class="col-sm-4">
+                                @Html.PasswordFor(model => model.CONFIRMPASSWORD, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.CONFIRMPASSWORD)
+                            </div>
+                        </div>
+
+                    </fieldset>
+
+                    <div class="clearfix"></div>
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <button type="submit" class="btn btn-primary btn-label-left">
+                                 Update
+                            </button>
+                            <a href="~/Users" class="btn btn-primary btn-label-left">
+                                 Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            // Add tooltip to form-controls
+            $('#s2_with_tag').select2({ placeholder: "Select Country" });
+            $('#s2_country').select2();
+            
+        });
+    </script>
+}
