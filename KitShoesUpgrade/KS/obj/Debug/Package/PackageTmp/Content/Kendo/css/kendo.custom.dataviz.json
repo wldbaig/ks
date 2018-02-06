@@ -1,0 +1,65 @@
+{
+    "chart": {
+        "title": {
+            "color": "#fff"
+        },
+        "legend": {
+            "labels": {
+                "color": "#fff"
+            }
+        },
+        "chartArea": {
+            "background": "#3d3d3d"
+        },
+        "seriesDefaults": {
+            "labels": {
+                "color": "#fff"
+            }
+        },
+        "axisDefaults": {
+            "line": {
+                "color": "#8e8e8e"
+            },
+            "labels": {
+                "color": "#fff"
+            },
+            "minorGridLines": {
+                "color": "#454545"
+            },
+            "majorGridLines": {
+                "color": "#545454"
+            },
+            "title": {
+                "color": "#fff"
+            }
+        },
+        "seriesColors": [
+            "#0081da",
+            "#3aafff",
+            "#99c900",
+            "#ffeb3d",
+            "#b20753",
+            "#ff4195"
+        ]
+    },
+    "gauge": {
+        "pointer": {
+            "color": "#0070e4"
+        },
+        "scale": {
+            "rangePlaceholderColor": "#1d1d1d",
+            "labels": {
+                "color": "#fff"
+            },
+            "minorTicks": {
+                "color": "#fff"
+            },
+            "majorTicks": {
+                "color": "#fff"
+            },
+            "line": {
+                "color": "#fff"
+            }
+        }
+    }
+}

@@ -205,6 +205,9 @@ namespace KitShoesUpgrade.Controllers.ReserveSales
                     db.Entry(CAcount).State = EntityState.Modified;
                     db.SaveChanges();
 
+                    custAccount.PreviousOutStanding = CAcount.PreviousOutStanding;
+                    db.Entry(custAccount).State = EntityState.Modified;
+                    db.SaveChanges();
                     trans.Complete();
                     TempData["SUCCESS"] = "Purchase added successfully";
 
@@ -396,7 +399,9 @@ namespace KitShoesUpgrade.Controllers.ReserveSales
                     reserve.TotalPrice = db.ReserveSaleDetails.Where(c => c.ReserveSaleID == reserve.ReserveSaleID).Sum(c => c.Price);
                     db.Entry(reserve).State = EntityState.Modified;
                     db.SaveChanges();
-                     
+
+                    decimal prevout = 0;
+
                     var custAccount = new CustomerAccountDetail();
                     custAccount.CAccountID = db.Customers.Find(reserve.CustomerID).CustomerAccounts.FirstOrDefault().ID;
                     custAccount.CreatedBy = User.ID;
@@ -410,14 +415,16 @@ namespace KitShoesUpgrade.Controllers.ReserveSales
                     var CuAcount = reserve.Customer.CustomerAccounts.FirstOrDefault();
                     CuAcount.TotalPaid = CuAcount.CustomerAccountDetails.Sum(c => c.TotalAmount);
                     CuAcount.TotalBalance += reserve.TotalPrice;
+                    prevout = CuAcount.OutStandingAmount;
                     CuAcount.OutStandingAmount = CuAcount.TotalBalance - CuAcount.TotalPaid;
                     CuAcount.UpdatedOn = DateTime.UtcNow;
                     CuAcount.UpdatedBy = User.ID;
                     db.Entry(CuAcount).State = EntityState.Modified;
                     db.SaveChanges();
 
-
-
+                    custAccount.PreviousOutStanding = prevout;
+                    db.Entry(custAccount).State = EntityState.Modified;
+                    db.SaveChanges();
                     trans.Complete();
                     TempData["SUCCESS"] = "ReserveSale added successfully";
 

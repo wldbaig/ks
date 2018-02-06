@@ -1,0 +1,118 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+
+
+    var ColumnTemplate = string.Empty;
+    var basestatusActionUrl = CommonFunction.GetBaseUrlForActions("SPReciept", "Order") + "/";
+
+    ColumnTemplate += "<a href=" + basestatusActionUrl + "#: OrderID # >Reciept</a>";
+
+    var ColumnEditTemplate = string.Empty;
+    var baseEditActionUrl = CommonFunction.GetBaseUrlForActions("EditSpecialOrder", "Order") + "/";
+
+    ColumnEditTemplate += "<a href=" + baseEditActionUrl + "#: OrderID # >Edit</a>";
+
+}
+
+<div class="row">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#">Order Management</a></li>
+            <li><a href="~/Order/SP">Orders</a></li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-10">
+        <div class="row">
+            <div class="col-sm-6" style="margin-top: 0px;">
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        <input type="text" placeholder="Enter orderID" id="Search" data-field="Search" class="form-control" />
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" id="sub" class="btn btn-primary btn-label-left">
+                            Search
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+@if (TempData["ERROR"] != null)
+{
+    <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <span>@TempData["ERROR"] </span>
+    </div>
+}
+<br />
+<div class="row">
+
+    @(Html.Kendo().Grid<OrderViewM>()
+    .Name("grid")
+    .Columns(columns =>
+    {
+        columns.Bound(e => e.OrderID).Width(200);
+        columns.Bound(e => e.OrderStatus).Width(130).Title("Order Status");
+        columns.Bound(e => e.TotalQuantity).Width(100).Title("Total Order");
+        columns.Bound(s => s.OrderID).Title("").Filterable(f => f.Enabled(false)).ClientTemplate(ColumnEditTemplate).Width(100).Sortable(false).HtmlAttributes(new { style = "text-align:center;" });
+        columns.Bound(s => s.OrderID).Title("").Filterable(f => f.Enabled(false)).ClientTemplate(ColumnTemplate).Width(100).Sortable(false).HtmlAttributes(new { style = "text-align:center;" });
+    })
+    .Sortable()
+    .Pageable()
+    .Scrollable()
+    .HtmlAttributes(new { style = "height:550px;" })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .ServerOperation(false)
+        .PageSize(30)
+        .Read(read => read.Action("ReadSP", "Order"))
+    )
+    //   .Events(events => events.DataBound("dataBound"))
+    )
+
+
+</div>
+<script type="text/javascript">
+
+</script>
+@section scripts{
+    <script>
+        $('.cmd-mark-inactive').click(function () {
+            return confirm("Do you really want to change status of this record?")
+        });
+
+
+
+        $('#sub').on('click', function () {
+            SearchGrid();
+        });
+
+        function SearchGrid() {
+            debugger;
+            var filters = [];
+
+            var grid = $("#grid").data("kendoGrid");
+
+            var Name = $("#Search").val();
+
+            if (Name != "") {
+                grid.dataSource.filter({
+                    field: "OrderID",
+                    operator: "eq",
+                    value: Name
+                });
+            }
+            else {
+                grid.dataSource.filter({});
+            }
+
+        }
+         
+    </script>
+}

@@ -19,6 +19,7 @@ namespace KS.Models
         {
             this.OrderDetails = new HashSet<OrderDetail>();
             this.OrderHistories = new HashSet<OrderHistory>();
+            this.SPOrderDetails = new HashSet<SPOrderDetail>();
         }
     
         public int OrderID { get; set; }
@@ -26,10 +27,13 @@ namespace KS.Models
         public int CreatedBy { get; set; }
         public decimal TotalPrice { get; set; }
         public string OrderStatus { get; set; }
+        public bool SpecialOrder { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderHistory> OrderHistories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SPOrderDetail> SPOrderDetails { get; set; }
     }
 }

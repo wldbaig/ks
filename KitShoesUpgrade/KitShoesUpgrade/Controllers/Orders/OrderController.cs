@@ -251,18 +251,7 @@ namespace KitShoesUpgrade.Controllers.Orders
             {
                 using (var trans = new System.Transactions.TransactionScope())
                 {
-                    foreach (var item in order.OrderDetails)
-                    {
-                        ArticleDetail artDet = db.ArticleDetails.Find(item.ArticleDetailID);
-
-                        artDet.Pairs -= item.ArticlePairs ?? 0; 
-                        artDet.TotalStock = (artDet.Carton * item.Article.PairInCarton) + artDet.Pairs;
-
-                        db.Entry(artDet).State = EntityState.Modified;
-                        db.SaveChanges();
-
-                    }
-
+                     
                     var BAcount = order.Buyer.BuyerAccounts.FirstOrDefault();
                     BAcount.TotalPaid += (-1 * order.AmountRecieved);
                     BAcount.TotalBalance += (-1 * order.TotalPrice);
@@ -297,12 +286,7 @@ namespace KitShoesUpgrade.Controllers.Orders
                             var iDetails = Convert.ToInt32(item.Split('*')[1]);
 
                             var artDet = db.ArticleDetails.Find(iDetails);
-
-                            artDet.TotalStock += Convert.ToInt32(collection[item]);
-                            artDet.DateAdded = DateTime.UtcNow;
-                            db.Entry(artDet).State = EntityState.Modified;
-                            db.SaveChanges();
-
+                             
                             var orderDetail = new OrderDetail();
                             orderDetail.OrderID = order.OrderID;
                             orderDetail.ArticleID = artDet.ArticleId;

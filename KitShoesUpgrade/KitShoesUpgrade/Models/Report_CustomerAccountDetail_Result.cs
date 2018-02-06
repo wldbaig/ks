@@ -25,5 +25,6 @@ namespace KitShoesUpgrade.Models
         public Nullable<decimal> ReservePrice { get; set; }
         public Nullable<int> ReturnID { get; set; }
         public Nullable<decimal> ReturnPrice { get; set; }
+        public Nullable<decimal> PreviousOutStanding { get; set; }
     }
 }

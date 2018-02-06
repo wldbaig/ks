@@ -118,6 +118,7 @@
     <EntitySetMapping Name="Orders">
       <EntityTypeMapping TypeName="KitSModel.Order">
         <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="SpecialOrder" ColumnName="SpecialOrder" />
           <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
           <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
@@ -377,6 +378,66 @@
           <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
           <ScalarProperty Name="Article" ColumnName="Article" />
           <ScalarProperty Name="Pair" ColumnName="Pair" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="SPOrderDetails">
+      <EntityTypeMapping TypeName="KitSModel.SPOrderDetail">
+        <MappingFragment StoreEntitySet="SPOrderDetail">
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="Size13" ColumnName="Size13" />
+          <ScalarProperty Name="Size12" ColumnName="Size12" />
+          <ScalarProperty Name="Size11" ColumnName="Size11" />
+          <ScalarProperty Name="Size10" ColumnName="Size10" />
+          <ScalarProperty Name="Size9" ColumnName="Size9" />
+          <ScalarProperty Name="Size8" ColumnName="Size8" />
+          <ScalarProperty Name="Size7" ColumnName="Size7" />
+          <ScalarProperty Name="Size6" ColumnName="Size6" />
+          <ScalarProperty Name="WHArticleDetailID" ColumnName="WHArticleDetailID" />
+          <ScalarProperty Name="WHArticleID" ColumnName="WHArticleID" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+          <ScalarProperty Name="SPOrderDetailId" ColumnName="SPOrderDetailId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Report_TSArticleSaleWithDates" FunctionName="KitSModel.Store.Report_TSArticleSaleWithDates">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="KitSModel.Report_TSArticleSaleWithDates_Result">
+          <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
+          <ScalarProperty Name="Article" ColumnName="Article" />
+          <ScalarProperty Name="Pair" ColumnName="Pair" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="WHReturnItems">
+      <EntityTypeMapping TypeName="KitSModel.WHReturnItem">
+        <MappingFragment StoreEntitySet="WHReturnItem">
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+          <ScalarProperty Name="ReturnItemID" ColumnName="ReturnItemID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WHReturnItemDetails">
+      <EntityTypeMapping TypeName="KitSModel.WHReturnItemDetail">
+        <MappingFragment StoreEntitySet="WHReturnItemDetail">
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ArticlePairs" ColumnName="ArticlePairs" />
+          <ScalarProperty Name="ArticleDetailID" ColumnName="ArticleDetailID" />
+          <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+          <ScalarProperty Name="WHReturnItemID" ColumnName="WHReturnItemID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Report_ArticleSaleWithCreationDates" FunctionName="KitSModel.Store.Report_ArticleSaleWithCreationDates">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="KitSModel.Report_ArticleSaleWithCreationDates_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ArticleName" ColumnName="ArticleName" />
+          <ScalarProperty Name="PairSale" ColumnName="PairSale" />
+          <ScalarProperty Name="Shop" ColumnName="Shop" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

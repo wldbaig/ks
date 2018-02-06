@@ -1,4 +1,4 @@
-﻿@model Dates
+﻿@model SaleModel
 @{
     var baseUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["BaseURL"];
     ViewBag.Title = "BhagwanPura Sale Report";
@@ -71,6 +71,15 @@
                             <div class="col-sm-4">
                                 @Html.Kendo().DatePickerFor(model => model.EndDate).Max(DateTime.Now.Date.AddDays(1))
                                 @Html.ValidationMessageFor(model => model.EndDate)
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                @Html.Label("Category", new { @class = "control-label" })
+
+                            </div>
+                            <div class="col-sm-4">
+                                @Html.DropDownListFor(model => model.CategoryId, (SelectList)ViewBag.Category, "Select Category", new { @class = "populate placeholder", id = "s2_with_tag" })
                             </div>
                         </div>
 

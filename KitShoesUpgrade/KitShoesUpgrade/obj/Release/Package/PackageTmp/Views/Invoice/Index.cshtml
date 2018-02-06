@@ -36,7 +36,7 @@
             <div class="col-sm-6" style="margin-top: 0px;">
                 <div class="form-group">
                     <div class="col-sm-4">
-                        <input type="text" placeholder="Enter Date" id="Search" value="@ViewBag.Date" data-field="Search" class="form-control" />
+                        <input type="text" placeholder="Enter name" id="Search"  data-field="Search" class="form-control" />
                     </div>
                     <div class="col-sm-2">
                         <button type="button" id="sub" class="btn btn-primary btn-label-left">
@@ -123,8 +123,8 @@
 
             if (Name != "") {
                 grid.dataSource.filter({
-                    field: "AddedOn",
-                    operator: "eq",
+                    field: "CreditCustomer",
+                    operator: "contains",
                     value: Name
                 });
             }
@@ -147,17 +147,15 @@
 
             if (Name != "") {
                 grid.dataSource.filter({
-                    field: "AddedOn",
-                    operator: "eq",
+                    field: "CreditCustomer",
+                    operator: "contains",
                     value: Name
                 });
             }
             else {
                 grid.dataSource.filter({});
-            }
-
+            } 
         }
-
-
+         
     </script>
 }

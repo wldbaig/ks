@@ -127,6 +127,7 @@
     <EntitySetMapping Name="CustomerAccountDetails">
       <EntityTypeMapping TypeName="KSModel.CustomerAccountDetail">
         <MappingFragment StoreEntitySet="CustomerAccountDetail">
+          <ScalarProperty Name="PreviousOutStanding" ColumnName="PreviousOutStanding" />
           <ScalarProperty Name="CashRecieptID" ColumnName="CashRecieptID" />
           <ScalarProperty Name="ReserveID" ColumnName="ReserveID" />
           <ScalarProperty Name="ReturnID" ColumnName="ReturnID" />
@@ -245,6 +246,7 @@
     <EntitySetMapping Name="ReturnItems">
       <EntityTypeMapping TypeName="KSModel.ReturnItem">
         <MappingFragment StoreEntitySet="ReturnItem">
+          <ScalarProperty Name="Claim" ColumnName="Claim" />
           <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
           <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
           <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
@@ -373,6 +375,42 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Report_CustomerOutStanding" FunctionName="KSModel.Store.Report_CustomerOutStanding">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="KSModel.Report_CustomerOutStanding_Result">
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="OutStandingAmount" ColumnName="OutStandingAmount" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Report_BuyerAccountDetail" FunctionName="KSModel.Store.Report_BuyerAccountDetail">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="KSModel.Report_BuyerAccountDetail_Result">
+          <ScalarProperty Name="CDate" ColumnName="CDate" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+          <ScalarProperty Name="OrderPrice" ColumnName="OrderPrice" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="Report_SalePerDay" FunctionName="KSModel.Store.Report_SalePerDay">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="KSModel.Report_SalePerDay_Result">
+          <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+          <ScalarProperty Name="BillDate" ColumnName="BillDate" />
+          <ScalarProperty Name="CustomerType" ColumnName="CustomerType" />
+          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+          <ScalarProperty Name="CreditCustomer" ColumnName="CreditCustomer" />
+          <ScalarProperty Name="Pair" ColumnName="Pair" />
+          <ScalarProperty Name="Carton" ColumnName="Carton" />
+          <ScalarProperty Name="TotalBill" ColumnName="TotalBill" />
+          <ScalarProperty Name="Claim" ColumnName="Claim" />
+          <ScalarProperty Name="Freight" ColumnName="Freight" />
+          <ScalarProperty Name="TotalInvoiceBill" ColumnName="TotalInvoiceBill" />
+          <ScalarProperty Name="AmountRecieved" ColumnName="AmountRecieved" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="Report_CustomerAccountDetail" FunctionName="KSModel.Store.Report_CustomerAccountDetail">
       <ResultMapping>
         <ComplexTypeMapping TypeName="KSModel.Report_CustomerAccountDetail_Result">
@@ -388,41 +426,7 @@
           <ScalarProperty Name="ReservePrice" ColumnName="ReservePrice" />
           <ScalarProperty Name="ReturnID" ColumnName="ReturnID" />
           <ScalarProperty Name="ReturnPrice" ColumnName="ReturnPrice" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="Report_CustomerOutStanding" FunctionName="KSModel.Store.Report_CustomerOutStanding">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="KSModel.Report_CustomerOutStanding_Result">
-          <ScalarProperty Name="Customer" ColumnName="Customer" />
-          <ScalarProperty Name="OutStandingAmount" ColumnName="OutStandingAmount" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="Report_SalePerDay" FunctionName="KSModel.Store.Report_SalePerDay">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="KSModel.Report_SalePerDay_Result">
-          <ScalarProperty Name="BillDate" ColumnName="BillDate" />
-          <ScalarProperty Name="CustomerType" ColumnName="CustomerType" />
-          <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
-          <ScalarProperty Name="CreditCustomer" ColumnName="CreditCustomer" />
-          <ScalarProperty Name="Pair" ColumnName="Pair" />
-          <ScalarProperty Name="Carton" ColumnName="Carton" />
-          <ScalarProperty Name="TotalBill" ColumnName="TotalBill" />
-          <ScalarProperty Name="Claim" ColumnName="Claim" />
-          <ScalarProperty Name="Freight" ColumnName="Freight" />
-          <ScalarProperty Name="TotalInvoiceBill" ColumnName="TotalInvoiceBill" />
-          <ScalarProperty Name="AmountRecieved" ColumnName="AmountRecieved" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="Report_BuyerAccountDetail" FunctionName="KSModel.Store.Report_BuyerAccountDetail">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="KSModel.Report_BuyerAccountDetail_Result">
-          <ScalarProperty Name="CDate" ColumnName="CDate" />
-          <ScalarProperty Name="Amount" ColumnName="Amount" />
-          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-          <ScalarProperty Name="OrderPrice" ColumnName="OrderPrice" />
+          <ScalarProperty Name="PreviousOutStanding" ColumnName="PreviousOutStanding" />
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>

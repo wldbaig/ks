@@ -12,22 +12,25 @@ namespace KS.Models
         public string Message { get; set; }
     }
 
-    public class Dates
+    public class SaleModel
     {
         [Required]
         public DateTime StartDate { get; set; }
         [Required]
         public DateTime EndDate { get; set; }
+        public int ShopId { get; set; }
+        public int? CategoryId { get; set; }
     }
 
     public class SaleReport
     {
         public int ArticleID { get; set; }
         public string ArticleName { get; set; }
-         
-        public string Date { get; set; }
+
+
+        public string Shop { get; set; }
         public int? Pairs { get; set; }
-         
+
     }
 
 
@@ -241,6 +244,16 @@ namespace KS.Models
     {
         public int ArticleDetail { get; set; }
         public int QuantiyAdded { get; set; }
+
+        public int Size6 { get; set; }
+        public int Size7 { get; set; }
+        public int Size8 { get; set; }
+        public int Size9 { get; set; }
+        public int Size10 { get; set; }
+        public int Size11 { get; set; }
+        public int Size12 { get; set; }
+        public int Size13 { get; set; }
+        public int total { get; set; }
         public decimal Price { get; set; }
     }
 
@@ -278,7 +291,6 @@ namespace KS.Models
         public Order Order { get; set; }
         public List<ArtilceList> ArtilceList { get; set; }
         public List<WHArticle> Article { get; set; }
-
     }
 
     public class EditInvoiceViewModel
@@ -288,8 +300,8 @@ namespace KS.Models
         public CMInvoice CMInvoice { get; set; }
         public TSInvoice TSInvoice { get; set; }
         public List<ArtilceList> ArtilceList { get; set; }
-        public List<BPArticle> BPArticle { get; set; } 
-        public List<CMArticle> CMArticle { get; set; } 
-        public List<TSArticle> TSArticle { get; set; } 
+        public List<BPArticle> BPArticle { get; set; }
+        public List<CMArticle> CMArticle { get; set; }
+        public List<TSArticle> TSArticle { get; set; }
     }
 }

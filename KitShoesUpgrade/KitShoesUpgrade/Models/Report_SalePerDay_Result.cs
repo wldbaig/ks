@@ -13,6 +13,7 @@ namespace KitShoesUpgrade.Models
     
     public partial class Report_SalePerDay_Result
     {
+        public int InvoiceID { get; set; }
         public Nullable<System.DateTime> BillDate { get; set; }
         public string CustomerType { get; set; }
         public string CustomerName { get; set; }

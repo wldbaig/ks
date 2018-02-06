@@ -32,18 +32,22 @@ h1, .h1, h2, .h2, h3, .h3 {
     background: #333333;
 }
 
-    #logo a {
-        color: #fff;
-        font-family: 'Righteous', cursive;
-        display: block;
-        font-size: 20px;
-        line-height: 50px;
-        /*background: url(../../img/logo.png) right 42px no-repeat;*/
-        -webkit-transition: 0.5s;
-        -moz-transition: 0.5s;
-        -o-transition: 0.5s;
-        transition: 0.5s;
-    }
+.adjust-width {
+    width: 50px !important;
+}
+
+#logo a {
+    color: #fff;
+    font-family: 'Righteous', cursive;
+    display: block;
+    font-size: 20px;
+    line-height: 50px;
+    /*background: url(../../img/logo.png) right 42px no-repeat;*/
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+}
 /*#logo a:hover {
   background-position: right 25px;
   text-decoration: none;
@@ -115,17 +119,21 @@ a.show-sidebar {
 .nav.main-menu, .nav.msg-menu {
     margin: 0 -15px;
 }
-.main-menu li a{
+
+.main-menu li a {
     padding: 25px 12px;
     /*text-transform: uppercase;*/
     border-bottom: 1px solid #676767;
 }
-.main-menu >li.active {
+
+.main-menu > li.active {
     border-right: 5px solid #BDB07B;
 }
-.main-menu > li.active li.active {
-    background: #252525;
+
+    .main-menu > li.active li.active {
+        background: #252525;
     }
+
 a.btn.btn-primary.circle_plus {
     border-radius: 50%;
     height: 28px;
@@ -133,15 +141,15 @@ a.btn.btn-primary.circle_plus {
     background: #3C3838;
 }
 
-    .nav.main-menu > li > a, .nav.msg-menu > li > a {
-        text-align: center;
-        color: #f0f0f0;
-        min-height: 40px;
-        -webkit-transition: 0.2s;
-        -moz-transition: 0.2s;
-        -o-transition: 0.2s;
-        transition: 0.2s;
-    }
+.nav.main-menu > li > a, .nav.msg-menu > li > a {
+    text-align: center;
+    color: #f0f0f0;
+    min-height: 40px;
+    -webkit-transition: 0.2s;
+    -moz-transition: 0.2s;
+    -o-transition: 0.2s;
+    transition: 0.2s;
+}
 
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
     background: rgba(0, 0, 0, 0.1);
@@ -2854,11 +2862,13 @@ td.beauty-hover {
     display: table;
     margin: 20px auto 10px;
 }
-.navigStyle{
+
+.navigStyle {
     clear: both;
     display: table;
     margin: 20px auto 10px;
 }
+
 .customButtons input {
     border: solid 1px;
     float: left;
@@ -2874,10 +2884,23 @@ table.heading1 {
     line-height: 30px;
     font-weight: normal;
 }
-table.heading1 tr {
-   border-bottom: solid 1px;
+
+    table.heading1 tr {
+        border-bottom: solid 1px;
+    }
+
+.ajax-loading {
+    display: none;
+    color: #fff;
+    background: url('../../img/loading.gif') center no-repeat;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    opacity: 0.4;
 }
-.ajax-loading{display:none;color:#fff;background : url('../../img/loading.gif') center no-repeat;position : fixed;z-index: 100;left : 0;bottom : 0;right : 0;top : 0;opacity : 0.4;}
 
 
 /*--------------------------DashBoard--------------------------------*/

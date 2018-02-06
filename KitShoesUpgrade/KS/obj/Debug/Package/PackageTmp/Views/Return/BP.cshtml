@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    var actionRecTemplate = string.Empty;
+
+    var baseviewActionUrl = CommonFunction.GetBaseUrlForActions("ReturnBPReciept", "Return") + "/";
+
+    actionRecTemplate += "<a href=" + baseviewActionUrl + "#: ReturnID # >View Return</a>";
+     
+}
+
+<div class="row">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#">Return Management</a></li>
+            <li><a href="~/Return/BP">BagwanPura Returns</a></li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-10">
+        <div class="row">
+           
+        </div>
+    </div>
+</div>
+@if (TempData["ERROR"] != null)
+{
+    <div class="alert alert-danger alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <span>@TempData["ERROR"] </span>
+    </div>
+}
+<br />
+<div class="row">
+
+    @(Html.Kendo().Grid<ReturnViewM>()
+    .Name("grid")
+    .Columns(columns =>
+    {
+        columns.Bound(e => e.ReturnID).Width(120);
+        columns.Bound(e => e.AddedOn).Width(200); 
+        columns.Bound(s => s.ReturnID).Title("").Filterable(f => f.Enabled(false)).ClientTemplate(actionRecTemplate).Width(100).Sortable(false).HtmlAttributes(new { style = "text-align:center;" });
+
+    })
+    .Sortable()
+    .Pageable()
+    .Scrollable()
+    .ClientDetailTemplateId("template")
+    .HtmlAttributes(new { style = "height:550px;" })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .ServerOperation(false)
+        .PageSize(30)
+
+        .Read(read => read.Action("ReadBP", "Return"))
+    )
+
+    )
+
+    <script id="template" type="text/kendo-tmpl">
+        @(Html.Kendo().TabStrip()
+            .Name("tabStrip_#=ReturnID#")
+            .SelectedIndex(0)
+            .Animation(animation => animation.Open(open => open.Fade(FadeDirection.In)))
+            .Items(items =>
+            {
+                items.Add().Text("ReturnItemDetails").Content(@<text>
+            @(Html.Kendo().Grid<ReturnDetViewM>()
+                        .Name("grid_#=ReturnID#") // template expression, to be evaluated in the master context
+                        .Columns(columns =>
+                        {
+                            columns.Bound(o => o.Article);
+                            columns.Bound(o => o.Color);
+                            columns.Bound(o => o.Quantity); // escaped template expression, to be evaluated in the child/detail context
+                             
+                        })
+                        .DataSource(dataSource => dataSource
+                            .Ajax()
+                            .PageSize(30)
+                            .Read(read => read.Action("DetailReadBP", "Return", new { ReturnID = "#=ReturnID#" }))
+                        )
+                        .Pageable()
+                        .Sortable()
+                        .ToClientTemplate())
+                </text>
+                );
+
+            })
+            .ToClientTemplate())
+    </script>
+
+
+
+
+</div>
+
+<script type="text/javascript">
+
+</script>
+@section scripts{
+    <script>
+        $('.cmd-mark-inactive').click(function () {
+            return confirm("Do you really want to change status of this record?")
+        });
+  
+    </script>
+}

@@ -1,0 +1,181 @@
+﻿
+@{
+
+    var baseUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["BaseURL"];
+    ViewBag.Title = "MakeOrder";
+}
+<link href="~/Content/css/devoops/tooltip.css" rel="stylesheet" />
+
+
+
+@using (Html.BeginForm("MakeSpecialOrder", "Order", FormMethod.Post, new
+{
+    id = "uploadForm1",
+    enctype = "multipart/form-data",
+    onsubmit = "return confirm('Do you really want to submit the form?');"
+}))
+{
+    <div class="row">
+        <div id="breadcrumb" class="col-md-12">
+            <ol class="breadcrumb">
+                <li><a href="#">Order Management</a></li>
+                <li><a href="~/Order/SP">Orders</a></li>
+                <li><a href="#">Special</a></li>
+            </ol>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+
+            <div class="box">
+                <div class="box-header">
+                    <div class="box-name">
+                        <i class="fa fa-search"></i>
+                        <span>Order </span>
+                    </div>
+                    <div class="box-icons">
+                        <a class="collapse-link">
+                            @*<i class="fa fa-chevron-up"></i>*@
+                        </a>
+                    </div>
+                    <div class="no-move"></div>
+                </div>
+                <div class="box-content">
+                    <div class="row">
+                        <p class="bg-danger">@Html.ValidationSummary(true)</p>
+                        @if (TempData["ERROR"] != null)
+                        {
+                            <div class="alert alert-danger alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <span>@TempData["ERROR"] </span>
+                            </div>
+                        }
+                        @if (TempData["SUCCESS"] != null)
+                        {
+                            <div class="alert alert-success alert-dismissable">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                                <span>@TempData["SUCCESS"] </span>
+                            </div>
+                        }
+
+                        <div class="col-lg-6">
+
+                            <fieldset>
+
+                                <div class="form-group">
+                                    <div class="col-sm-4">
+                                        @Html.Label("Articles", new { @class = "control-label" })
+
+                                    </div>
+                                    <div class="col-sm-4">
+                                        @(Html.Kendo().MultiSelect().Name("Article").DataTextField("Name")
+            .DataValueField("ID").DataSource(d => d.Read(r => r.Action("GetArticles", "Order")))
+            .Events(e =>
+                                    {
+                                        e.Change("onChange").Select("onSelect");
+                                    }))
+
+                                    </div>
+                                </div>
+
+                                <div id="articleDetails" class="form-group">
+
+                                </div>
+                            </fieldset>
+
+                            <div class="clearfix"></div>
+                            <div class="form-group">
+                                <div class="col-sm-4">
+                                    <button type="submit" class="btn btn-primary btn-label-left">
+                                        Save
+                                    </button>
+                                    <a href="~/Order/SP" class="btn btn-primary btn-label-left">
+                                        Cancel
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="ajax-loading" id="loading"><p></p></div>
+
+}
+@section Styles{
+    <style scoped>
+        .populate {
+            width: 200px;
+        }
+    </style>
+}
+
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval");
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#s3_with_tag').select2({ placeholder: "Select Articles" });
+
+        });
+
+
+        function calcuateTotal(artDtlId) {
+            debugger;
+
+            var size6 = parseFloat($("#item-Size6-" + artDtlId).val());
+            var size7 = parseFloat($("#item-Size7-" + artDtlId).val());
+            var size8 = parseFloat($("#item-Size8-" + artDtlId).val());
+            var size9 = parseFloat($("#item-Size9-" + artDtlId).val());
+            var size10 = parseFloat($("#item-Size10-" + artDtlId).val());
+            var size11 = parseFloat($("#item-Size11-" + artDtlId).val());
+            var size12 = parseFloat($("#item-Size12-" + artDtlId).val());
+            var size13 = parseFloat($("#item-Size13-" + artDtlId).val());
+
+            var totalcount = size6 + size7 + size8 + size9 + size10 + size11 + size12 + size13;
+
+            var total = $("#item-total-" + artDtlId).val(totalcount);
+        }
+
+    </script>
+
+    <script>
+
+        function onChange() {
+
+            
+        }
+
+        function onSelect(e) {
+            debugger;
+            var item = e.item;
+            var text = item.text();
+
+            $.ajax({
+                type: "POST",
+                url: "@baseUrl/Order/GetSPArticleDetailforPurchase",
+                data: JSON.stringify({ ArticleID: text }),
+                datatype: "json",
+                contentType: "application/json",
+                success: function (data) {
+                    $('#articleDetails').prepend(data);
+                    $('#articleDetails').show();
+                },
+                error: function (error) {
+                    $('#articleDetails').hide();
+                }
+            }); 
+        }
+
+    </script>
+}

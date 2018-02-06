@@ -153,6 +153,7 @@
     <Property Name="CreatedBy" Type="int" Nullable="false" />
     <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
     <Property Name="OrderStatus" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="SpecialOrder" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="OrderDetail">
     <Key>
@@ -219,6 +220,24 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ShopName" Type="varchar" MaxLength="150" />
     <Property Name="NickName" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SPOrderDetail">
+    <Key>
+      <PropertyRef Name="SPOrderDetailId" />
+    </Key>
+    <Property Name="SPOrderDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OrderId" Type="int" Nullable="false" />
+    <Property Name="WHArticleID" Type="int" Nullable="false" />
+    <Property Name="WHArticleDetailID" Type="int" Nullable="false" />
+    <Property Name="Size6" Type="int" Nullable="false" />
+    <Property Name="Size7" Type="int" Nullable="false" />
+    <Property Name="Size8" Type="int" Nullable="false" />
+    <Property Name="Size9" Type="int" Nullable="false" />
+    <Property Name="Size10" Type="int" Nullable="false" />
+    <Property Name="Size11" Type="int" Nullable="false" />
+    <Property Name="Size12" Type="int" Nullable="false" />
+    <Property Name="Size13" Type="int" Nullable="false" />
+    <Property Name="Total" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="TSArticle">
     <Key>
@@ -330,6 +349,26 @@
     <Property Name="ColorId" Type="int" Nullable="false" />
     <Property Name="DateAdded" Type="datetime" />
     <Property Name="TotalStock" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WHReturnItem">
+    <Key>
+      <PropertyRef Name="ReturnItemID" />
+    </Key>
+    <Property Name="ReturnItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AddedOn" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WHReturnItemDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WHReturnItemID" Type="int" Nullable="false" />
+    <Property Name="ArticleID" Type="int" Nullable="false" />
+    <Property Name="ArticleDetailID" Type="int" Nullable="false" />
+    <Property Name="ArticlePairs" Type="int" Nullable="false" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
   </EntityType>
   <Association Name="FK_Article_Category">
     <End Role="Category" Type="Self.Category" Multiplicity="1" />
@@ -667,6 +706,42 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_SPOrderDetail_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="1" />
+    <End Role="SPOrderDetail" Type="Self.SPOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="SPOrderDetail">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SPOrderDetail_WHArticle">
+    <End Role="WHArticle" Type="Self.WHArticle" Multiplicity="1" />
+    <End Role="SPOrderDetail" Type="Self.SPOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WHArticle">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SPOrderDetail">
+        <PropertyRef Name="WHArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SPOrderDetail_WHArticleDetail">
+    <End Role="WHArticleDetail" Type="Self.WHArticleDetail" Multiplicity="1" />
+    <End Role="SPOrderDetail" Type="Self.SPOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WHArticleDetail">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SPOrderDetail">
+        <PropertyRef Name="WHArticleDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_TSArticle_Category">
     <End Role="Category" Type="Self.Category" Multiplicity="1" />
     <End Role="TSArticle" Type="Self.TSArticle" Multiplicity="*" />
@@ -787,13 +862,61 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_WHReturnItemDetail_WHArticle">
+    <End Role="WHArticle" Type="Self.WHArticle" Multiplicity="1" />
+    <End Role="WHReturnItemDetail" Type="Self.WHReturnItemDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WHArticle">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="WHReturnItemDetail">
+        <PropertyRef Name="ArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WHReturnItemDetail_WHArticleDetail">
+    <End Role="WHArticleDetail" Type="Self.WHArticleDetail" Multiplicity="1" />
+    <End Role="WHReturnItemDetail" Type="Self.WHReturnItemDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WHArticleDetail">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="WHReturnItemDetail">
+        <PropertyRef Name="ArticleDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WHReturnItemDetail_WHReturnItem">
+    <End Role="WHReturnItem" Type="Self.WHReturnItem" Multiplicity="1" />
+    <End Role="WHReturnItemDetail" Type="Self.WHReturnItemDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WHReturnItem">
+        <PropertyRef Name="ReturnItemID" />
+      </Principal>
+      <Dependent Role="WHReturnItemDetail">
+        <PropertyRef Name="WHReturnItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="Report_ArticleSaleWithCreationDates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="StartDate" Type="datetime" Mode="In" />
+    <Parameter Name="EndDate" Type="datetime" Mode="In" />
+    <Parameter Name="ShopId" Type="int" Mode="In" />
+  </Function>
   <Function Name="Report_BPArticleSaleWithDates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="StartDate" Type="datetime" Mode="In" />
     <Parameter Name="EndDate" Type="datetime" Mode="In" />
+    <Parameter Name="CategoryId" Type="int" Mode="In" />
   </Function>
   <Function Name="Report_CMArticleSaleWithDates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="StartDate" Type="datetime" Mode="In" />
     <Parameter Name="EndDate" Type="datetime" Mode="In" />
+    <Parameter Name="CategoryId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="Report_TSArticleSaleWithDates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="StartDate" Type="datetime" Mode="In" />
+    <Parameter Name="EndDate" Type="datetime" Mode="In" />
+    <Parameter Name="CategoryId" Type="int" Mode="In" />
   </Function>
   <EntityContainer Name="KitSModelStoreContainer">
     <EntitySet Name="BPArticle" EntityType="Self.BPArticle" Schema="dbo" store:Type="Tables" />
@@ -817,6 +940,7 @@
     <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RolePermission" EntityType="Self.RolePermission" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Shops" EntityType="Self.Shops" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SPOrderDetail" EntityType="Self.SPOrderDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TSArticle" EntityType="Self.TSArticle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TSArticleDetail" EntityType="Self.TSArticleDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TSInvoice" EntityType="Self.TSInvoice" Schema="dbo" store:Type="Tables" />
@@ -826,6 +950,8 @@
     <EntitySet Name="UserCredential" EntityType="Self.UserCredential" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WHArticle" EntityType="Self.WHArticle" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="WHArticleDetail" EntityType="Self.WHArticleDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WHReturnItem" EntityType="Self.WHReturnItem" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="WHReturnItemDetail" EntityType="Self.WHReturnItemDetail" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Article_Category" Association="Self.FK_Article_Category">
       <End Role="Category" EntitySet="Category" />
       <End Role="WHArticle" EntitySet="WHArticle" />
@@ -938,6 +1064,18 @@
       <End Role="Role" EntitySet="Role" />
       <End Role="RolePermission" EntitySet="RolePermission" />
     </AssociationSet>
+    <AssociationSet Name="FK_SPOrderDetail_Order" Association="Self.FK_SPOrderDetail_Order">
+      <End Role="Order" EntitySet="Order" />
+      <End Role="SPOrderDetail" EntitySet="SPOrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SPOrderDetail_WHArticle" Association="Self.FK_SPOrderDetail_WHArticle">
+      <End Role="WHArticle" EntitySet="WHArticle" />
+      <End Role="SPOrderDetail" EntitySet="SPOrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SPOrderDetail_WHArticleDetail" Association="Self.FK_SPOrderDetail_WHArticleDetail">
+      <End Role="WHArticleDetail" EntitySet="WHArticleDetail" />
+      <End Role="SPOrderDetail" EntitySet="SPOrderDetail" />
+    </AssociationSet>
     <AssociationSet Name="FK_TSArticle_Category" Association="Self.FK_TSArticle_Category">
       <End Role="Category" EntitySet="Category" />
       <End Role="TSArticle" EntitySet="TSArticle" />
@@ -977,6 +1115,18 @@
     <AssociationSet Name="FK_UserCredential_Role" Association="Self.FK_UserCredential_Role">
       <End Role="Role" EntitySet="Role" />
       <End Role="UserCredential" EntitySet="UserCredential" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WHReturnItemDetail_WHArticle" Association="Self.FK_WHReturnItemDetail_WHArticle">
+      <End Role="WHArticle" EntitySet="WHArticle" />
+      <End Role="WHReturnItemDetail" EntitySet="WHReturnItemDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WHReturnItemDetail_WHArticleDetail" Association="Self.FK_WHReturnItemDetail_WHArticleDetail">
+      <End Role="WHArticleDetail" EntitySet="WHArticleDetail" />
+      <End Role="WHReturnItemDetail" EntitySet="WHReturnItemDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WHReturnItemDetail_WHReturnItem" Association="Self.FK_WHReturnItemDetail_WHReturnItem">
+      <End Role="WHReturnItem" EntitySet="WHReturnItem" />
+      <End Role="WHReturnItemDetail" EntitySet="WHReturnItemDetail" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

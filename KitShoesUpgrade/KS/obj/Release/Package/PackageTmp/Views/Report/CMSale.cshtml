@@ -1,4 +1,4 @@
-﻿@model Dates
+﻿@model SaleModel
 @{
     var baseUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["BaseURL"];
     ViewBag.Title = "ChahMiran Sale Report";
@@ -74,7 +74,16 @@
                             </div>
                         </div>
 
-                       
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                @Html.Label("Category", new { @class = "control-label" })
+
+                            </div>
+                            <div class="col-sm-4">
+                                @Html.DropDownListFor(model => model.CategoryId, (SelectList)ViewBag.Category, "Select Category", new { @class = "populate placeholder", id = "s2_with_tag" })
+                            </div>
+                        </div>
+                         
                         <div class="clearfix"></div>
                         <div class="form-group">
                             <div class="col-sm-4">

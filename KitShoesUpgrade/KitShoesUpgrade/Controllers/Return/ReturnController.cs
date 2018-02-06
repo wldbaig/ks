@@ -101,6 +101,7 @@ namespace KitShoesUpgrade.Controllers.Return
                         }
 
                     }
+                    returnitems.Claim = model.Claim;
                     returnitems.TotalPrice = 0;
                     returnitems.CreatedBy = User.ID;
                     returnitems.AddedOn = DateTime.UtcNow;
@@ -128,12 +129,7 @@ namespace KitShoesUpgrade.Controllers.Return
                             artDet.TotalStock = (artDet.Carton * artDet.Article.PairInCarton) + artDet.Pairs;
                             artDet.Pairs = artDet.TotalStock % artDet.Article.PairInCarton;
                             artDet.Carton = artDet.TotalStock / artDet.Article.PairInCarton;
-
-                            //if (artDet.TotalStock < 0)
-                            //{
-                            //    throw new Exception("Article " + artDet.Article.ArticleName + " is out of stock");
-                            //}
-
+                             
                             db.Entry(artDet).State = EntityState.Modified;
                             db.SaveChanges();
 
@@ -202,7 +198,7 @@ namespace KitShoesUpgrade.Controllers.Return
                         }
                     }
 
-                    returnitems.TotalPrice = (decimal)db.ReturnItemDetails.Where(c => c.ReturnItemID == returnitems.ReturnItemID).Sum(c => c.Price);
+                    returnitems.TotalPrice = db.ReturnItemDetails.Where(c => c.ReturnItemID == returnitems.ReturnItemID).Sum(c => c.Price);
                     db.Entry(returnitems).State = EntityState.Modified;
                     db.SaveChanges();
 
@@ -214,14 +210,13 @@ namespace KitShoesUpgrade.Controllers.Return
                         custAccount.CreatedBy = User.ID;
                         custAccount.CreatedOn = DateTime.UtcNow;
                         custAccount.ReturnID = returnitems.ReturnItemID;
-                        custAccount.TotalAmount = returnitems.TotalPrice;
+                        custAccount.TotalAmount = (decimal)(returnitems.TotalPrice + returnitems.Claim);
                         custAccount.Description = "RETURN";
                         db.CustomerAccountDetails.Add(custAccount);
                         db.SaveChanges();
 
                         var CAcount = returnitems.Customer.CustomerAccounts.FirstOrDefault();
-                        CAcount.TotalPaid = CAcount.CustomerAccountDetails.Sum(c => c.TotalAmount);
-                        //  CAcount.TotalBalance -= returnitems.TotalPrice;
+                        CAcount.TotalPaid = CAcount.CustomerAccountDetails.Sum(c => c.TotalAmount); 
                         CAcount.PreviousOutStanding = CAcount.OutStandingAmount;
                         CAcount.OutStandingAmount = CAcount.TotalBalance - CAcount.TotalPaid;
                         CAcount.UpdatedOn = DateTime.UtcNow;
@@ -229,6 +224,9 @@ namespace KitShoesUpgrade.Controllers.Return
                         db.Entry(CAcount).State = EntityState.Modified;
                         db.SaveChanges();
 
+                        custAccount.PreviousOutStanding = CAcount.PreviousOutStanding;
+                        db.Entry(custAccount).State = EntityState.Modified;
+                        db.SaveChanges();
                     }
 
                     trans.Complete();
@@ -299,6 +297,7 @@ namespace KitShoesUpgrade.Controllers.Return
                 Pmodel.CustomerInfo.Name = ret.CustomerName;
             }
             Pmodel.ReturnID = ret.ReturnItemID;
+            Pmodel.Discount = (decimal)ret.Claim;
             Pmodel.PReciept = new List<PurchaseReciept>();
             Pmodel.Date = ret.AddedOn.Date.ToShortDateString();
             PurchaseReciept pr = new PurchaseReciept();
@@ -310,16 +309,14 @@ namespace KitShoesUpgrade.Controllers.Return
                 if (!(ITEM.ArticlePairs == 0 && ITEM.ArticleCartons == 0))
                 {
                     if (Pmodel.PReciept.Any(f => f.Article == ITEM.ArticleID))
-                    {
-
+                    { 
                         prD = new PRDetail();
                         prD.ArticleDetail = ITEM.ArticleDetailID;
                         prD.QuantiyAdded = (int)ITEM.ArticlePairs;
                         prD.CartonAdded = (int)ITEM.ArticleCartons;
                         prD.Price = ITEM.Price;
 
-                        pr.LPRDetail.Add(prD);
-
+                        pr.LPRDetail.Add(prD); 
                     }
                     else
                     { 
@@ -336,11 +333,22 @@ namespace KitShoesUpgrade.Controllers.Return
 
                         Pmodel.PReciept.Add(pr);
                     }
-                }
-
-            }
-
+                } 
+            } 
             return View(Pmodel);
+        }
+
+        public ActionResult GetArticles()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var result = db.ArticleDetails.Where(c =>  c.Article.IsActive == true).Select(c => c.Article).Distinct().ToList();
+
+            var list = result.Select(c => new ArtilceList()
+            {
+                ID = c.ID,
+                Name = c.ArticleName
+            }).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Delete([DataSourceRequest] DataSourceRequest request, ReturnItemM model)
@@ -378,7 +386,7 @@ namespace KitShoesUpgrade.Controllers.Return
                     if (ret.CustomerType == "CREDIT")
                     {
                         var CAcount = ret.Customer.CustomerAccounts.FirstOrDefault();
-                        CAcount.TotalPaid += (-1 * ret.TotalPrice);
+                        CAcount.TotalPaid += (-1 * (decimal)(ret.TotalPrice + ret.Claim));
                         CAcount.OutStandingAmount = CAcount.TotalBalance - CAcount.TotalPaid;
                         CAcount.PreviousOutStanding = CAcount.OutStandingAmount;
                         CAcount.UpdatedOn = DateTime.UtcNow;
@@ -408,7 +416,6 @@ namespace KitShoesUpgrade.Controllers.Return
             }
             return RedirectToAction("Index");
         }
-
-
+         
     }
 }

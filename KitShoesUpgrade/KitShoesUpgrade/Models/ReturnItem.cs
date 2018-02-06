@@ -26,6 +26,7 @@ namespace KitShoesUpgrade.Models
         public System.DateTime AddedOn { get; set; }
         public int CreatedBy { get; set; }
         public decimal TotalPrice { get; set; }
+        public Nullable<int> Claim { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual ICollection<ReturnItemDetail> ReturnItemDetails { get; set; }

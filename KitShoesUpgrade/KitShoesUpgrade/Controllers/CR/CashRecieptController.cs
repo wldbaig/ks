@@ -84,6 +84,7 @@ namespace KitShoesUpgrade.Controllers.CR
                         custAccount.CreatedOn = DateTime.UtcNow;
                         custAccount.TotalAmount = -model.Amount;
                         custAccount.CashRecieptID = model.CashRecID;
+                        custAccDetail.PreviousOutStanding = custAccount.PreviousOutStanding;
                         custAccount.Description = "CASH PAID";
                         db.CustomerAccountDetails.Add(custAccount);
                         db.SaveChanges();
@@ -134,6 +135,7 @@ namespace KitShoesUpgrade.Controllers.CR
                         custAccount.CreatedOn = DateTime.UtcNow;
                         custAccount.TotalAmount = model.Amount;
                         custAccount.CashRecieptID = model.CashRecID;
+                        custAccDetail.PreviousOutStanding = custAccount.PreviousOutStanding;
                         custAccount.Description = "CASH RECIEPT";
                         db.CustomerAccountDetails.Add(custAccount);
                         db.SaveChanges();
@@ -211,7 +213,9 @@ namespace KitShoesUpgrade.Controllers.CR
                             db.Entry(CAcount).State = EntityState.Modified;
                             db.SaveChanges();
 
-
+                            custAccount.PreviousOutStanding = CAcount.OutStandingAmount;
+                            db.Entry(custAccount).State = EntityState.Modified;
+                            db.SaveChanges();
                             var cashRecDet = new CashRecieptDetail();
                             cashRecDet.CashRecieptID = cashRec.CashRecieptID;
                             cashRecDet.CustomerID = cusId;
@@ -268,6 +272,7 @@ namespace KitShoesUpgrade.Controllers.CR
                         var amount = Convert.ToDecimal(fm["item-Cust-ID*" + cusId]);
                         if (amount != 0)
                         {
+                            decimal previousoutstanding = 0;
                             var custAccount = new CustomerAccountDetail();
                             custAccount.CAccountID = db.Customers.Find(cusId).CustomerAccounts.FirstOrDefault().ID;
                             custAccount.CreatedBy = User.ID;
@@ -281,12 +286,16 @@ namespace KitShoesUpgrade.Controllers.CR
 
                             var CAcount = db.Customers.Find(cusId).CustomerAccounts.FirstOrDefault();
                             CAcount.TotalPaid = CAcount.CustomerAccountDetails.Sum(c => c.TotalAmount);
+                            previousoutstanding = CAcount.OutStandingAmount;
                             CAcount.OutStandingAmount = CAcount.TotalBalance - CAcount.TotalPaid;
                             CAcount.UpdatedOn = DateTime.UtcNow;
                             CAcount.UpdatedBy = User.ID;
                             db.Entry(CAcount).State = EntityState.Modified;
                             db.SaveChanges();
 
+                            custAccount.PreviousOutStanding = previousoutstanding;
+                            db.Entry(custAccount).State = EntityState.Modified;
+                            db.SaveChanges();
 
                             var cashRecDet = new CashRecieptDetail();
                             cashRecDet.CashRecieptID = cashRec.CashRecieptID;
@@ -354,7 +363,7 @@ namespace KitShoesUpgrade.Controllers.CR
             var result = "";
             result = result + "<div class='custom' id='" + cust.ID + "'>  ";
             result = result + " <div class='form-group'> <div class='col-sm-6'> <b>" + cust.Name + " </b></div>   ";
-            result = result + "<div  class='col-sm-3'  >" + CUSTACC + " <input class='numberBox k-widget k-numerictextbox k-input' type='number' id='item-Cust-" + cust.ID + "' placeholder='Enter Amount' name = 'item-Cust-ID*" + cust.ID + "' value = '0' min = '0' onchange= 'calcuatePrice(" + cust.ID + " )' ></input> </div>";
+            result = result + "<div  class='col-sm-3'  >" + CUSTACC + " <input class='numberBox k-widget k-numerictextbox k-input' type='number' step='.01' id='item-Cust-" + cust.ID + "' placeholder='Enter Amount' name = 'item-Cust-ID*" + cust.ID + "' value = '0' min = '0' onchange= 'calcuatePrice(" + cust.ID + " )' ></input> </div>";
             result = result + "<div class=' itemPrices' id='cust-" + cust.ID + "' style = 'display:none'>0</div>";
             result = result + "<div class=' itemrPrices-" + cust.ID + "' id='custr-" + cust.ID + "' style = 'display:none'>0</div>";
 

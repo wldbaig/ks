@@ -104,7 +104,7 @@
                                     </div>
                                     <div class="col-sm-4">
                                         @(Html.Kendo().MultiSelectFor(m => m.Article).DataTextField("Name")
-            .DataValueField("ID").DataSource(d => d.Read(r => r.Action("GetArticles", "Invoice")))
+            .DataValueField("ID").DataSource(d => d.Read(r => r.Action("GetArticles", "Return")))
             .Events(e =>
                                     {
                                         e.Change("onChange").Select("onSelect");
@@ -133,14 +133,20 @@
 
                         <div class="col-lg-6">
                             <fieldset>
-                                @*<div class="form-group">
-                                        <div class="col-sm-4">
-                                            Previous Balance
-                                        </div>
-                                        <div class="col-sm-4" id="Prev-Balance">
-                                            0
-                                        </div>
-                                    </div>*@
+                                <div class="form-group" id="discount-paid">
+                                    <div class="col-sm-4">
+                                        @Html.LabelFor(model => model.Claim, new { @class = "control-label" })
+
+                                    </div>
+                                    <div class="col-sm-4">
+                                        @(Html.Kendo().NumericTextBoxFor(m => m.Claim)
+         
+                                            .Events(e => e
+                                             .Change("changeClaim")
+                                             .Spin("changeClaim"))
+                                        )
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <div class="col-sm-4">
                                         Total Amount
@@ -148,6 +154,9 @@
                                     <div class="col-sm-4" id="total-Amount">
                                         0
                                     </div>
+
+                                    <input type="hidden" value="0" name="am" id="am" />
+
                                 </div>
 
                               
@@ -229,6 +238,10 @@
                 str += parseFloat($(this).text());
             })
             $('#total-Amount').text(str);
+
+            $('#am').val(str);
+
+            changeClaim();
               
         }
 
@@ -266,6 +279,19 @@
 
         }
 
+        function changeClaim() {
+            debugger;
+            var totalAmount = $('#total-Amount');
+            var am = parseFloat($('#am').val());
+             
+            var dis = parseFloat($('#Claim').val());
+
+            var amount = am + dis;
+
+            $('#total-Amount').text(amount);
+
+        }
+         
         function onSelect(e) {
             debugger;
             var item = e.item;

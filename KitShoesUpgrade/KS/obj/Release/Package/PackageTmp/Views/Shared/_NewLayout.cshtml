@@ -161,15 +161,15 @@
                             {
                                 <li><a class="ajax-link1" href="~/Invoice/BP">BhagwanPura Invoices</a></li>
                             }
-                           
+
                             @if ((new SecurityPermissions()).IsAuthorized2(User.ROLEID, Permissions.Invoice, PermissionType.VIEW))
                             {
                                 <li><a class="ajax-link1" href="~/Invoice/CM">ChahMiran Invoices</a></li>
                             }
-                           
+
                             @if ((new SecurityPermissions()).IsAuthorized2(User.ROLEID, Permissions.Invoice, PermissionType.VIEW))
                             {
-                                <li><a class="ajax-link1" href="~/Invoice/TS">ThirdShop Invoices</a></li>
+                                <li><a class="ajax-link1" href="~/Invoice/TS">Sheikhupura Shop Invoices</a></li>
                             }
 
                             @if ((new SecurityPermissions()).IsAuthorized2(User.ROLEID, Permissions.Sale, PermissionType.VIEW))
@@ -184,7 +184,7 @@
 
                             @if ((new SecurityPermissions()).IsAuthorized2(User.ROLEID, Permissions.Sale, PermissionType.VIEW))
                             {
-                                <li><a class="ajax-link1" href="~/Invoice/SaleTS">Sale From ThirdShop</a></li>
+                                <li><a class="ajax-link1" href="~/Invoice/SaleTS">Sale From Sheikhupura Shop</a></li>
                             }
                         </ul>
                     </li>
@@ -200,15 +200,25 @@
                             {
                                 <li><a class="ajax-link1" href="~/Return/BP">BhagwanPura Returns</a></li>
                             }
-                            
+
+                            @if ((new SecurityPermissions()).IsAuthorized2(User.ROLEID, Permissions.Return, PermissionType.VIEW))
+                            {
+                                <li><a class="ajax-link1" href="~/Return/WH">WareHouse Returns</a></li>
+                            }
+
                             @if ((new SecurityPermissions()).IsAuthorized2(User.ROLEID, Permissions.Return, PermissionType.VIEW))
                             {
                                 <li><a class="ajax-link1" href="~/Return/CM">ChahMiran Returns</a></li>
                             }
-                            
+
                             @if ((new SecurityPermissions()).IsAuthorized2(User.ROLEID, Permissions.Return, PermissionType.VIEW))
                             {
-                                <li><a class="ajax-link1" href="~/Return/TS">ThirdShop Returns</a></li>
+                                <li><a class="ajax-link1" href="~/Return/TS">Sheikhupura Shop Returns</a></li>
+                            }
+
+                            @if ((new SecurityPermissions()).IsAuthorized2(User.ROLEID, Permissions.Return, PermissionType.ADD))
+                            {
+                                <li><a class="ajax-link1" href="~/Return/AddWH">Return From WareHouse</a></li>
                             }
 
                             @if ((new SecurityPermissions()).IsAuthorized2(User.ROLEID, Permissions.Return, PermissionType.ADD))
@@ -223,7 +233,7 @@
 
                             @if ((new SecurityPermissions()).IsAuthorized2(User.ROLEID, Permissions.Return, PermissionType.ADD))
                             {
-                                <li><a class="ajax-link1" href="~/Return/AddTS">Return From ThirdShop</a></li>
+                                <li><a class="ajax-link1" href="~/Return/AddTS">Return From Sheikhupura Shop</a></li>
                             }
                         </ul>
                     </li>
@@ -242,6 +252,15 @@
                             {
                                 <li><a class="ajax-link1" href="~/Order/MakeOrder">Make Order</a></li>
                             }
+                            @if ((new SecurityPermissions()).IsAuthorized2(User.ROLEID, Permissions.Order, PermissionType.VIEW))
+                            {
+                                <li><a class="ajax-link1" href="~/Order/SP">SP Order Information</a></li>
+                            }
+                            @if ((new SecurityPermissions()).IsAuthorized2(User.ROLEID, Permissions.Purchase, PermissionType.ADD))
+                            {
+                                <li><a class="ajax-link1" href="~/Order/MakeSpecialOrder">Make SP Order</a></li>
+                            }
+
                         </ul>
 
                     </li>
@@ -265,7 +284,7 @@
                                 }
 
                             </ul>
-                        </li> 
+                        </li>
                     }
 
                     <li class="dropdown">
@@ -282,7 +301,15 @@
                             {
                                 <li><a class="ajax-link1" href="~/Report/CMSale"> ChahMiran Article Sale</a></li>
                             }
-
+                            @if ((new SecurityPermissions()).IsAuthorized2(User.ROLEID, Permissions.Report, PermissionType.VIEW))
+                            {
+                                <li><a class="ajax-link1" href="~/Report/TSSale"> Sheikhupura Shop Article Sale</a></li>
+                            }
+                            @if ((new SecurityPermissions()).IsAuthorized2(User.ROLEID, Permissions.Report, PermissionType.VIEW))
+                            {
+                                <li><a class="ajax-link1" href="~/Report/ArticleSaleWithCreationDates"> Article Creation Date Sale</a></li>
+                            }
+                             
                         </ul>
                     </li>
 

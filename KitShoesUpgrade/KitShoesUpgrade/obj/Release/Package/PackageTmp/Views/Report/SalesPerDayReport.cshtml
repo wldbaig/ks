@@ -45,7 +45,8 @@
                                         <table class="table table-condensed">
                                             <thead>
                                                 <tr>
-                                                    <td><strong>Sr #</strong></td> 
+                                                    <td><strong>Bill #</strong></td> 
+
                                                     <td><strong>Bill Date</strong></td> /td>
                                                     <td><strong>Cash Customer</strong></td>
 
@@ -64,7 +65,7 @@
                                                 @foreach (var Item in Model)
                                                 {
                                                     <tr>
-                                                        <td>@count</td>
+                                                        <td> @Item.InvoiceID</td>
                                                         <td> @Item.BillDate</td>
                                                          
                                                         <td>

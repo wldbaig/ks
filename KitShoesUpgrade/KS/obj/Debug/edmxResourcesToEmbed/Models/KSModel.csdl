@@ -186,10 +186,49 @@
     <FunctionImport Name="Report_BPArticleSaleWithDates" ReturnType="Collection(KitSModel.Report_BPArticleSaleWithDates_Result)">
       <Parameter Name="StartDate" Mode="In" Type="DateTime" />
       <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+      <Parameter Name="CategoryId" Mode="In" Type="Int32" />
     </FunctionImport>
     <FunctionImport Name="Report_CMArticleSaleWithDates" ReturnType="Collection(KitSModel.Report_CMArticleSaleWithDates_Result)">
       <Parameter Name="StartDate" Mode="In" Type="DateTime" />
       <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+      <Parameter Name="CategoryId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="SPOrderDetails" EntityType="KitSModel.SPOrderDetail" />
+    <AssociationSet Name="FK_SPOrderDetail_Order" Association="KitSModel.FK_SPOrderDetail_Order">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="SPOrderDetail" EntitySet="SPOrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SPOrderDetail_WHArticle" Association="KitSModel.FK_SPOrderDetail_WHArticle">
+      <End Role="WHArticle" EntitySet="WHArticles" />
+      <End Role="SPOrderDetail" EntitySet="SPOrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SPOrderDetail_WHArticleDetail" Association="KitSModel.FK_SPOrderDetail_WHArticleDetail">
+      <End Role="WHArticleDetail" EntitySet="WHArticleDetails" />
+      <End Role="SPOrderDetail" EntitySet="SPOrderDetails" />
+    </AssociationSet>
+    <FunctionImport Name="Report_TSArticleSaleWithDates" ReturnType="Collection(KitSModel.Report_TSArticleSaleWithDates_Result)">
+      <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+      <Parameter Name="CategoryId" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="WHReturnItems" EntityType="KitSModel.WHReturnItem" />
+    <EntitySet Name="WHReturnItemDetails" EntityType="KitSModel.WHReturnItemDetail" />
+    <AssociationSet Name="FK_WHReturnItemDetail_WHArticle" Association="KitSModel.FK_WHReturnItemDetail_WHArticle">
+      <End Role="WHArticle" EntitySet="WHArticles" />
+      <End Role="WHReturnItemDetail" EntitySet="WHReturnItemDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WHReturnItemDetail_WHArticleDetail" Association="KitSModel.FK_WHReturnItemDetail_WHArticleDetail">
+      <End Role="WHArticleDetail" EntitySet="WHArticleDetails" />
+      <End Role="WHReturnItemDetail" EntitySet="WHReturnItemDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WHReturnItemDetail_WHReturnItem" Association="KitSModel.FK_WHReturnItemDetail_WHReturnItem">
+      <End Role="WHReturnItem" EntitySet="WHReturnItems" />
+      <End Role="WHReturnItemDetail" EntitySet="WHReturnItemDetails" />
+    </AssociationSet>
+    <FunctionImport Name="Report_ArticleSaleWithCreationDates" ReturnType="Collection(KitSModel.Report_ArticleSaleWithCreationDates_Result)">
+      <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+      <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+      <Parameter Name="ShopId" Mode="In" Type="Int32" />
     </FunctionImport>
   </EntityContainer>
   <EntityType Name="BPArticle">
@@ -339,6 +378,8 @@
     <Property Name="OrderStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="OrderDetails" Relationship="KitSModel.FK_OrderDetail_Order" FromRole="Order" ToRole="OrderDetail" />
     <NavigationProperty Name="OrderHistories" Relationship="KitSModel.FK_OrderHistory_Order" FromRole="Order" ToRole="OrderHistory" />
+    <Property Name="SpecialOrder" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="SPOrderDetails" Relationship="KitSModel.FK_SPOrderDetail_Order" FromRole="Order" ToRole="SPOrderDetail" />
   </EntityType>
   <EntityType Name="OrderDetail">
     <Key>
@@ -505,6 +546,8 @@
     <NavigationProperty Name="Category" Relationship="KitSModel.FK_Article_Category" FromRole="WHArticle" ToRole="Category" />
     <NavigationProperty Name="OrderDetails" Relationship="KitSModel.FK_OrderDetail_WHArticle" FromRole="WHArticle" ToRole="OrderDetail" />
     <NavigationProperty Name="WHArticleDetails" Relationship="KitSModel.FK_ArticleDetail_Article" FromRole="WHArticle" ToRole="WHArticleDetail" />
+    <NavigationProperty Name="SPOrderDetails" Relationship="KitSModel.FK_SPOrderDetail_WHArticle" FromRole="WHArticle" ToRole="SPOrderDetail" />
+    <NavigationProperty Name="WHReturnItemDetails" Relationship="KitSModel.FK_WHReturnItemDetail_WHArticle" FromRole="WHArticle" ToRole="WHReturnItemDetail" />
   </EntityType>
   <EntityType Name="WHArticleDetail">
     <Key>
@@ -518,6 +561,8 @@
     <NavigationProperty Name="Color" Relationship="KitSModel.FK_ArticleDetail_Colors" FromRole="WHArticleDetail" ToRole="Color" />
     <NavigationProperty Name="OrderDetails" Relationship="KitSModel.FK_OrderDetail_WHArticleDetail" FromRole="WHArticleDetail" ToRole="OrderDetail" />
     <NavigationProperty Name="WHArticle" Relationship="KitSModel.FK_ArticleDetail_Article" FromRole="WHArticleDetail" ToRole="WHArticle" />
+    <NavigationProperty Name="SPOrderDetails" Relationship="KitSModel.FK_SPOrderDetail_WHArticleDetail" FromRole="WHArticleDetail" ToRole="SPOrderDetail" />
+    <NavigationProperty Name="WHReturnItemDetails" Relationship="KitSModel.FK_WHReturnItemDetail_WHArticleDetail" FromRole="WHArticleDetail" ToRole="WHReturnItemDetail" />
   </EntityType>
   <Association Name="FK_BPArticle_Category">
     <End Type="KitSModel.Category" Role="Category" Multiplicity="1" />
@@ -1064,5 +1109,133 @@
     <Property Type="Int32" Name="ArticleId" Nullable="false" />
     <Property Type="String" Name="Article" Nullable="false" MaxLength="56" />
     <Property Type="Int32" Name="Pair" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="SPOrderDetail">
+    <Key>
+      <PropertyRef Name="SPOrderDetailId" />
+    </Key>
+    <Property Name="SPOrderDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderId" Type="Int32" Nullable="false" />
+    <Property Name="WHArticleID" Type="Int32" Nullable="false" />
+    <Property Name="WHArticleDetailID" Type="Int32" Nullable="false" />
+    <Property Name="Size6" Type="Int32" Nullable="false" />
+    <Property Name="Size7" Type="Int32" Nullable="false" />
+    <Property Name="Size8" Type="Int32" Nullable="false" />
+    <Property Name="Size9" Type="Int32" Nullable="false" />
+    <Property Name="Size10" Type="Int32" Nullable="false" />
+    <Property Name="Size11" Type="Int32" Nullable="false" />
+    <Property Name="Size12" Type="Int32" Nullable="false" />
+    <Property Name="Size13" Type="Int32" Nullable="false" />
+    <Property Name="Total" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Order" Relationship="KitSModel.FK_SPOrderDetail_Order" FromRole="SPOrderDetail" ToRole="Order" />
+    <NavigationProperty Name="WHArticle" Relationship="KitSModel.FK_SPOrderDetail_WHArticle" FromRole="SPOrderDetail" ToRole="WHArticle" />
+    <NavigationProperty Name="WHArticleDetail" Relationship="KitSModel.FK_SPOrderDetail_WHArticleDetail" FromRole="SPOrderDetail" ToRole="WHArticleDetail" />
+  </EntityType>
+  <Association Name="FK_SPOrderDetail_Order">
+    <End Type="KitSModel.Order" Role="Order" Multiplicity="1" />
+    <End Type="KitSModel.SPOrderDetail" Role="SPOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="OrderID" />
+      </Principal>
+      <Dependent Role="SPOrderDetail">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SPOrderDetail_WHArticle">
+    <End Type="KitSModel.WHArticle" Role="WHArticle" Multiplicity="1" />
+    <End Type="KitSModel.SPOrderDetail" Role="SPOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WHArticle">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SPOrderDetail">
+        <PropertyRef Name="WHArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SPOrderDetail_WHArticleDetail">
+    <End Type="KitSModel.WHArticleDetail" Role="WHArticleDetail" Multiplicity="1" />
+    <End Type="KitSModel.SPOrderDetail" Role="SPOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WHArticleDetail">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="SPOrderDetail">
+        <PropertyRef Name="WHArticleDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="Report_TSArticleSaleWithDates_Result">
+    <Property Type="Int32" Name="ArticleId" Nullable="false" />
+    <Property Type="String" Name="Article" Nullable="false" MaxLength="56" />
+    <Property Type="Int32" Name="Pair" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="WHReturnItem">
+    <Key>
+      <PropertyRef Name="ReturnItemID" />
+    </Key>
+    <Property Name="ReturnItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="WHReturnItemDetails" Relationship="KitSModel.FK_WHReturnItemDetail_WHReturnItem" FromRole="WHReturnItem" ToRole="WHReturnItemDetail" />
+  </EntityType>
+  <EntityType Name="WHReturnItemDetail">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="WHReturnItemID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleID" Type="Int32" Nullable="false" />
+    <Property Name="ArticleDetailID" Type="Int32" Nullable="false" />
+    <Property Name="ArticlePairs" Type="Int32" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="WHArticle" Relationship="KitSModel.FK_WHReturnItemDetail_WHArticle" FromRole="WHReturnItemDetail" ToRole="WHArticle" />
+    <NavigationProperty Name="WHArticleDetail" Relationship="KitSModel.FK_WHReturnItemDetail_WHArticleDetail" FromRole="WHReturnItemDetail" ToRole="WHArticleDetail" />
+    <NavigationProperty Name="WHReturnItem" Relationship="KitSModel.FK_WHReturnItemDetail_WHReturnItem" FromRole="WHReturnItemDetail" ToRole="WHReturnItem" />
+  </EntityType>
+  <Association Name="FK_WHReturnItemDetail_WHArticle">
+    <End Type="KitSModel.WHArticle" Role="WHArticle" Multiplicity="1" />
+    <End Type="KitSModel.WHReturnItemDetail" Role="WHReturnItemDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WHArticle">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="WHReturnItemDetail">
+        <PropertyRef Name="ArticleID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WHReturnItemDetail_WHArticleDetail">
+    <End Type="KitSModel.WHArticleDetail" Role="WHArticleDetail" Multiplicity="1" />
+    <End Type="KitSModel.WHReturnItemDetail" Role="WHReturnItemDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WHArticleDetail">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="WHReturnItemDetail">
+        <PropertyRef Name="ArticleDetailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WHReturnItemDetail_WHReturnItem">
+    <End Type="KitSModel.WHReturnItem" Role="WHReturnItem" Multiplicity="1" />
+    <End Type="KitSModel.WHReturnItemDetail" Role="WHReturnItemDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WHReturnItem">
+        <PropertyRef Name="ReturnItemID" />
+      </Principal>
+      <Dependent Role="WHReturnItemDetail">
+        <PropertyRef Name="WHReturnItemID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="Report_ArticleSaleWithCreationDates_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="ArticleName" Nullable="false" MaxLength="56" />
+    <Property Type="Int32" Name="PairSale" Nullable="true" />
+    <Property Type="String" Name="Shop" Nullable="false" MaxLength="11" />
   </ComplexType>
 </Schema>

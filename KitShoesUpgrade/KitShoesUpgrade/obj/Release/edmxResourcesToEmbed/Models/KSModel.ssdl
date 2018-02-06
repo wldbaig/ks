@@ -148,6 +148,7 @@
     <Property Name="ReturnID" Type="int" />
     <Property Name="ReserveID" Type="int" />
     <Property Name="CashRecieptID" Type="int" />
+    <Property Name="PreviousOutStanding" Type="decimal" Precision="18" Scale="0" />
   </EntityType>
   <EntityType Name="CustomerCategory">
     <Key>
@@ -265,6 +266,7 @@
     <Property Name="AddedOn" Type="datetime" Nullable="false" />
     <Property Name="CreatedBy" Type="int" Nullable="false" />
     <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Claim" Type="int" />
   </EntityType>
   <EntityType Name="ReturnItemDetail">
     <Key>

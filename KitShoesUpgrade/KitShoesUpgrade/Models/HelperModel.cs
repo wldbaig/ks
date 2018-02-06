@@ -410,6 +410,8 @@ namespace KitShoesUpgrade.Models
         [Display(Name = "Credit Customer")]
         public int CreditCustomerID { get; set; }
 
+        public int Claim { get; set; }
+
     }
 
 
@@ -509,6 +511,7 @@ namespace KitShoesUpgrade.Models
         public decimal? ReservePrice { get; set; }
         public int? ReturnID { get; set; }
         public decimal? ReturnPrice { get; set; }
+        public decimal? PreviousOutStanding { get; set; }
     }
 
     public class CustAccDetailRep
@@ -538,6 +541,7 @@ namespace KitShoesUpgrade.Models
 
     public class SalesPerDayReport
     {
+        public int InvoiceID { get; set; }
         public string BillDate { get; set; }
         public string CustomerType { get; set; }
         public string CashCustomer { get; set; }

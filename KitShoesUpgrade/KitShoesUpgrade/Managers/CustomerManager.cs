@@ -52,7 +52,7 @@ namespace KitShoesUpgrade.Managers
                 db.SaveChanges();
 
                 trans.Complete();
-            }
+            } 
         }
 
         public void AddAccount(CustomerAccount model, decimal amount, CustomPrincipal User)

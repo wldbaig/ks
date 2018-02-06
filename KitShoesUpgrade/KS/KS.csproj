@@ -23,6 +23,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -227,10 +228,16 @@
     <Compile Include="Models\Permission.cs">
       <DependentUpon>KSModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Report_ArticleSaleWithCreationDates_Result.cs">
+      <DependentUpon>KSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Report_BPArticleSaleWithDates_Result.cs">
       <DependentUpon>KSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Report_CMArticleSaleWithDates_Result.cs">
+      <DependentUpon>KSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Report_TSArticleSaleWithDates_Result.cs">
       <DependentUpon>KSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Role.cs">
@@ -240,6 +247,9 @@
       <DependentUpon>KSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Shop.cs">
+      <DependentUpon>KSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SPOrderDetail.cs">
       <DependentUpon>KSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TSArticle.cs">
@@ -268,6 +278,12 @@
       <DependentUpon>KSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\WHArticleDetail.cs">
+      <DependentUpon>KSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WHReturnItem.cs">
+      <DependentUpon>KSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\WHReturnItemDetail.cs">
       <DependentUpon>KSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -751,6 +767,17 @@
     <Content Include="Views\Report\BPSaleDetailReport.cshtml" />
     <Content Include="Views\Report\CMSale.cshtml" />
     <Content Include="Views\Report\CMSaleDetailReport.cshtml" />
+    <Content Include="Views\Order\MakeSpecialOrder.cshtml" />
+    <Content Include="Views\Order\EditSpecialOrder.cshtml" />
+    <Content Include="Views\Order\SP.cshtml" />
+    <Content Include="Views\Order\SPReciept.cshtml" />
+    <Content Include="Views\Report\TSSale.cshtml" />
+    <Content Include="Views\Report\TSSaleDetailReport.cshtml" />
+    <Content Include="Views\Return\WH.cshtml" />
+    <Content Include="Views\Return\ReturnWHReciept.cshtml" />
+    <Content Include="Views\Return\AddWH.cshtml" />
+    <Content Include="Views\Report\ArticleSaleWithCreationDates.cshtml" />
+    <Content Include="Views\Report\ArticleSaleReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

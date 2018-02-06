@@ -1,0 +1,190 @@
+﻿@model IEnumerable<Category>
+@{
+    ViewBag.Title = "Articles";
+    var baseUrl = System.Web.Configuration.WebConfigurationManager.AppSettings["BaseURL"];
+    var cls = "active";
+    var count = 0;
+    var db = new KitSEntities();
+}
+
+<div class="row">
+    <div id="breadcrumb" class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="#">Article Management</a></li>
+            <li><a href="~/Article">Articles</a></li>
+            <li><a href="#">View</a></li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="row">
+
+    <div class="col-xs-12 col-sm-12">
+
+        @if (TempData["ERROR"] != null)
+        {
+            <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <span>@TempData["ERROR"] </span>
+            </div>
+        }
+
+        <div class="box">
+            <div class="box-header">
+                <div class="box-name">
+                    <i class="fa fa-search"></i>
+                    <span class="step">WH Stock List </span>
+                </div>
+                <div class="box-icons">
+                    <a class="collapse-link">
+                        <i class="fa fa-chevron-up"></i>
+                    </a>
+                </div>
+                <div class="no-move"></div>
+            </div>
+            <div class="box-content">
+
+                <div class="section-content clearfix container-fluid" id="details">
+                    <ul class="nav nav-tabs" role="tablist" id="myTabs">
+
+                        @foreach (var item in Model)
+                        {
+                            <li role="presentation" class="@cls"><a href="#@item.CategoryName" aria-controls="profile" role="tab" data-toggle="tab">@item.CategoryName</a></li>
+                            cls = "";
+                        }
+
+                    </ul>
+                    <div class="tab-content">
+                        @{
+                            cls = "active";
+                        }
+
+                        @foreach (var item in Model)
+                        {
+                            <div role="tabpanel" class="tab-pane @cls " id="@item.CategoryName">
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        <input type="button" value="Print" id="create_pdf_@count" class="btn btn-success pull-right" />
+                                    </div>
+                                </div>
+                                <div id="invoicetoDownload_@count">
+
+                                    <table style="border: 1px solid; width: 100%; border-collapse: collapse; color: black; padding: 5px; margin-left: 4px; text-decoration: none; ">
+                                        <thead>
+                                            <tr>
+                                                <th style="background-color: #e3e3e3; font-weight: 800; border-color: #777777; border-bottom-width: 1px; padding: 15px; ">Article</th>
+                                                <th style="background-color: #e3e3e3; font-weight: 800; border-color: #777777; border-bottom-width: 1px; padding: 15px;">Image</th>
+                                                @*<th style="background-color: #e3e3e3; font-weight: 800; border-color: #777777; border-bottom-width: 1px; padding: 15px;">Price</th>*@
+                                                <th style="background-color: #e3e3e3; font-weight: 800; border-color: #777777; border-bottom-width: 1px; padding: 15px;"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="">
+                                            @{
+
+                                                //var mm = db.WHArticleDetails.Where(c => c.WHArticle.CategoryId == item.ID && c.TotalStock != 0 && c.WHArticle.IsActive == true).OrderByDescending(c => c.DateAdded).Select(c => c.WHArticle).Distinct().ToList();
+                                                var mm = db.WHArticleDetails.Where(c => c.WHArticle.CategoryId == item.ID && c.WHArticle.IsActive == true).OrderByDescending(c => c.TotalStock).ToList().Select(c => c.WHArticle).Distinct().ToList();
+
+                                                foreach (var article in mm)
+                                                {
+                                                    <tr>
+                                                        <td style="border:  solid 1px black ;  padding: 15px;">
+                                                            @article.ArticleName
+                                                        </td>
+                                                        <td style="border: solid 1px black; padding: 15px;"> <img src="@ImageHelper.Source(eDirectory.WHArticle, "300", article.ID, article.Image)" style="width:150px; height:100px;" /> </td>
+                                                        @*<td style="border: solid 1px black; padding: 15px;"> @article.Price</td>*@
+                                                        <td style="border: solid 1px black; padding: 15px;">
+                                                            <table style="border: 1px solid;">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th style="background-color: #e3e3e3; font-weight: 800; border-color: #777777; border-bottom-width: 1px; padding: 15px; ">Color</th>
+                                                                         <th style="background-color: #e3e3e3; font-weight: 800; border-color: #777777; border-bottom-width: 1px; padding: 15px;">Stock</th>
+                                                                        <th style="background-color: #e3e3e3; font-weight: 800; border-color: #777777; border-bottom-width: 1px; padding: 15px;">Order</th>
+                                                                            @*<th style="background-color: #e3e3e3; font-weight: 800; border-color: #777777; border-bottom-width: 1px; padding: 15px;">Sale (P|C)</th>*@
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+
+                            @foreach (var adetail in article.WHArticleDetails)
+                            {
+                                <tr>
+                                    <td style="border: 1px black !important; padding: 15px;">
+                                        @adetail.Color.ColorName
+                                    </td>
+                                                                            
+                                    <td style="border:   1px black !important; padding: 15px;">
+                                        @adetail.TotalStock
+                                    </td>
+                                        <td style="border:   1px black !important; padding: 15px;">
+                                        @{ var orderSum = db.OrderDetails.Where(c => c.WHArticleDetailID == adetail.ID);
+                                            if (orderSum != null)
+                                            {
+                                                <text> @{ var x = orderSum.Sum(c => (int?)c.Pairs) ?? 0; } @x </text>
+                                            }
+                                            else
+                                            {
+                                                <text>0</text>
+                                            }
+                                            }
+                                    </td>
+                                                                              
+                                </tr>
+                            }
+                                                                </tbody>
+                                                            </table>
+
+                                                        </td>
+
+                                                    </tr>
+                                                }
+                                            }
+
+                                        </tbody>
+
+                                    </table>
+
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+
+                            cls = "";
+                            count++;
+
+                        } 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<div class="ajax-loading" id="loading"><p></p></div>*@
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval");
+
+    <script src="http://kendo.cdn.telerik.com/2016.1.226/js/kendo.all.min.js"></script>
+    <script type="text/javascript">
+        var con = @count;
+
+        for(var i =0; i < con; i++){
+            var string1 = "#create_pdf_"+i;
+
+            var ele =     $(''+string1+'');
+
+            $(ele).on("click", function () {
+                var string2 = this.id;
+                var lastChar = string2.substr(string2.length -1)
+                var divContents = $("#invoicetoDownload_"+lastChar).html();
+
+                var printWindow = window.open( "", "", "height=400,width=800" );
+
+                printWindow.document.write(divContents);
+
+                printWindow.document.close();
+                printWindow.print();
+            });
+        }
+    </script>
+
+}

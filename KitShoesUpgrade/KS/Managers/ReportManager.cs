@@ -8,31 +8,51 @@ namespace KS.Managers
 {
     public class ReportManager : BaseManager
     {
-        
 
-        public List<SaleReport> GetBPSaleReport(Dates model)
+        public List<SaleReport> GetBPSaleReport(SaleModel model)
         {
-            var queryResult = db.Report_BPArticleSaleWithDates(model.StartDate, model.EndDate).ToList().Select(c => new SaleReport()
+            var queryResult = db.Report_BPArticleSaleWithDates(model.StartDate, model.EndDate, model.CategoryId).ToList().Select(c => new SaleReport()
             {
                 ArticleID = c.ArticleId,
                 ArticleName = c.Article,
-                  
                 Pairs = c.Pair
-               
             }).ToList();
 
             return queryResult;
         }
 
-        public List<SaleReport> GetCMSaleReport(Dates model)
+        public List<SaleReport> GetCMSaleReport(SaleModel model)
         {
-            var queryResult = db.Report_CMArticleSaleWithDates(model.StartDate, model.EndDate).ToList().Select(c => new SaleReport()
+            var queryResult = db.Report_CMArticleSaleWithDates(model.StartDate, model.EndDate, model.CategoryId).ToList().Select(c => new SaleReport()
             {
                 ArticleID = c.ArticleId,
                 ArticleName = c.Article,
-
-                
                 Pairs = c.Pair
+            }).ToList();
+
+            return queryResult;
+        }
+
+        public List<SaleReport> GetTSSaleReport(SaleModel model)
+        {
+            var queryResult = db.Report_TSArticleSaleWithDates(model.StartDate, model.EndDate, model.CategoryId).ToList().Select(c => new SaleReport()
+            {
+                ArticleID = c.ArticleId,
+                ArticleName = c.Article,
+                Pairs = c.Pair
+            }).ToList();
+
+            return queryResult;
+        }
+
+        public List<SaleReport> GetArticleSaleReport(SaleModel model)
+        {
+            var queryResult = db.Report_ArticleSaleWithCreationDates(model.StartDate.Date, model.EndDate.Date, model.ShopId).ToList().Select(c => new SaleReport()
+            {
+                ArticleID = c.ID,
+                ArticleName = c.ArticleName,
+                Pairs = c.PairSale,
+                Shop = c.Shop
 
             }).ToList();
 

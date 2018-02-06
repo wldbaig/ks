@@ -57,8 +57,11 @@ namespace KS.Models
         public virtual DbSet<TSReturnItem> TSReturnItems { get; set; }
         public virtual DbSet<TSReturnItemDetail> TSReturnItemDetails { get; set; }
         public virtual DbSet<Shop> Shops { get; set; }
+        public virtual DbSet<SPOrderDetail> SPOrderDetails { get; set; }
+        public virtual DbSet<WHReturnItem> WHReturnItems { get; set; }
+        public virtual DbSet<WHReturnItemDetail> WHReturnItemDetails { get; set; }
     
-        public virtual ObjectResult<Report_BPArticleSaleWithDates_Result> Report_BPArticleSaleWithDates(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate)
+        public virtual ObjectResult<Report_BPArticleSaleWithDates_Result> Report_BPArticleSaleWithDates(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> categoryId)
         {
             var startDateParameter = startDate.HasValue ?
                 new ObjectParameter("StartDate", startDate) :
@@ -68,10 +71,14 @@ namespace KS.Models
                 new ObjectParameter("EndDate", endDate) :
                 new ObjectParameter("EndDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Report_BPArticleSaleWithDates_Result>("Report_BPArticleSaleWithDates", startDateParameter, endDateParameter);
+            var categoryIdParameter = categoryId.HasValue ?
+                new ObjectParameter("CategoryId", categoryId) :
+                new ObjectParameter("CategoryId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Report_BPArticleSaleWithDates_Result>("Report_BPArticleSaleWithDates", startDateParameter, endDateParameter, categoryIdParameter);
         }
     
-        public virtual ObjectResult<Report_CMArticleSaleWithDates_Result> Report_CMArticleSaleWithDates(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate)
+        public virtual ObjectResult<Report_CMArticleSaleWithDates_Result> Report_CMArticleSaleWithDates(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> categoryId)
         {
             var startDateParameter = startDate.HasValue ?
                 new ObjectParameter("StartDate", startDate) :
@@ -81,7 +88,45 @@ namespace KS.Models
                 new ObjectParameter("EndDate", endDate) :
                 new ObjectParameter("EndDate", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Report_CMArticleSaleWithDates_Result>("Report_CMArticleSaleWithDates", startDateParameter, endDateParameter);
+            var categoryIdParameter = categoryId.HasValue ?
+                new ObjectParameter("CategoryId", categoryId) :
+                new ObjectParameter("CategoryId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Report_CMArticleSaleWithDates_Result>("Report_CMArticleSaleWithDates", startDateParameter, endDateParameter, categoryIdParameter);
+        }
+    
+        public virtual ObjectResult<Report_TSArticleSaleWithDates_Result> Report_TSArticleSaleWithDates(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> categoryId)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var categoryIdParameter = categoryId.HasValue ?
+                new ObjectParameter("CategoryId", categoryId) :
+                new ObjectParameter("CategoryId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Report_TSArticleSaleWithDates_Result>("Report_TSArticleSaleWithDates", startDateParameter, endDateParameter, categoryIdParameter);
+        }
+    
+        public virtual ObjectResult<Report_ArticleSaleWithCreationDates_Result> Report_ArticleSaleWithCreationDates(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> shopId)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var shopIdParameter = shopId.HasValue ?
+                new ObjectParameter("ShopId", shopId) :
+                new ObjectParameter("ShopId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Report_ArticleSaleWithCreationDates_Result>("Report_ArticleSaleWithCreationDates", startDateParameter, endDateParameter, shopIdParameter);
         }
     }
 }

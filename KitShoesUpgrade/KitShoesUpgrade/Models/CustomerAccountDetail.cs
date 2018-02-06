@@ -24,6 +24,7 @@ namespace KitShoesUpgrade.Models
         public Nullable<int> ReturnID { get; set; }
         public Nullable<int> ReserveID { get; set; }
         public Nullable<int> CashRecieptID { get; set; }
+        public Nullable<decimal> PreviousOutStanding { get; set; }
     
         public virtual CustomerAccount CustomerAccount { get; set; }
     }

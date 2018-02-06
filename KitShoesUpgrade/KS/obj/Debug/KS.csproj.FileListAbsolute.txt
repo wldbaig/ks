@@ -49,8 +49,6 @@ F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KS\bin\System.Web.WebPages.Deploymen
 F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KS\bin\System.Web.WebPages.dll
 F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KS\bin\System.Web.WebPages.Razor.dll
 F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KS\bin\WebGrease.dll
-F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KS\bin\System.Web.Http.dll
-F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KS\bin\System.Net.Http.Formatting.dll
 F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KS\bin\Antlr3.Runtime.pdb
 F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KS\bin\EntityFramework.xml
 F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KS\bin\EntityFramework.SqlServer.xml
@@ -62,8 +60,7 @@ F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KS\bin\System.Web.Razor.xml
 F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KS\bin\System.Web.WebPages.xml
 F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KS\bin\System.Web.WebPages.Deployment.xml
 F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KS\bin\System.Web.WebPages.Razor.xml
-F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KS\bin\System.Web.Http.xml
-F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KS\bin\System.Net.Http.Formatting.xml
 F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KS\obj\Debug\KS.csprojResolveAssemblyReference.cache
 F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KS\obj\Debug\KS.dll
 F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KS\obj\Debug\KS.pdb
+F:\Projects\KitShoesUpgrade\KitShoesUpgrade\KS\obj\Debug\KS.csproj.CoreCompileInputs.cache

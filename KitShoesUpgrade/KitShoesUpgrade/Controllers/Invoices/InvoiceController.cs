@@ -19,8 +19,7 @@ namespace KitShoesUpgrade.Controllers.Invoices
         [RoleSecurity(Permissions.Invoice, PermissionType.VIEW)]
         public ActionResult Index()
         {
-            ViewBag.Date = DateTime.Now.Date.ToShortDateString();
-
+           
             return View();
         }
 
@@ -198,7 +197,7 @@ namespace KitShoesUpgrade.Controllers.Invoices
                     }
                     else
                     {
-                        invoice.AmountRecieved = db.InvoiceDetails.Where(c => c.InvoiceID == invoice.InvoiceID).Sum(c => c.Price);
+                        invoice.AmountRecieved = db.InvoiceDetails.Where(c => c.InvoiceID == invoice.InvoiceID).Sum(c => c.Price) - model.DiscountAmount + model.Freight;
                     }
 
                     invoice.TotalPrice = db.InvoiceDetails.Where(c => c.InvoiceID == invoice.InvoiceID).Sum(c => c.Price);
@@ -229,6 +228,9 @@ namespace KitShoesUpgrade.Controllers.Invoices
                         db.Entry(CAcount).State = EntityState.Modified;
                         db.SaveChanges();
 
+                        custAccount.PreviousOutStanding = CAcount.PreviousOutStanding;
+                        db.Entry(custAccount).State = EntityState.Modified;
+                        db.SaveChanges();
                     }
 
                     trans.Complete();
@@ -446,7 +448,7 @@ namespace KitShoesUpgrade.Controllers.Invoices
 
                         var CAcount = invoice.Customer.CustomerAccounts.FirstOrDefault();
                         CAcount.TotalPaid += (-1 * invoice.AmountRecieved);
-                        CAcount.TotalBalance += (-1 * invoice.TotalPrice);
+                        CAcount.TotalBalance += (-1 * (invoice.TotalPrice - invoice.DiscountAmount + invoice.FreightAmount));
                         CAcount.OutStandingAmount = CAcount.TotalBalance - CAcount.TotalPaid;
                         CAcount.PreviousOutStanding = CAcount.OutStandingAmount;
                         CAcount.UpdatedOn = DateTime.UtcNow;
@@ -597,6 +599,10 @@ namespace KitShoesUpgrade.Controllers.Invoices
                         CAcount.UpdatedOn = DateTime.UtcNow;
                         CAcount.UpdatedBy = User.ID;
                         db.Entry(CAcount).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        custAccount.PreviousOutStanding = CAcount.PreviousOutStanding;
+                        db.Entry(custAccount).State = EntityState.Modified;
                         db.SaveChanges();
 
                     }

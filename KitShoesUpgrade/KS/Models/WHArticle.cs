@@ -19,6 +19,8 @@ namespace KS.Models
         {
             this.OrderDetails = new HashSet<OrderDetail>();
             this.WHArticleDetails = new HashSet<WHArticleDetail>();
+            this.SPOrderDetails = new HashSet<SPOrderDetail>();
+            this.WHReturnItemDetails = new HashSet<WHReturnItemDetail>();
         }
     
         public int ID { get; set; }
@@ -37,5 +39,9 @@ namespace KS.Models
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WHArticleDetail> WHArticleDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SPOrderDetail> SPOrderDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<WHReturnItemDetail> WHReturnItemDetails { get; set; }
     }
 }

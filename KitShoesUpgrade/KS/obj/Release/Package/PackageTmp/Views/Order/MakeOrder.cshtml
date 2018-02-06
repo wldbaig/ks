@@ -64,15 +64,12 @@
 
                             <fieldset>
 
-
-
                                 <div class="form-group">
                                     <div class="col-sm-4">
                                         @Html.Label("Articles", new { @class = "control-label" })
 
                                     </div>
                                     <div class="col-sm-4">
-                                        @*  @Html.ListBoxFor(model => model.Article, (SelectList)ViewBag.ArticleList ,new { @class = "populate placeholder", id = "s3_with_tag" })*@
                                         @(Html.Kendo().MultiSelect().Name("Article").DataTextField("Name")
             .DataValueField("ID").DataSource(d => d.Read(r => r.Action("GetArticles", "Order")))
             .Events(e =>
@@ -100,20 +97,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        @*<div class="col-lg-6">
-                            <fieldset>
-                                <div class="form-group">
-                                    <div class="col-sm-4">
-                                        Total Amount
-                                    </div>
-                                    <div class="col-sm-4" id="total-Amount">
-                                        0
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </div>*@
-
+ 
                     </div>
 
                 </div>

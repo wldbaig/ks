@@ -176,7 +176,7 @@
                                     </div>
                                     <div class="col-sm-4">
                                         @(Html.Kendo().NumericTextBoxFor(m => m.Invoice.DiscountAmount)
-
+                                        .Name("Discount")
                                             .Min(0)
                                             .Events(e => e
                                              .Change("changeDis")
@@ -193,7 +193,7 @@
                                     </div>
                                     <div class="col-sm-4">
                                         @(Html.Kendo().NumericTextBoxFor(model => model.Invoice.FreightAmount)
-
+        .Name("Freight")
                                             .Min(0)
                                             .Events(e => e
                                              .Change("changeFrig")
@@ -221,10 +221,9 @@
 
                                         </div>
                                         <div class="col-sm-4">
-                                            @(Html.Kendo().NumericTextBox<decimal>()
+                                            @(Html.Kendo().NumericTextBoxFor<decimal>(m=>m.Invoice.AmountRecieved)
                                             .Name("AmountPaid")
-                                            .Min(0)
-                                            .Value(0)
+                                            .Min(0) 
                                             )
                                         </div>
                                     </div>
@@ -315,9 +314,9 @@
             var totalAmount = $('#total-Amount');
             var am = parseFloat($('#am').val());
 
-            var dis = parseFloat($('#Invoice_DiscountAmount').val());
+            var dis = parseFloat($('#Discount').val());
 
-            var frig = parseFloat($('#Invoice_FreightAmount').val());
+            var frig = parseFloat($('#Freight').val());
 
             var amount = am - dis + frig;
 
@@ -331,9 +330,9 @@
             var totalAmount = $('#total-Amount');
             var am = parseFloat($('#am').val());
 
-            var dis = parseFloat($('#Invoice_DiscountAmount').val());
+            var dis = parseFloat($('#Discount').val());
 
-            var frig = parseFloat($('#Invoice_FreightAmount').val());
+            var frig = parseFloat($('#Freight').val());
 
             var amount = am - dis + frig;
 
@@ -347,9 +346,9 @@
             var totalAmount = $('#total-Amount');
             var am = parseFloat($('#am').val());
 
-            var freg = parseFloat($('#Invoice_FreightAmount').val());
+            var dis = parseFloat($('#Discount').val());
 
-            var dis = parseFloat($('#Invoice_DiscountAmount').val());
+            var freg = parseFloat($('#Freight').val());
 
             var amount = am - dis + freg;
 
@@ -363,9 +362,9 @@
             var totalAmount = $('#total-Amount');
             var am = parseFloat($('#am').val());
 
-            var freg = parseFloat($('#Invoice_FreightAmount').val());
+            var dis = parseFloat($('#Discount').val());
 
-            var dis = parseFloat($('#Invoice_DiscountAmount').val());
+            var freg = parseFloat($('#Freight').val());
 
             var amount = am - dis + freg;
 

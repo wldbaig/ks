@@ -64,8 +64,9 @@ namespace KitShoesUpgrade.Managers
                 ReturnPrice = c.ReturnPrice,
                 TransAmount = c.Amount,
                 TransDate = c.CDate.Value.ToString("dd-MMM-yyyy"),
-                TransDescription = c.TransactionDetail
-            }).OrderBy(c => c.InvoiceID).ToList();
+                TransDescription = c.TransactionDetail,
+                PreviousOutStanding = c.PreviousOutStanding
+            }).OrderBy(c => c.TransDate).ToList();
 
             return queryResult;
         }
@@ -88,6 +89,7 @@ namespace KitShoesUpgrade.Managers
         {
             var queryResult = db.Report_SalePerDay(model.StartDate.Date, model.EndDate.Date).ToList().Select(c => new SalesPerDayReport()
             {
+                InvoiceID = c.InvoiceID,
                 BillDate = c.BillDate.Value.ToString("dd-MMM-yyyy"),
                 AmountRecieved = c.AmountRecieved,
                 Carton = c.Carton,

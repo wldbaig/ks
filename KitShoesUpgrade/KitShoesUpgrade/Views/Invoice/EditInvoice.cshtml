@@ -221,10 +221,9 @@
 
                                         </div>
                                         <div class="col-sm-4">
-                                            @(Html.Kendo().NumericTextBox<decimal>()
+                                            @(Html.Kendo().NumericTextBoxFor<decimal>(m=>m.Invoice.AmountRecieved)
                                             .Name("AmountPaid")
-                                            .Min(0)
-                                            .Value(0)
+                                            .Min(0) 
                                             )
                                         </div>
                                     </div>

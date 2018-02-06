@@ -1,0 +1,25 @@
+﻿   
+        .required-red{
+            color:red;
+        }
+        .tooltip-image {
+            background-image: url("../../img/icon.png"); 
+            height: 10px;
+            width: 13px;
+            background-repeat: no-repeat;
+            display: block;
+            float:left;
+            margin-top: 3px;
+        } 
+        /*.box-content .form-group{
+            margin-top: 15px;
+            margin-bottom: 15px;
+            padding-top:25px;
+            overflow:visible;
+        }*/
+
+        /*.tooltip.fade.top.in {
+            display: block;
+            top: -29px;
+            left: -16px;
+        }*/

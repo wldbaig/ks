@@ -104,23 +104,6 @@ namespace KitShoesUpgrade.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Report_ArticleSaleWithDates_Result>("Report_ArticleSaleWithDates", startDateParameter, endDateParameter, articleIDParameter, categoryIDParameter, customerIDParameter);
         }
     
-        public virtual ObjectResult<Report_CustomerAccountDetail_Result> Report_CustomerAccountDetail(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> customerID)
-        {
-            var startDateParameter = startDate.HasValue ?
-                new ObjectParameter("StartDate", startDate) :
-                new ObjectParameter("StartDate", typeof(System.DateTime));
-    
-            var endDateParameter = endDate.HasValue ?
-                new ObjectParameter("EndDate", endDate) :
-                new ObjectParameter("EndDate", typeof(System.DateTime));
-    
-            var customerIDParameter = customerID.HasValue ?
-                new ObjectParameter("CustomerID", customerID) :
-                new ObjectParameter("CustomerID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Report_CustomerAccountDetail_Result>("Report_CustomerAccountDetail", startDateParameter, endDateParameter, customerIDParameter);
-        }
-    
         public virtual ObjectResult<Report_CustomerOutStanding_Result> Report_CustomerOutStanding(Nullable<int> categoryCustomer)
         {
             var categoryCustomerParameter = categoryCustomer.HasValue ?
@@ -128,19 +111,6 @@ namespace KitShoesUpgrade.Models
                 new ObjectParameter("CategoryCustomer", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Report_CustomerOutStanding_Result>("Report_CustomerOutStanding", categoryCustomerParameter);
-        }
-    
-        public virtual ObjectResult<Report_SalePerDay_Result> Report_SalePerDay(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate)
-        {
-            var startDateParameter = startDate.HasValue ?
-                new ObjectParameter("StartDate", startDate) :
-                new ObjectParameter("StartDate", typeof(System.DateTime));
-    
-            var endDateParameter = endDate.HasValue ?
-                new ObjectParameter("EndDate", endDate) :
-                new ObjectParameter("EndDate", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Report_SalePerDay_Result>("Report_SalePerDay", startDateParameter, endDateParameter);
         }
     
         public virtual ObjectResult<Report_BuyerAccountDetail_Result> Report_BuyerAccountDetail(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> buyerID)
@@ -158,6 +128,36 @@ namespace KitShoesUpgrade.Models
                 new ObjectParameter("BuyerID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Report_BuyerAccountDetail_Result>("Report_BuyerAccountDetail", startDateParameter, endDateParameter, buyerIDParameter);
+        }
+    
+        public virtual ObjectResult<Report_SalePerDay_Result> Report_SalePerDay(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Report_SalePerDay_Result>("Report_SalePerDay", startDateParameter, endDateParameter);
+        }
+    
+        public virtual ObjectResult<Report_CustomerAccountDetail_Result> Report_CustomerAccountDetail(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> customerID)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var customerIDParameter = customerID.HasValue ?
+                new ObjectParameter("CustomerID", customerID) :
+                new ObjectParameter("CustomerID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Report_CustomerAccountDetail_Result>("Report_CustomerAccountDetail", startDateParameter, endDateParameter, customerIDParameter);
         }
     }
 }

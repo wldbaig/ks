@@ -166,11 +166,20 @@
                                                     <td class="no-line text-right"><strong>Total Pair</strong></td>
                                                     <td class="no-line text-center">@pairCount</td>
                                                 </tr>
-                                                 
+                                                <tr>
+                                                    <td class="no-line"></td>
+                                                    <td class="no-line text-right"><strong>Total Claim</strong></td>
+                                                    <td class="no-line text-right">@Model.Discount</td>
+                                                </tr>
                                                 <tr>
                                                     <td class="no-line"></td>
                                                     <td class="no-line text-right"><strong>Total Price</strong></td>
                                                     <td class="no-line text-right">@tprice</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="thick-line"></td>
+                                                    <td class="thick-line text-right"><strong>Total</strong></td>
+                                                    <td class="thick-line text-right">@(tprice + Model.Discount)</td>
                                                 </tr>
                                             </tbody>
                                         </table>
