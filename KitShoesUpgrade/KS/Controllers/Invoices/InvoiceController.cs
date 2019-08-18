@@ -25,6 +25,12 @@ namespace KS.Controllers.Invoices
         }
 
         [RoleSecurity(Permissions.Invoice, PermissionType.VIEW)]
+        public ActionResult JP()
+        {
+            return View();
+        }
+
+        [RoleSecurity(Permissions.Invoice, PermissionType.VIEW)]
         public ActionResult BP()
         {
             return View();
@@ -119,6 +125,35 @@ namespace KS.Controllers.Invoices
 
             return Json(x.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult ReadJP([DataSourceRequest] DataSourceRequest request)
+        {
+            var a = db.JPInvoices.OrderByDescending(c => c.AddedOn).ToList().Select(c => new InvoiceViewM()
+            {
+                InvoiceID = c.InvoiceID,
+                AddedOn = c.AddedOn.Date.ToShortDateString(),
+                TotalQuantity = c.JPInvoiceDetails.Sum(x => x.Pairs)
+
+            }).ToList();
+
+            return Json(a.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult DetailReadJP([DataSourceRequest] DataSourceRequest request, int InvoiceID)
+        {
+            var x = db.JPInvoiceDetails.Where(c => c.JPInvoiceID == InvoiceID && c.Pairs != 0).Select(c => new InvoiceDetViewM()
+            {
+                InvoiceID = c.JPInvoiceID,
+                Article = db.JPArticles.FirstOrDefault(o => o.ID == c.JPArticleID).ArticleName,
+                Color = db.WHArticleDetails.FirstOrDefault(o => o.ID == c.JPArticleDetailID).Color.ColorName,
+                InvoiceDetailID = c.ID,
+                Quantity = c.Pairs
+
+            }).ToList();
+
+            return Json(x.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
+        }
+
 
         [RoleSecurity(Permissions.Invoice, PermissionType.ADD)]
         public ActionResult SaleBP()
@@ -342,6 +377,82 @@ namespace KS.Controllers.Invoices
             return View();
         }
 
+
+        [RoleSecurity(Permissions.Invoice, PermissionType.ADD)]
+        public ActionResult SaleJP()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SaleJP(FormCollection collection)
+        {
+            try
+            {
+                using (var trans = new System.Transactions.TransactionScope())
+                {
+                    var invoice = new JPInvoice();
+
+                    invoice.TotalPrice = 0;
+                    invoice.CreatedBy = User.ID;
+                    invoice.AddedOn = DateTime.UtcNow;
+
+                    db.JPInvoices.Add(invoice);
+                    db.SaveChanges();
+
+                    List<string> keys = new List<string>();
+
+                    for (int i = 1; i < collection.Count; i++)
+                    {
+                        keys.Add(collection.GetKey(i));
+                    }
+
+                    foreach (var item in keys)
+                    {
+                        if (item.Contains("item-color-ID*"))
+                        {
+                            var iDetails = Convert.ToInt32(item.Split('*')[1]);
+
+                            var artDet = db.JPArticleDetails.Find(iDetails);
+                            artDet.DateAdded = DateTime.UtcNow;
+                            artDet.TotalStock += -Convert.ToInt32(collection[item]);
+
+                            db.Entry(artDet).State = EntityState.Modified;
+                            db.SaveChanges();
+
+                            var invDet = new JPInvoiceDetail();
+                            invDet.JPInvoiceID = invoice.InvoiceID;
+                            invDet.JPArticleID = artDet.JPArticleId;
+                            invDet.JPArticleDetailID = artDet.ID;
+                            invDet.Pairs = Convert.ToInt32(collection[item]);
+
+                            invDet.Price = artDet.JPArticle.Price ?? 0;
+                            db.JPInvoiceDetails.Add(invDet);
+                            db.SaveChanges();
+                        }
+                    }
+
+                    invoice.TotalPrice = db.JPInvoiceDetails.Where(c => c.JPInvoiceID == invoice.InvoiceID).Sum(c => c.Price);
+                    db.Entry(invoice).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    trans.Complete();
+                    TempData["SUCCESS"] = "Purchase added successfully";
+
+                    return RedirectToAction("PurchaseJPReciept", new { id = invoice.InvoiceID });
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ERROR"] = ex.Message;
+            }
+
+            ViewBag.ArticleList = new SelectList(db.JPArticleDetails.Where(c => c.TotalStock != 0).Select(c => c.JPArticle).Distinct().ToList(), "ID", "ArticleName");
+
+            return View();
+        }
+
+
         public ActionResult PurchaseBPReciept(int id)
         {
             var invoice = db.BPInvoices.Find(id);
@@ -477,6 +588,54 @@ namespace KS.Controllers.Invoices
                         pr.LPRDetail = new List<PRDetail>();
                         prD = new PRDetail();
                         prD.ArticleDetail = ITEM.CMArticleDetailID;
+                        prD.QuantiyAdded = ITEM.Pairs;
+                        prD.Price = ITEM.Price;
+                        pr.LPRDetail.Add(prD);
+                        Pmodel.PReciept.Add(pr);
+                    }
+                }
+            }
+
+            return View(Pmodel);
+        }
+
+        public ActionResult PurchaseJPReciept(int id)
+        {
+            var invoice = db.JPInvoices.Find(id);
+            if (invoice == null)
+            {
+                return HttpNotFound();
+            }
+
+            PurchaseRecieptViewModel Pmodel = new PurchaseRecieptViewModel();
+
+            Pmodel.InvoiceID = invoice.InvoiceID;
+            Pmodel.PReciept = new List<PurchaseReciept>();
+
+            PurchaseReciept pr = new PurchaseReciept();
+            PRDetail prD = new PRDetail();
+
+
+            foreach (var ITEM in invoice.JPInvoiceDetails)
+            {
+                if (ITEM.Pairs != 0)
+                {
+                    if (Pmodel.PReciept.Any(f => f.Article == ITEM.JPArticleID))
+                    {
+                        prD = new PRDetail();
+                        prD.ArticleDetail = ITEM.JPArticleDetailID;
+                        prD.QuantiyAdded = ITEM.Pairs;
+
+                        pr.LPRDetail.Add(prD);
+                    }
+                    else
+                    {
+
+                        pr = new PurchaseReciept();
+                        pr.Article = ITEM.JPArticleID;
+                        pr.LPRDetail = new List<PRDetail>();
+                        prD = new PRDetail();
+                        prD.ArticleDetail = ITEM.JPArticleDetailID;
                         prD.QuantiyAdded = ITEM.Pairs;
                         prD.Price = ITEM.Price;
                         pr.LPRDetail.Add(prD);
@@ -769,6 +928,114 @@ namespace KS.Controllers.Invoices
             return View(model);
         }
 
+        public ActionResult EditJPInvoice(int id)
+        {
+
+            var invoice = db.JPInvoices.Find(id);
+            if (invoice == null)
+                return HttpNotFound();
+            EditInvoiceViewModel model = new EditInvoiceViewModel();
+
+            model.JPInvoice = invoice;
+            model.InvoiceID = invoice.InvoiceID;
+            model.JPArticle = invoice.JPInvoiceDetails.Select(c => c.JPArticle).Distinct().ToList();
+
+            model.ArtilceList = model.JPArticle.Select(c => new ArtilceList()
+            {
+                ID = c.ID,
+                Name = c.ArticleName
+            }).ToList();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult EditJPInvoice(EditInvoiceViewModel model, FormCollection collection)
+        {
+            var invoice = db.JPInvoices.Find(model.InvoiceID);
+            try
+            {
+                var invId = Convert.ToInt32((collection["InvoiceID"]));
+                using (var trans = new System.Transactions.TransactionScope())
+                {
+                    foreach (var item in invoice.JPInvoiceDetails)
+                    {
+                        JPArticleDetail artDet = db.JPArticleDetails.Find(item.JPArticleDetailID);
+
+                        artDet.TotalStock += item.Pairs;
+                        artDet.DateAdded = DateTime.UtcNow;
+
+                        db.Entry(artDet).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+
+
+                    db.JPInvoiceDetails.RemoveRange(invoice.JPInvoiceDetails);
+                    db.SaveChanges();
+
+                    List<string> keys = new List<string>();
+
+                    for (int i = 1; i < collection.Count; i++)
+                    {
+                        keys.Add(collection.GetKey(i));
+                    }
+
+                    foreach (var item in keys)
+                    {
+                        if (item.Contains("item-color-ID*"))
+                        {
+
+                            var iDetails = Convert.ToInt32(item.Split('*')[1]);
+
+                            var artDet = db.JPArticleDetails.Find(iDetails);
+
+                            artDet.TotalStock += -Convert.ToInt32(collection[item]);
+                            artDet.DateAdded = DateTime.UtcNow;
+
+                            db.Entry(artDet).State = EntityState.Modified;
+                            db.SaveChanges();
+
+
+                            var invDet = new JPInvoiceDetail();
+                            invDet.JPInvoiceID = invoice.InvoiceID;
+                            invDet.JPArticleID = artDet.JPArticleId;
+                            invDet.JPArticleDetailID = artDet.ID;
+                            invDet.Pairs = Convert.ToInt32(collection[item]);
+                            db.JPInvoiceDetails.Add(invDet);
+                            db.SaveChanges();
+
+                        }
+
+                    }
+
+                    invoice.TotalPrice = db.JPInvoiceDetails.Where(c => c.JPInvoiceID == invoice.InvoiceID).Sum(c => c.Price);
+                    db.Entry(invoice).State = EntityState.Modified;
+                    db.SaveChanges();
+
+                    trans.Complete();
+                    TempData["SUCCESS"] = "Purchase added successfully";
+
+                    return RedirectToAction("PurchaseJPReciept", new { id = invoice.InvoiceID });
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["ERROR"] = ex.Message;
+            }
+            model.JPInvoice = invoice;
+            model.InvoiceID = invoice.InvoiceID;
+            model.JPArticle = invoice.JPInvoiceDetails.Select(c => c.JPArticle).Distinct().ToList();
+
+            model.ArtilceList = model.JPArticle.Select(c => new ArtilceList()
+            {
+                ID = c.ID,
+                Name = c.ArticleName
+            }).ToList();
+
+
+            return View(model);
+        }
+
         public ActionResult EditTSInvoice(int id)
         {
 
@@ -958,6 +1225,35 @@ namespace KS.Controllers.Invoices
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+
+        [HttpPost]
+        public ActionResult GetArticleDetailforJPInvoice(string ArticleID)
+        {
+            if (ArticleID == "")
+            {
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+            var artDet = db.JPArticles.FirstOrDefault(c => c.ArticleName == ArticleID);
+
+            var result = "";
+            result = result + "<div class='custom' id='" + artDet.ID + "'>  ";
+            result = result + " <div class='form-group'> <div class='col-sm-6'> <b>" + artDet.ArticleName + " </b></div> </div>";
+            result = result + " <div class='form-group'><input type='hidden' id='item-price-" + artDet.ID + "' value ='" + artDet.Price + "' /></div>";
+            // result = result += "<div class='form-group'> <div class='col-sm-3'  style='width:33.33%'>Color</div> <div class='col-sm-3'  style='width:33.33%'>Carton</div> <div class='col-sm-3'  style='width:33.33%'>Pair</div> </div>";
+            foreach (var item in artDet.JPArticleDetails)
+            {
+                result = result + "<div class='form-group'> <div  class='col-sm-2' style='width:33.33%'>" + item.Color.ColorName + " </div>";//<div class='col-sm-3'>Avlailable(" + item.TotalStock + ")</div>";
+                                                                                                                                             // result = result + "<div  class='col-sm-3' style='width:33.33%'>" + item.Carton + "<input class='numberBox k-widget k-numerictextbox k-input' type='number' id='item-carton-" + item.ID + "' placeholder='Enter Cartons' name = 'item-carton-color-ID*" + item.ID + "' value = '0' min = '0' max=" + item.Carton + " onchange= 'calcuatePrice(" + artDet.ID + "," + item.ID + "," + item.Article.PairInCarton + " )' ></input> </div>";
+                result = result + "<div  class='col-sm-3' style='width:33.33%'> " + item.TotalStock + " <input class='numberBox k-widget k-numerictextbox k-input' type='number' id='item-pair-" + item.ID + "'  placeholder='Enter Pairs' name = 'item-color-ID*" + item.ID + "' value = '0' min = '0' max=" + item.TotalStock + " ></input> </div></div>";
+                //   result = result + "<div class=' itemPrices' id='artDet-" + item.ID + "' style = 'display:none'>0</div>";
+                //   result = result + "<div class=' itemPrices-" + artDet.ID + "' id='artDetr-" + item.ID + "' style = 'display:none'>0</div>";
+            }
+            result = result + " <hr /></div> ";
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
         public ActionResult GetBPArticles()
         {
             db.Configuration.ProxyCreationEnabled = false;
@@ -988,6 +1284,19 @@ namespace KS.Controllers.Invoices
         {
             db.Configuration.ProxyCreationEnabled = false;
             var result = db.TSArticleDetails.Where(c => c.TotalStock > 0).Select(c => c.TSArticle).Distinct().ToList();
+
+            var list = result.Select(c => new ArtilceList()
+            {
+                ID = c.ID,
+                Name = c.ArticleName
+            }).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetJPArticles()
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var result = db.JPArticleDetails.Where(c => c.TotalStock > 0).Select(c => c.JPArticle).Distinct().ToList();
 
             var list = result.Select(c => new ArtilceList()
             {

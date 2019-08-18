@@ -82,6 +82,21 @@
         <AssociationConnector Association="KitSModel.FK_WHReturnItemDetail_WHArticle" />
         <AssociationConnector Association="KitSModel.FK_WHReturnItemDetail_WHArticleDetail" />
         <AssociationConnector Association="KitSModel.FK_WHReturnItemDetail_WHReturnItem" />
+        <EntityTypeShape EntityType="KitSModel.JPArticle" Width="1.5" PointX="3" PointY="25.5" />
+        <EntityTypeShape EntityType="KitSModel.JPArticleDetail" Width="1.5" PointX="14.25" PointY="5.625" />
+        <EntityTypeShape EntityType="KitSModel.JPInvoice" Width="1.5" PointX="14.25" PointY="27.375" />
+        <EntityTypeShape EntityType="KitSModel.JPInvoiceDetail" Width="1.5" PointX="16.5" PointY="16" />
+        <EntityTypeShape EntityType="KitSModel.JPReturnItem" Width="1.5" PointX="17.25" PointY="12.375" />
+        <EntityTypeShape EntityType="KitSModel.JPReturnItemDetail" Width="1.5" PointX="19.5" PointY="16" />
+        <AssociationConnector Association="KitSModel.FK_JPArticle_Category" />
+        <AssociationConnector Association="KitSModel.FK_JPArticleDetail_Colors" />
+        <AssociationConnector Association="KitSModel.FK_JPArticleDetail_JPArticle" />
+        <AssociationConnector Association="KitSModel.FK_JPInvoiceDetail_JPArticle" />
+        <AssociationConnector Association="KitSModel.FK_JPReturnItemDetail_JPArticle" />
+        <AssociationConnector Association="KitSModel.FK_JPInvoiceDetail_JPArticleDetail" />
+        <AssociationConnector Association="KitSModel.FK_JPReturnItemDetail_JPArticleDetail" />
+        <AssociationConnector Association="KitSModel.FK_JPInvoiceDetail_JPInvoice" />
+        <AssociationConnector Association="KitSModel.FK_JPReturnItemDetail_JPReturnItem" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

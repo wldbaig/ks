@@ -60,6 +60,12 @@ namespace KS.Models
         public virtual DbSet<SPOrderDetail> SPOrderDetails { get; set; }
         public virtual DbSet<WHReturnItem> WHReturnItems { get; set; }
         public virtual DbSet<WHReturnItemDetail> WHReturnItemDetails { get; set; }
+        public virtual DbSet<JPArticle> JPArticles { get; set; }
+        public virtual DbSet<JPArticleDetail> JPArticleDetails { get; set; }
+        public virtual DbSet<JPInvoice> JPInvoices { get; set; }
+        public virtual DbSet<JPInvoiceDetail> JPInvoiceDetails { get; set; }
+        public virtual DbSet<JPReturnItem> JPReturnItems { get; set; }
+        public virtual DbSet<JPReturnItemDetail> JPReturnItemDetails { get; set; }
     
         public virtual ObjectResult<Report_BPArticleSaleWithDates_Result> Report_BPArticleSaleWithDates(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> categoryId)
         {
@@ -127,6 +133,23 @@ namespace KS.Models
                 new ObjectParameter("ShopId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Report_ArticleSaleWithCreationDates_Result>("Report_ArticleSaleWithCreationDates", startDateParameter, endDateParameter, shopIdParameter);
+        }
+    
+        public virtual ObjectResult<Report_JPArticleSaleWithDates_Result> Report_JPArticleSaleWithDates(Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, Nullable<int> categoryId)
+        {
+            var startDateParameter = startDate.HasValue ?
+                new ObjectParameter("StartDate", startDate) :
+                new ObjectParameter("StartDate", typeof(System.DateTime));
+    
+            var endDateParameter = endDate.HasValue ?
+                new ObjectParameter("EndDate", endDate) :
+                new ObjectParameter("EndDate", typeof(System.DateTime));
+    
+            var categoryIdParameter = categoryId.HasValue ?
+                new ObjectParameter("CategoryId", categoryId) :
+                new ObjectParameter("CategoryId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Report_JPArticleSaleWithDates_Result>("Report_JPArticleSaleWithDates", startDateParameter, endDateParameter, categoryIdParameter);
         }
     }
 }

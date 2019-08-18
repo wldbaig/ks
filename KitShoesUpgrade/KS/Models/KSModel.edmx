@@ -149,6 +149,71 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ColorName" Type="nvarchar" MaxLength="56" Nullable="false" />
         </EntityType>
+        <EntityType Name="JPArticle">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="ArticleName" Type="nvarchar" MaxLength="56" Nullable="false" />
+          <Property Name="Image" Type="nvarchar" MaxLength="500" />
+          <Property Name="CategoryId" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="int" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="JPArticleDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="JPArticleId" Type="int" Nullable="false" />
+          <Property Name="ColorId" Type="int" Nullable="false" />
+          <Property Name="DateAdded" Type="datetime" />
+          <Property Name="TotalStock" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="JPInvoice">
+          <Key>
+            <PropertyRef Name="InvoiceID" />
+          </Key>
+          <Property Name="InvoiceID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AddedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="JPInvoiceDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JPInvoiceID" Type="int" Nullable="false" />
+          <Property Name="JPArticleID" Type="int" Nullable="false" />
+          <Property Name="JPArticleDetailID" Type="int" Nullable="false" />
+          <Property Name="Pairs" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="JPReturnItem">
+          <Key>
+            <PropertyRef Name="ReturnItemID" />
+          </Key>
+          <Property Name="ReturnItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AddedOn" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="TotalPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="JPReturnItemDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JPReturnItemID" Type="int" Nullable="false" />
+          <Property Name="ArticleID" Type="int" Nullable="false" />
+          <Property Name="ArticleDetailID" Type="int" Nullable="false" />
+          <Property Name="ArticlePairs" Type="int" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="OrderID" />
@@ -627,6 +692,114 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_JPArticle_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="JPArticle" Type="Self.JPArticle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="JPArticle">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JPArticleDetail_Colors">
+          <End Role="Colors" Type="Self.Colors" Multiplicity="1" />
+          <End Role="JPArticleDetail" Type="Self.JPArticleDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colors">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="JPArticleDetail">
+              <PropertyRef Name="ColorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JPArticleDetail_JPArticle">
+          <End Role="JPArticle" Type="Self.JPArticle" Multiplicity="1" />
+          <End Role="JPArticleDetail" Type="Self.JPArticleDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JPArticle">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="JPArticleDetail">
+              <PropertyRef Name="JPArticleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JPInvoiceDetail_JPArticle">
+          <End Role="JPArticle" Type="Self.JPArticle" Multiplicity="1" />
+          <End Role="JPInvoiceDetail" Type="Self.JPInvoiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JPArticle">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="JPInvoiceDetail">
+              <PropertyRef Name="JPArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JPInvoiceDetail_JPArticleDetail">
+          <End Role="JPArticleDetail" Type="Self.JPArticleDetail" Multiplicity="1" />
+          <End Role="JPInvoiceDetail" Type="Self.JPInvoiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JPArticleDetail">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="JPInvoiceDetail">
+              <PropertyRef Name="JPArticleDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JPInvoiceDetail_JPInvoice">
+          <End Role="JPInvoice" Type="Self.JPInvoice" Multiplicity="1" />
+          <End Role="JPInvoiceDetail" Type="Self.JPInvoiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JPInvoice">
+              <PropertyRef Name="InvoiceID" />
+            </Principal>
+            <Dependent Role="JPInvoiceDetail">
+              <PropertyRef Name="JPInvoiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JPReturnItemDetail_JPArticle">
+          <End Role="JPArticle" Type="Self.JPArticle" Multiplicity="1" />
+          <End Role="JPReturnItemDetail" Type="Self.JPReturnItemDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JPArticle">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="JPReturnItemDetail">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JPReturnItemDetail_JPArticleDetail">
+          <End Role="JPArticleDetail" Type="Self.JPArticleDetail" Multiplicity="1" />
+          <End Role="JPReturnItemDetail" Type="Self.JPReturnItemDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JPArticleDetail">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="JPReturnItemDetail">
+              <PropertyRef Name="ArticleDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JPReturnItemDetail_JPReturnItem">
+          <End Role="JPReturnItem" Type="Self.JPReturnItem" Multiplicity="1" />
+          <End Role="JPReturnItemDetail" Type="Self.JPReturnItemDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JPReturnItem">
+              <PropertyRef Name="ReturnItemID" />
+            </Principal>
+            <Dependent Role="JPReturnItemDetail">
+              <PropertyRef Name="JPReturnItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_OrderDetail_Order">
           <End Role="Order" Type="Self.Order" Multiplicity="1" />
           <End Role="OrderDetail" Type="Self.OrderDetail" Multiplicity="*" />
@@ -918,6 +1091,11 @@
           <Parameter Name="EndDate" Type="datetime" Mode="In" />
           <Parameter Name="CategoryId" Type="int" Mode="In" />
         </Function>
+        <Function Name="Report_JPArticleSaleWithDates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StartDate" Type="datetime" Mode="In" />
+          <Parameter Name="EndDate" Type="datetime" Mode="In" />
+          <Parameter Name="CategoryId" Type="int" Mode="In" />
+        </Function>
         <Function Name="Report_TSArticleSaleWithDates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StartDate" Type="datetime" Mode="In" />
           <Parameter Name="EndDate" Type="datetime" Mode="In" />
@@ -938,6 +1116,12 @@
           <EntitySet Name="CMReturnItem" EntityType="Self.CMReturnItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CMReturnItemDetail" EntityType="Self.CMReturnItemDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Colors" EntityType="Self.Colors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JPArticle" EntityType="Self.JPArticle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JPArticleDetail" EntityType="Self.JPArticleDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JPInvoice" EntityType="Self.JPInvoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JPInvoiceDetail" EntityType="Self.JPInvoiceDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JPReturnItem" EntityType="Self.JPReturnItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JPReturnItemDetail" EntityType="Self.JPReturnItemDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderDetail" EntityType="Self.OrderDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderHistory" EntityType="Self.OrderHistory" Schema="dbo" store:Type="Tables" />
@@ -1040,6 +1224,42 @@
           <AssociationSet Name="FK_CMReturnItemDetail_CMReturnItem" Association="Self.FK_CMReturnItemDetail_CMReturnItem">
             <End Role="CMReturnItem" EntitySet="CMReturnItem" />
             <End Role="CMReturnItemDetail" EntitySet="CMReturnItemDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JPArticle_Category" Association="Self.FK_JPArticle_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="JPArticle" EntitySet="JPArticle" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JPArticleDetail_Colors" Association="Self.FK_JPArticleDetail_Colors">
+            <End Role="Colors" EntitySet="Colors" />
+            <End Role="JPArticleDetail" EntitySet="JPArticleDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JPArticleDetail_JPArticle" Association="Self.FK_JPArticleDetail_JPArticle">
+            <End Role="JPArticle" EntitySet="JPArticle" />
+            <End Role="JPArticleDetail" EntitySet="JPArticleDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JPInvoiceDetail_JPArticle" Association="Self.FK_JPInvoiceDetail_JPArticle">
+            <End Role="JPArticle" EntitySet="JPArticle" />
+            <End Role="JPInvoiceDetail" EntitySet="JPInvoiceDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JPInvoiceDetail_JPArticleDetail" Association="Self.FK_JPInvoiceDetail_JPArticleDetail">
+            <End Role="JPArticleDetail" EntitySet="JPArticleDetail" />
+            <End Role="JPInvoiceDetail" EntitySet="JPInvoiceDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JPInvoiceDetail_JPInvoice" Association="Self.FK_JPInvoiceDetail_JPInvoice">
+            <End Role="JPInvoice" EntitySet="JPInvoice" />
+            <End Role="JPInvoiceDetail" EntitySet="JPInvoiceDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JPReturnItemDetail_JPArticle" Association="Self.FK_JPReturnItemDetail_JPArticle">
+            <End Role="JPArticle" EntitySet="JPArticle" />
+            <End Role="JPReturnItemDetail" EntitySet="JPReturnItemDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JPReturnItemDetail_JPArticleDetail" Association="Self.FK_JPReturnItemDetail_JPArticleDetail">
+            <End Role="JPArticleDetail" EntitySet="JPArticleDetail" />
+            <End Role="JPReturnItemDetail" EntitySet="JPReturnItemDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JPReturnItemDetail_JPReturnItem" Association="Self.FK_JPReturnItemDetail_JPReturnItem">
+            <End Role="JPReturnItem" EntitySet="JPReturnItem" />
+            <End Role="JPReturnItemDetail" EntitySet="JPReturnItemDetail" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderDetail_Order" Association="Self.FK_OrderDetail_Order">
             <End Role="Order" EntitySet="Order" />
@@ -1368,6 +1588,53 @@
             <Parameter Name="EndDate" Mode="In" Type="DateTime" />
             <Parameter Name="ShopId" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="JPArticles" EntityType="KitSModel.JPArticle" />
+          <EntitySet Name="JPArticleDetails" EntityType="KitSModel.JPArticleDetail" />
+          <EntitySet Name="JPInvoices" EntityType="KitSModel.JPInvoice" />
+          <EntitySet Name="JPInvoiceDetails" EntityType="KitSModel.JPInvoiceDetail" />
+          <EntitySet Name="JPReturnItems" EntityType="KitSModel.JPReturnItem" />
+          <EntitySet Name="JPReturnItemDetails" EntityType="KitSModel.JPReturnItemDetail" />
+          <AssociationSet Name="FK_JPArticle_Category" Association="KitSModel.FK_JPArticle_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="JPArticle" EntitySet="JPArticles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JPArticleDetail_Colors" Association="KitSModel.FK_JPArticleDetail_Colors">
+            <End Role="Color" EntitySet="Colors" />
+            <End Role="JPArticleDetail" EntitySet="JPArticleDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JPArticleDetail_JPArticle" Association="KitSModel.FK_JPArticleDetail_JPArticle">
+            <End Role="JPArticle" EntitySet="JPArticles" />
+            <End Role="JPArticleDetail" EntitySet="JPArticleDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JPInvoiceDetail_JPArticle" Association="KitSModel.FK_JPInvoiceDetail_JPArticle">
+            <End Role="JPArticle" EntitySet="JPArticles" />
+            <End Role="JPInvoiceDetail" EntitySet="JPInvoiceDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JPReturnItemDetail_JPArticle" Association="KitSModel.FK_JPReturnItemDetail_JPArticle">
+            <End Role="JPArticle" EntitySet="JPArticles" />
+            <End Role="JPReturnItemDetail" EntitySet="JPReturnItemDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JPInvoiceDetail_JPArticleDetail" Association="KitSModel.FK_JPInvoiceDetail_JPArticleDetail">
+            <End Role="JPArticleDetail" EntitySet="JPArticleDetails" />
+            <End Role="JPInvoiceDetail" EntitySet="JPInvoiceDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JPReturnItemDetail_JPArticleDetail" Association="KitSModel.FK_JPReturnItemDetail_JPArticleDetail">
+            <End Role="JPArticleDetail" EntitySet="JPArticleDetails" />
+            <End Role="JPReturnItemDetail" EntitySet="JPReturnItemDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JPInvoiceDetail_JPInvoice" Association="KitSModel.FK_JPInvoiceDetail_JPInvoice">
+            <End Role="JPInvoice" EntitySet="JPInvoices" />
+            <End Role="JPInvoiceDetail" EntitySet="JPInvoiceDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_JPReturnItemDetail_JPReturnItem" Association="KitSModel.FK_JPReturnItemDetail_JPReturnItem">
+            <End Role="JPReturnItem" EntitySet="JPReturnItems" />
+            <End Role="JPReturnItemDetail" EntitySet="JPReturnItemDetails" />
+          </AssociationSet>
+          <FunctionImport Name="Report_JPArticleSaleWithDates" ReturnType="Collection(KitSModel.Report_JPArticleSaleWithDates_Result)">
+            <Parameter Name="StartDate" Mode="In" Type="DateTime" />
+            <Parameter Name="EndDate" Mode="In" Type="DateTime" />
+            <Parameter Name="CategoryId" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="BPArticle">
           <Key>
@@ -1436,6 +1703,7 @@
           <NavigationProperty Name="WHArticles" Relationship="KitSModel.FK_Article_Category" FromRole="Category" ToRole="WHArticle" />
           <NavigationProperty Name="CMArticles" Relationship="KitSModel.FK_CMArticle_Category" FromRole="Category" ToRole="CMArticle" />
           <NavigationProperty Name="TSArticles" Relationship="KitSModel.FK_TSArticle_Category" FromRole="Category" ToRole="TSArticle" />
+          <NavigationProperty Name="JPArticles" Relationship="KitSModel.FK_JPArticle_Category" FromRole="Category" ToRole="JPArticle" />
         </EntityType>
         <EntityType Name="CMArticle">
           <Key>
@@ -1504,6 +1772,7 @@
           <NavigationProperty Name="CMArticleDetails" Relationship="KitSModel.FK_CMArticleDetail_Colors" FromRole="Color" ToRole="CMArticleDetail" />
           <NavigationProperty Name="WHArticleDetails" Relationship="KitSModel.FK_ArticleDetail_Colors" FromRole="Color" ToRole="WHArticleDetail" />
           <NavigationProperty Name="TSArticleDetails" Relationship="KitSModel.FK_TSArticleDetail_Colors" FromRole="Color" ToRole="TSArticleDetail" />
+          <NavigationProperty Name="JPArticleDetails" Relationship="KitSModel.FK_JPArticleDetail_Colors" FromRole="Color" ToRole="JPArticleDetail" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -2376,6 +2645,200 @@
           <Property Type="Int32" Name="PairSale" Nullable="true" />
           <Property Type="String" Name="Shop" Nullable="false" MaxLength="11" />
         </ComplexType>
+        <EntityType Name="JPArticle">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="ArticleName" Type="String" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryId" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="CreatedBy" Type="Int32" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="KitSModel.FK_JPArticle_Category" FromRole="JPArticle" ToRole="Category" />
+          <NavigationProperty Name="JPArticleDetails" Relationship="KitSModel.FK_JPArticleDetail_JPArticle" FromRole="JPArticle" ToRole="JPArticleDetail" />
+          <NavigationProperty Name="JPInvoiceDetails" Relationship="KitSModel.FK_JPInvoiceDetail_JPArticle" FromRole="JPArticle" ToRole="JPInvoiceDetail" />
+          <NavigationProperty Name="JPReturnItemDetails" Relationship="KitSModel.FK_JPReturnItemDetail_JPArticle" FromRole="JPArticle" ToRole="JPReturnItemDetail" />
+        </EntityType>
+        <EntityType Name="JPArticleDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="JPArticleId" Type="Int32" Nullable="false" />
+          <Property Name="ColorId" Type="Int32" Nullable="false" />
+          <Property Name="DateAdded" Type="DateTime" Precision="3" />
+          <Property Name="TotalStock" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Color" Relationship="KitSModel.FK_JPArticleDetail_Colors" FromRole="JPArticleDetail" ToRole="Color" />
+          <NavigationProperty Name="JPArticle" Relationship="KitSModel.FK_JPArticleDetail_JPArticle" FromRole="JPArticleDetail" ToRole="JPArticle" />
+          <NavigationProperty Name="JPInvoiceDetails" Relationship="KitSModel.FK_JPInvoiceDetail_JPArticleDetail" FromRole="JPArticleDetail" ToRole="JPInvoiceDetail" />
+          <NavigationProperty Name="JPReturnItemDetails" Relationship="KitSModel.FK_JPReturnItemDetail_JPArticleDetail" FromRole="JPArticleDetail" ToRole="JPReturnItemDetail" />
+        </EntityType>
+        <EntityType Name="JPInvoice">
+          <Key>
+            <PropertyRef Name="InvoiceID" />
+          </Key>
+          <Property Name="InvoiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="JPInvoiceDetails" Relationship="KitSModel.FK_JPInvoiceDetail_JPInvoice" FromRole="JPInvoice" ToRole="JPInvoiceDetail" />
+        </EntityType>
+        <EntityType Name="JPInvoiceDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JPInvoiceID" Type="Int32" Nullable="false" />
+          <Property Name="JPArticleID" Type="Int32" Nullable="false" />
+          <Property Name="JPArticleDetailID" Type="Int32" Nullable="false" />
+          <Property Name="Pairs" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="JPArticle" Relationship="KitSModel.FK_JPInvoiceDetail_JPArticle" FromRole="JPInvoiceDetail" ToRole="JPArticle" />
+          <NavigationProperty Name="JPArticleDetail" Relationship="KitSModel.FK_JPInvoiceDetail_JPArticleDetail" FromRole="JPInvoiceDetail" ToRole="JPArticleDetail" />
+          <NavigationProperty Name="JPInvoice" Relationship="KitSModel.FK_JPInvoiceDetail_JPInvoice" FromRole="JPInvoiceDetail" ToRole="JPInvoice" />
+        </EntityType>
+        <EntityType Name="JPReturnItem">
+          <Key>
+            <PropertyRef Name="ReturnItemID" />
+          </Key>
+          <Property Name="ReturnItemID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AddedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="TotalPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="JPReturnItemDetails" Relationship="KitSModel.FK_JPReturnItemDetail_JPReturnItem" FromRole="JPReturnItem" ToRole="JPReturnItemDetail" />
+        </EntityType>
+        <EntityType Name="JPReturnItemDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JPReturnItemID" Type="Int32" Nullable="false" />
+          <Property Name="ArticleID" Type="Int32" Nullable="false" />
+          <Property Name="ArticleDetailID" Type="Int32" Nullable="false" />
+          <Property Name="ArticlePairs" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="JPArticle" Relationship="KitSModel.FK_JPReturnItemDetail_JPArticle" FromRole="JPReturnItemDetail" ToRole="JPArticle" />
+          <NavigationProperty Name="JPArticleDetail" Relationship="KitSModel.FK_JPReturnItemDetail_JPArticleDetail" FromRole="JPReturnItemDetail" ToRole="JPArticleDetail" />
+          <NavigationProperty Name="JPReturnItem" Relationship="KitSModel.FK_JPReturnItemDetail_JPReturnItem" FromRole="JPReturnItemDetail" ToRole="JPReturnItem" />
+        </EntityType>
+        <Association Name="FK_JPArticle_Category">
+          <End Type="KitSModel.Category" Role="Category" Multiplicity="1" />
+          <End Type="KitSModel.JPArticle" Role="JPArticle" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="JPArticle">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JPArticleDetail_Colors">
+          <End Type="KitSModel.Color" Role="Color" Multiplicity="1" />
+          <End Type="KitSModel.JPArticleDetail" Role="JPArticleDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Color">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="JPArticleDetail">
+              <PropertyRef Name="ColorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JPArticleDetail_JPArticle">
+          <End Type="KitSModel.JPArticle" Role="JPArticle" Multiplicity="1" />
+          <End Type="KitSModel.JPArticleDetail" Role="JPArticleDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JPArticle">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="JPArticleDetail">
+              <PropertyRef Name="JPArticleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JPInvoiceDetail_JPArticle">
+          <End Type="KitSModel.JPArticle" Role="JPArticle" Multiplicity="1" />
+          <End Type="KitSModel.JPInvoiceDetail" Role="JPInvoiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JPArticle">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="JPInvoiceDetail">
+              <PropertyRef Name="JPArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JPReturnItemDetail_JPArticle">
+          <End Type="KitSModel.JPArticle" Role="JPArticle" Multiplicity="1" />
+          <End Type="KitSModel.JPReturnItemDetail" Role="JPReturnItemDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JPArticle">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="JPReturnItemDetail">
+              <PropertyRef Name="ArticleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JPInvoiceDetail_JPArticleDetail">
+          <End Type="KitSModel.JPArticleDetail" Role="JPArticleDetail" Multiplicity="1" />
+          <End Type="KitSModel.JPInvoiceDetail" Role="JPInvoiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JPArticleDetail">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="JPInvoiceDetail">
+              <PropertyRef Name="JPArticleDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JPReturnItemDetail_JPArticleDetail">
+          <End Type="KitSModel.JPArticleDetail" Role="JPArticleDetail" Multiplicity="1" />
+          <End Type="KitSModel.JPReturnItemDetail" Role="JPReturnItemDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JPArticleDetail">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="JPReturnItemDetail">
+              <PropertyRef Name="ArticleDetailID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JPInvoiceDetail_JPInvoice">
+          <End Type="KitSModel.JPInvoice" Role="JPInvoice" Multiplicity="1" />
+          <End Type="KitSModel.JPInvoiceDetail" Role="JPInvoiceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JPInvoice">
+              <PropertyRef Name="InvoiceID" />
+            </Principal>
+            <Dependent Role="JPInvoiceDetail">
+              <PropertyRef Name="JPInvoiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_JPReturnItemDetail_JPReturnItem">
+          <End Type="KitSModel.JPReturnItem" Role="JPReturnItem" Multiplicity="1" />
+          <End Type="KitSModel.JPReturnItemDetail" Role="JPReturnItemDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="JPReturnItem">
+              <PropertyRef Name="ReturnItemID" />
+            </Principal>
+            <Dependent Role="JPReturnItemDetail">
+              <PropertyRef Name="JPReturnItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="Report_JPArticleSaleWithDates_Result">
+          <Property Type="Int32" Name="ArticleId" Nullable="false" />
+          <Property Type="String" Name="Article" Nullable="false" MaxLength="56" />
+          <Property Type="Int32" Name="Pair" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2819,6 +3282,86 @@
                 <ScalarProperty Name="ArticleName" ColumnName="ArticleName" />
                 <ScalarProperty Name="PairSale" ColumnName="PairSale" />
                 <ScalarProperty Name="Shop" ColumnName="Shop" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="JPArticles">
+            <EntityTypeMapping TypeName="KitSModel.JPArticle">
+              <MappingFragment StoreEntitySet="JPArticle">
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="ArticleName" ColumnName="ArticleName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JPArticleDetails">
+            <EntityTypeMapping TypeName="KitSModel.JPArticleDetail">
+              <MappingFragment StoreEntitySet="JPArticleDetail">
+                <ScalarProperty Name="TotalStock" ColumnName="TotalStock" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="ColorId" ColumnName="ColorId" />
+                <ScalarProperty Name="JPArticleId" ColumnName="JPArticleId" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JPInvoices">
+            <EntityTypeMapping TypeName="KitSModel.JPInvoice">
+              <MappingFragment StoreEntitySet="JPInvoice">
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+                <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JPInvoiceDetails">
+            <EntityTypeMapping TypeName="KitSModel.JPInvoiceDetail">
+              <MappingFragment StoreEntitySet="JPInvoiceDetail">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Pairs" ColumnName="Pairs" />
+                <ScalarProperty Name="JPArticleDetailID" ColumnName="JPArticleDetailID" />
+                <ScalarProperty Name="JPArticleID" ColumnName="JPArticleID" />
+                <ScalarProperty Name="JPInvoiceID" ColumnName="JPInvoiceID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JPReturnItems">
+            <EntityTypeMapping TypeName="KitSModel.JPReturnItem">
+              <MappingFragment StoreEntitySet="JPReturnItem">
+                <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+                <ScalarProperty Name="ReturnItemID" ColumnName="ReturnItemID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JPReturnItemDetails">
+            <EntityTypeMapping TypeName="KitSModel.JPReturnItemDetail">
+              <MappingFragment StoreEntitySet="JPReturnItemDetail">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ArticlePairs" ColumnName="ArticlePairs" />
+                <ScalarProperty Name="ArticleDetailID" ColumnName="ArticleDetailID" />
+                <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+                <ScalarProperty Name="JPReturnItemID" ColumnName="JPReturnItemID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Report_JPArticleSaleWithDates" FunctionName="KitSModel.Store.Report_JPArticleSaleWithDates">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="KitSModel.Report_JPArticleSaleWithDates_Result">
+                <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
+                <ScalarProperty Name="Article" ColumnName="Article" />
+                <ScalarProperty Name="Pair" ColumnName="Pair" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

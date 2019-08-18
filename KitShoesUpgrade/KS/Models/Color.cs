@@ -21,6 +21,7 @@ namespace KS.Models
             this.CMArticleDetails = new HashSet<CMArticleDetail>();
             this.WHArticleDetails = new HashSet<WHArticleDetail>();
             this.TSArticleDetails = new HashSet<TSArticleDetail>();
+            this.JPArticleDetails = new HashSet<JPArticleDetail>();
         }
     
         public int ID { get; set; }
@@ -34,5 +35,7 @@ namespace KS.Models
         public virtual ICollection<WHArticleDetail> WHArticleDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TSArticleDetail> TSArticleDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<JPArticleDetail> JPArticleDetails { get; set; }
     }
 }

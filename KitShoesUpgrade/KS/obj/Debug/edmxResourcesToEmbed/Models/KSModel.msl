@@ -441,5 +441,85 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="JPArticles">
+      <EntityTypeMapping TypeName="KitSModel.JPArticle">
+        <MappingFragment StoreEntitySet="JPArticle">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+          <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+          <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="Image" ColumnName="Image" />
+          <ScalarProperty Name="ArticleName" ColumnName="ArticleName" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JPArticleDetails">
+      <EntityTypeMapping TypeName="KitSModel.JPArticleDetail">
+        <MappingFragment StoreEntitySet="JPArticleDetail">
+          <ScalarProperty Name="TotalStock" ColumnName="TotalStock" />
+          <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+          <ScalarProperty Name="ColorId" ColumnName="ColorId" />
+          <ScalarProperty Name="JPArticleId" ColumnName="JPArticleId" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JPInvoices">
+      <EntityTypeMapping TypeName="KitSModel.JPInvoice">
+        <MappingFragment StoreEntitySet="JPInvoice">
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+          <ScalarProperty Name="InvoiceID" ColumnName="InvoiceID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JPInvoiceDetails">
+      <EntityTypeMapping TypeName="KitSModel.JPInvoiceDetail">
+        <MappingFragment StoreEntitySet="JPInvoiceDetail">
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Pairs" ColumnName="Pairs" />
+          <ScalarProperty Name="JPArticleDetailID" ColumnName="JPArticleDetailID" />
+          <ScalarProperty Name="JPArticleID" ColumnName="JPArticleID" />
+          <ScalarProperty Name="JPInvoiceID" ColumnName="JPInvoiceID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JPReturnItems">
+      <EntityTypeMapping TypeName="KitSModel.JPReturnItem">
+        <MappingFragment StoreEntitySet="JPReturnItem">
+          <ScalarProperty Name="TotalPrice" ColumnName="TotalPrice" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="AddedOn" ColumnName="AddedOn" />
+          <ScalarProperty Name="ReturnItemID" ColumnName="ReturnItemID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JPReturnItemDetails">
+      <EntityTypeMapping TypeName="KitSModel.JPReturnItemDetail">
+        <MappingFragment StoreEntitySet="JPReturnItemDetail">
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ArticlePairs" ColumnName="ArticlePairs" />
+          <ScalarProperty Name="ArticleDetailID" ColumnName="ArticleDetailID" />
+          <ScalarProperty Name="ArticleID" ColumnName="ArticleID" />
+          <ScalarProperty Name="JPReturnItemID" ColumnName="JPReturnItemID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="Report_JPArticleSaleWithDates" FunctionName="KitSModel.Store.Report_JPArticleSaleWithDates">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="KitSModel.Report_JPArticleSaleWithDates_Result">
+          <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
+          <ScalarProperty Name="Article" ColumnName="Article" />
+          <ScalarProperty Name="Pair" ColumnName="Pair" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

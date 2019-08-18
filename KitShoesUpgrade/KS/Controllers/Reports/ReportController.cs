@@ -97,6 +97,33 @@ namespace KS.Controllers.ReportManagement
         }
 
         [RoleSecurity(Permissions.Report, PermissionType.VIEW)]
+        public ActionResult JPSale()
+        {
+            ViewBag.Category = new SelectList(db.Categories.ToList(), "ID", "CategoryName");
+            return View(new SaleModel());
+        }
+
+        [HttpPost]
+        public ActionResult JPSale(SaleModel model)
+        {
+            ViewBag.StartDate = model.StartDate.Date;
+            ViewBag.EndDate = model.EndDate.Date;
+
+            try
+            {
+                var model1 = _manager.GetJPSaleReport(model);
+                return View("JPSaleDetailReport", model1.OrderByDescending(c => c.Pairs).ToList());
+            }
+            catch (Exception e)
+            {
+                TempData["ERROR"] = e.Message;
+            }
+            ViewBag.Category = new SelectList(db.Categories.ToList(), "ID", "CategoryName");
+            return View(model);
+
+        }
+
+        [RoleSecurity(Permissions.Report, PermissionType.VIEW)]
         public ActionResult ArticleSaleWithCreationDates()
         {
             ViewBag.Shop = new SelectList(db.Shops.Where(c => c.NickName != "WH").ToList(), "ID", "ShopName");

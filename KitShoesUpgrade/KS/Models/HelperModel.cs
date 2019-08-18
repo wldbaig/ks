@@ -299,9 +299,15 @@ namespace KS.Models
         public BPInvoice BPInvoice { get; set; }
         public CMInvoice CMInvoice { get; set; }
         public TSInvoice TSInvoice { get; set; }
+
+        public JPInvoice JPInvoice { get; set; }
+
         public List<ArtilceList> ArtilceList { get; set; }
         public List<BPArticle> BPArticle { get; set; }
         public List<CMArticle> CMArticle { get; set; }
         public List<TSArticle> TSArticle { get; set; }
+
+
+        public List<JPArticle> JPArticle { get; set; }
     }
 }

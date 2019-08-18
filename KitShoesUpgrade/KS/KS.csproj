@@ -201,6 +201,24 @@
     </Compile>
     <Compile Include="Models\EntitiesMetaData.cs" />
     <Compile Include="Models\HelperModel.cs" />
+    <Compile Include="Models\JPArticle.cs">
+      <DependentUpon>KSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\JPArticleDetail.cs">
+      <DependentUpon>KSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\JPInvoice.cs">
+      <DependentUpon>KSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\JPInvoiceDetail.cs">
+      <DependentUpon>KSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\JPReturnItem.cs">
+      <DependentUpon>KSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\JPReturnItemDetail.cs">
+      <DependentUpon>KSModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\KSModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -235,6 +253,9 @@
       <DependentUpon>KSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Report_CMArticleSaleWithDates_Result.cs">
+      <DependentUpon>KSModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Report_JPArticleSaleWithDates_Result.cs">
       <DependentUpon>KSModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Report_TSArticleSaleWithDates_Result.cs">
@@ -778,6 +799,16 @@
     <Content Include="Views\Return\AddWH.cshtml" />
     <Content Include="Views\Report\ArticleSaleWithCreationDates.cshtml" />
     <Content Include="Views\Report\ArticleSaleReport.cshtml" />
+    <Content Include="Views\Article\ViewJPList.cshtml" />
+    <Content Include="Views\Invoice\JP.cshtml" />
+    <Content Include="Views\Invoice\EditJPInvoice.cshtml" />
+    <Content Include="Views\Invoice\PurchaseJPReciept.cshtml" />
+    <Content Include="Views\Invoice\SaleJP.cshtml" />
+    <Content Include="Views\Report\JPSale.cshtml" />
+    <Content Include="Views\Report\JPSaleDetailReport.cshtml" />
+    <Content Include="Views\Return\AddJP.cshtml" />
+    <Content Include="Views\Return\JP.cshtml" />
+    <Content Include="Views\Return\ReturnJPReciept.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

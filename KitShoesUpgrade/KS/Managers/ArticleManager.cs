@@ -78,6 +78,19 @@ namespace KS.Managers
                 db.TSArticles.Add(tsArticle);
                 db.SaveChanges();
 
+                var jpArticle = new JPArticle();
+                jpArticle.ID = model.Article.ID;
+                jpArticle.ArticleName = model.Article.ArticleName;
+                jpArticle.CategoryId = model.Article.CategoryId;
+                jpArticle.Image = model.Article.Image;
+                jpArticle.Price = model.Article.Price;
+                jpArticle.CreatedBy = User.ID;
+                jpArticle.IsActive = true;
+                jpArticle.CreatedOn = DateTime.UtcNow;
+                db.JPArticles.Add(jpArticle);
+                db.SaveChanges();
+
+
                 trans.Complete();
             }
 
@@ -139,6 +152,16 @@ namespace KS.Managers
                 db.Entry(tsArticle).State = EntityState.Modified;
                 db.SaveChanges();
 
+                var jpArticle = db.JPArticles.Find(model.Article.ID);
+                jpArticle.ArticleName = article.ArticleName;
+                jpArticle.Price = article.Price;
+                jpArticle.CategoryId = article.CategoryId;
+                jpArticle.Image = article.Image;
+                jpArticle.UpdatedBy = User.ID;
+                jpArticle.UpdatedOn = DateTime.UtcNow;
+                db.Entry(jpArticle).State = EntityState.Modified;
+                db.SaveChanges();
+
                 trans.Complete();
             }
 
@@ -153,7 +176,7 @@ namespace KS.Managers
                 artDet.ColorId = model.ArticleDetails.ColorId;
                 artDet.DateAdded = DateTime.UtcNow;
                 artDet.TotalStock = 0;
-                artDet.WHArticleId = model.ArticleID; 
+                artDet.WHArticleId = model.ArticleID;
                 db.WHArticleDetails.Add(artDet);
                 db.SaveChanges();
 
@@ -162,7 +185,7 @@ namespace KS.Managers
                 bpArtDet.ColorId = model.ArticleDetails.ColorId;
                 bpArtDet.DateAdded = DateTime.UtcNow;
                 bpArtDet.TotalStock = 0;
-                bpArtDet.BPArticleId = model.ArticleID; 
+                bpArtDet.BPArticleId = model.ArticleID;
                 db.BPArticleDetails.Add(bpArtDet);
                 db.SaveChanges();
 
@@ -171,7 +194,7 @@ namespace KS.Managers
                 cmArtDet.ColorId = model.ArticleDetails.ColorId;
                 cmArtDet.DateAdded = DateTime.UtcNow;
                 cmArtDet.TotalStock = 0;
-                cmArtDet.CMArticleId = model.ArticleID; 
+                cmArtDet.CMArticleId = model.ArticleID;
                 db.CMArticleDetails.Add(cmArtDet);
                 db.SaveChanges();
 
@@ -180,8 +203,17 @@ namespace KS.Managers
                 tsArtDet.ColorId = model.ArticleDetails.ColorId;
                 tsArtDet.DateAdded = DateTime.UtcNow;
                 tsArtDet.TotalStock = 0;
-                tsArtDet.TSArticleId = model.ArticleID; 
+                tsArtDet.TSArticleId = model.ArticleID;
                 db.TSArticleDetails.Add(tsArtDet);
+                db.SaveChanges();
+
+                var jpArtDet = new JPArticleDetail();
+                jpArtDet.ID = artDet.ID;
+                jpArtDet.ColorId = model.ArticleDetails.ColorId;
+                jpArtDet.DateAdded = DateTime.UtcNow;
+                jpArtDet.TotalStock = 0;
+                jpArtDet.JPArticleId = model.ArticleID;
+                db.JPArticleDetails.Add(jpArtDet);
                 db.SaveChanges();
 
                 trans.Complete();
@@ -198,7 +230,7 @@ namespace KS.Managers
                 if (!db.WHArticleDetails.Any(c => c.WHArticleId == existingArticleDetail.WHArticleId && c.ColorId == model.ArticleDetails.ColorId))
                 {
                     existingArticleDetail.ColorId = model.ArticleDetails.ColorId;
-                     
+
                     db.Entry(existingArticleDetail).State = EntityState.Modified;
                     db.SaveChanges();
                 }
@@ -232,6 +264,16 @@ namespace KS.Managers
                     existingTSArticleDetail.ColorId = model.ArticleDetails.ColorId;
 
                     db.Entry(existingTSArticleDetail).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+
+                var existingJPArticleDetail = db.JPArticleDetails.Find(model.ArticleDetails.ID);
+
+                if (!db.JPArticleDetails.Any(c => c.JPArticleId == existingJPArticleDetail.JPArticleId && c.ColorId == model.ArticleDetails.ColorId))
+                {
+                    existingJPArticleDetail.ColorId = model.ArticleDetails.ColorId;
+
+                    db.Entry(existingJPArticleDetail).State = EntityState.Modified;
                     db.SaveChanges();
                 }
 

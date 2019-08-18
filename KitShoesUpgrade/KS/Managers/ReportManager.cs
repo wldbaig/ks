@@ -45,6 +45,18 @@ namespace KS.Managers
             return queryResult;
         }
 
+        public List<SaleReport> GetJPSaleReport(SaleModel model)
+        {
+            var queryResult = db.Report_JPArticleSaleWithDates(model.StartDate, model.EndDate, model.CategoryId).ToList().Select(c => new SaleReport()
+            {
+                ArticleID = c.ArticleId,
+                ArticleName = c.Article,
+                Pairs = c.Pair
+            }).ToList();
+
+            return queryResult;
+        }
+
         public List<SaleReport> GetArticleSaleReport(SaleModel model)
         {
             var queryResult = db.Report_ArticleSaleWithCreationDates(model.StartDate.Date, model.EndDate.Date, model.ShopId).ToList().Select(c => new SaleReport()
